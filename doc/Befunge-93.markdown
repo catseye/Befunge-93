@@ -11,6 +11,7 @@ Chris Pressey, Cat's Eye Technologies
 *Original document September, 1993*  
 *Updated December, 1996*  
 *Updated Yet Again September, 2004*
+*Converted from HTML to Markdown August 2012*
 
 ### The Basics of Befunge-93 ###
 
@@ -175,9 +176,11 @@ of `#` can make for very interesting code!
 `:` is the duplication command. It makes a copy of the top element of
 the stack. This is useful, as demonstrated in the following program:
 
-    v.<>:|  @
+    v.<
+    >:|
+      @
 
-This program makes duplicates of each value on the stacked, which is
+This program makes duplicates of each value on the stack, which is
 checked, and if non-zero, printed.
 
 `$` pops a value off the stack, but does nothing with it. So,
