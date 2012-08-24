@@ -1,9 +1,9 @@
 /* ******************************************************************
 
    bef.c - The Original Befunge-93 Interpreter/Debugger in ANSI C
-   v2.21 Sep 20 2004 Chris Pressey, Cat's-Eye Technologies
+   v2.22 Mar 18 2011 Chris Pressey, Cat's Eye Technologies
 
-   Copyright (c)1993-2004, Cat's Eye Technologies.
+   Copyright (c)1993-2011, Cat's Eye Technologies.
    All rights reserved.
  
    Redistribution and use in source and binary forms, with or without
@@ -11,36 +11,35 @@
    are met:
 
      Redistributions of source code must retain the above copyright
-     notice, this list of conditions and the following disclaimer.
+     notices, this list of conditions and the following disclaimer.
 
      Redistributions in binary form must reproduce the above copyright
-     notice, this list of conditions and the following disclaimer in
+     notices, this list of conditions, and the following disclaimer in
      the documentation and/or other materials provided with the
      distribution.
 
-     Neither the name of Cat's Eye Technologies nor the names of its
+     Neither the names of the copyright holders nor the names of their
      contributors may be used to endorse or promote products derived
      from this software without specific prior written permission. 
 
-   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND
-   CONTRIBUTORS ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES,
-   INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
-   MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-   DISCLAIMED. IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE
-   LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY,
-   OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-   PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
-   OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
-   ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-   OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
-   OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-   POSSIBILITY OF SUCH DAMAGE. 
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+   FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE
+   COPYRIGHT HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+   INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+   BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+   LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+   CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+   LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+   ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+   POSSIBILITY OF SUCH DAMAGE.
 
    ******************************************************************
 
    Usage :
 
-   bef [-d] [-o] [-q] [-i] [-=]
+   bef [-d] [-o] [-q] [-i] [-=] [-l] [-t]
        [-r input-file] [-w output-file]
        [-s stack-file] [-y delay] <befunge-source>
 
@@ -49,6 +48,8 @@
       -q: produce no output except Befunge program output ('quiet')
       -i: ignore unsupported instructions
       -=: use b97-ish = directives
+      -l: wrap instead of truncating long program lines (compat w/2.21)
+      -t: make # at edge of playfield wrap inconsistently (compat w/2.21)
       -r: redirect input from a specified file instead of stdin
       -w: redirect output to a specified file instead of stdout
       -s: write contents of stack to log file
@@ -61,6 +62,18 @@
       Mingw v2.
 
    ******************************************************************
+
+   v2.22: Mar 2011, Chris Pressey
+          don't insert bogus EOF/directive characters into
+	    playfield when loading otherwise blank source file
+            (thanks to whoever sent me this patch 6 years ago)
+          truncate long lines instead of wrapping them, so that
+            programs that use the full 80 characters on adjacent
+            lines (like mycology) can load correctly; -l disables
+          make # at edge of playfield wrap and consistently skip
+            a space, regardless of which edge it's on; -t disables
+          unknown command-line options are reported as such
+          use corrected verbiage in license (I am not a Regent)
 
    v2.21: Sep 2004, Chris Pressey
           display correct version number
@@ -175,11 +188,14 @@ int v10err_compat = 0;           /* flag : emulate v1.0 off-by-one err? */
 int deldur = 25;                 /* debugging delay in milliseconds */
 int ignore_unsupported = 0;      /* flag : ignore unsupported instructions? */
 int use_b97directives = 0;       /* flag : use b97-esque directives? */
+int wrap_long_program_lines = 0; /* flag : long program lines wrap? */
+int inconsistent_trampoline = 0; /* flag : should # wrap inconsistently? */
 
 /********************************************************* PROTOTYPES */
 
 void push (signed long val);
 signed long pop (void);
+void usage (void);
 
 /******************************************************* MAIN PROGRAM */
 
@@ -202,25 +218,32 @@ int main (argc, argv)
 
   if (argc < 2)
   {
-    printf ("USAGE: bef [-d] [-o] [-q] [-i] [-=]\n");
-    printf ("           [-r input] [-w output] [-s stack] [-y delay] foo.bf\n");
-    exit (0);
+    usage();
   }
   for (i = 1; i < argc; i++)
   {
-    if (!strcmp(argv[i], "-o")) { v10err_compat = 1; }
-    if (!strcmp(argv[i], "-d")) { debug = 1; }
-    if (!strcmp(argv[i], "-r")) { infile = 1; ia = i + 1; }
-    if (!strcmp(argv[i], "-w")) { outfile = 1; oa = i + 1; }
-    if (!strcmp(argv[i], "-s")) { stackfile = 1; sa = i + 1; }
-    if (!strcmp(argv[i], "-y")) { deldur = atoi(argv[i + 1]); }
-    if (!strcmp(argv[i], "-q")) { quiet = 1; }
-    if (!strcmp(argv[i], "-i")) { ignore_unsupported = 1; }
-    if (!strcmp(argv[i], "-=")) { use_b97directives = 1; }
+    if (argv[i][0] == '-') {
+      if (!strcmp(argv[i], "-o")) { v10err_compat = 1; }
+      else if (!strcmp(argv[i], "-d")) { debug = 1; }
+      else if (!strcmp(argv[i], "-r")) { infile = 1; ia = i + 1; }
+      else if (!strcmp(argv[i], "-w")) { outfile = 1; oa = i + 1; }
+      else if (!strcmp(argv[i], "-s")) { stackfile = 1; sa = i + 1; }
+      else if (!strcmp(argv[i], "-y")) { deldur = atoi(argv[i + 1]); }
+      else if (!strcmp(argv[i], "-q")) { quiet = 1; }
+      else if (!strcmp(argv[i], "-i")) { ignore_unsupported = 1; }
+      else if (!strcmp(argv[i], "-=")) { use_b97directives = 1; }
+      else if (!strcmp(argv[i], "-l")) { wrap_long_program_lines = 1; }
+      else if (!strcmp(argv[i], "-t")) { inconsistent_trampoline = 1; }
+      else
+      {
+        printf("Unknown option: %s\n", argv[i]);
+        usage();
+      }
+    }
   }
   if (!quiet)
   {
-    printf ("Befunge-93 Interpreter/Debugger v2.21\n");
+    printf ("Befunge-93 Interpreter/Debugger v2.22\n");
   }
 
   memset(pg, ' ', LINEWIDTH * PAGEHEIGHT);
@@ -240,10 +263,13 @@ int main (argc, argv)
 
     while (!feof (f))
     {
-      cur = fgetc (f);
-      if (use_b97directives && (x == 0) && ((cur == dc) || ((accept_pound) && (cur == '#'))))
+      tc = fgetc (f);
+      if (feof (f))
+	break;
+      if (use_b97directives && (x == 0) &&
+	  ((tc == dc) || (accept_pound && (tc == '#'))))
       {
-	if (cur != '#') accept_pound = 0;
+	if (tc != '#') accept_pound = 0;
 	tc = fgetc (f);
 	if (tc == 'l')
 	{
@@ -258,7 +284,7 @@ int main (argc, argv)
 	  }
 	  if (strcmp(s, "b93"))
 	  {
-	    fprintf(stderr, "Error: only Befunge-93 (not %s) sources are supported by BEF.\n", s);
+	    fprintf(stderr, "Error: only Befunge-93 (not %s) sources are supported by bef.\n", s);
 	    exit(10);
 	  }
 	}
@@ -269,17 +295,25 @@ int main (argc, argv)
       } else
       {
 	accept_pound = 0;
-	if (cur == '\n')
+	if (tc == '\n')
 	{
-	  cur = ' ';
 	  x = 0;
 	  y++;
 	  if (y >= PAGEHEIGHT) break;
 	} else
 	{
+	  cur = tc;
 	  x++;
 	  if (x >= LINEWIDTH)
 	  {
+	    if (!wrap_long_program_lines)
+	    {
+	      while (tc != '\n')
+	      {
+	        tc = fgetc (f);
+	        if (feof(f)) { y = PAGEHEIGHT; break; }
+	      }
+	    }
 	    x = 0;
 	    y++;
 	    if (y >= PAGEHEIGHT) break;
@@ -751,20 +785,26 @@ int main (argc, argv)
 	if (v10err_compat)
 	{
 	  x = LINEWIDTH;
-	} else
+	} else if (inconsistent_trampoline)
 	{
 	  x = LINEWIDTH - 1;
-	}
+	} else
+        {
+          x += LINEWIDTH;
+        }
       else
 	x = x % LINEWIDTH;
       if (y < 0)
 	if (v10err_compat)
 	{
 	  y = PAGEHEIGHT;
-	} else
+	} else if (inconsistent_trampoline)
 	{
 	  y = PAGEHEIGHT - 1;
-	}
+	} else
+        {
+          y += PAGEHEIGHT;
+        }
       else
 	y = y % PAGEHEIGHT;
       if (stackfile)
@@ -832,4 +872,11 @@ signed long pop ()
   {
     return 0;
   }
+}
+
+void usage ()
+{
+  printf ("USAGE: bef [-d] [-o] [-q] [-i] [-=] [-l] [-t]\n");
+  printf ("           [-r input] [-w output] [-s stack] [-y delay] foo.bf\n");
+  exit (1);
 }
