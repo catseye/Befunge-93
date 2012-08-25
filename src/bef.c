@@ -63,6 +63,12 @@
 
    ******************************************************************
 
+   v2.23: Aug 2012, Chris Pressey
+          delay given with -y now actually happens when compiled
+            with compilers other than Borland C++; it's implemented
+            with nanosleep() in C99, and sleep() (with one-second
+            resolution) in ANSI C
+
    v2.22: Mar 2011, Chris Pressey
           don't insert bogus EOF/directive characters into
 	    playfield when loading otherwise blank source file
@@ -193,6 +199,7 @@ int inconsistent_trampoline = 0; /* flag : should # wrap inconsistently? */
 
 /********************************************************* PROTOTYPES */
 
+void befsleep (int);
 void push (signed long val);
 signed long pop (void);
 void usage (void);
@@ -228,7 +235,7 @@ int main (argc, argv)
       else if (!strcmp(argv[i], "-r")) { infile = 1; ia = i + 1; }
       else if (!strcmp(argv[i], "-w")) { outfile = 1; oa = i + 1; }
       else if (!strcmp(argv[i], "-s")) { stackfile = 1; sa = i + 1; }
-      else if (!strcmp(argv[i], "-y")) { deldur = atoi(argv[i + 1]); }
+      else if (!strcmp(argv[i], "-y")) { deldur = atoi(argv[++i]); }
       else if (!strcmp(argv[i], "-q")) { quiet = 1; }
       else if (!strcmp(argv[i], "-i")) { ignore_unsupported = 1; }
       else if (!strcmp(argv[i], "-=")) { use_b97directives = 1; }
@@ -428,9 +435,7 @@ int main (argc, argv)
 	fflush (stdout);
 #endif /* CONSOLE */
       }
-#if __BORLANDC__
-      delay (deldur);
-#endif /* __BORLANDC __ */
+      befsleep (deldur);
     }
     if (stringmode && (cur != '"'))
       push (cur);
@@ -840,6 +845,28 @@ the_end:
 
   exit (0);
   return 0;
+}
+
+/*
+ * sleep for the given number of milliseconds, so far as we are able
+ */
+void befsleep (dur)
+    int dur;
+{
+#if __BORLANDC__
+      delay (deldur);
+#else
+  #ifdef _POSIX_C_SOURCE
+	struct timespec tv;
+
+        tv.tv_sec = dur / 1000;
+        tv.tv_nsec = (dur % 1000) * 1000000;
+
+	nanosleep(&tv, NULL);
+  #else
+	sleep (dur / 1000);
+  #endif
+#endif
 }
 
 /*
