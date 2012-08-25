@@ -36,4 +36,4 @@ See Cat's Eye Technologies' official [Befunge-93 Project Page][].
 Happy Befunging!  
 Chris Pressey  
 Winnipeg, Manitoba
-August 23, 2012
+August 25, 2012
