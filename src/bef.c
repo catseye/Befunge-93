@@ -3,7 +3,7 @@
    bef.c - The Original Befunge-93 Interpreter/Debugger in ANSI C
    v2.22 Mar 18 2011 Chris Pressey, Cat's Eye Technologies
 
-   Copyright (c)1993-2011, Cat's Eye Technologies.
+   Copyright (c)1993-2012, Chris Pressey, Cat's Eye Technologies.
    All rights reserved.
  
    Redistribution and use in source and binary forms, with or without
