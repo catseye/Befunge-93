@@ -1,14 +1,26 @@
 The Befunge-93 specification is not open-source (yet), but it is freely
 redistributable unmodified for non-commercial purposes.
 
-The contributed Befunge-93 example sources are copyrighted by their respective
-authors.  Except where otherwise noted, they are not open-source works,
-but their contributors' willingness to allow them to be included in this
-distribution implies that they are all freely redistributable unmodified for
-non-commercial purposes.  If you wish to base your next best-selling novel
-on one of them, you should seek out and contact its author for permission
-first.  There is one exception: all Befunge-93 example sources in this
-distribution which were written by Chris Pressey is in the public domain.
+-----------------------------------------------------------------------------
+
+The contributed Befunge-93 example sources (with some exceptions noted
+below) are copyrighted works made by their respective authors.  They are not
+open-source or in the public domain, but their contributors' willingness to
+allow them to be included in this distribution implies that they are all
+freely redistributable unmodified for non-commercial purposes.  If you wish
+to base your next best-selling novel on one of them, you should seek out and
+contact its author for permission first.
+
+The exceptions are: all Befunge-93 example programs in this distribution
+written by the following authors are placed under the CC0 1.0 Universal
+Public Domain Dedication (http://creativecommons.org/publicdomain/zero/1.0/):
+
+*   Chris Pressey
+*   Wim Rijnders
+
+Please consult the file eg/index.html to see who each program was written by.
+
+-----------------------------------------------------------------------------
 
 The source code for the reference interpreter and supporting tools (in the
 `src` subdirectory) is covered under the following BSD-style license:
