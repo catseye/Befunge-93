@@ -1,30 +1,26 @@
-The Befunge-93 specification is not open-source (yet), but it is freely
-redistributable unmodified for non-commercial purposes.
+Befunge-93 is distributed under the following licenses.
+
+All documentation is covered by the following BSD-compatible license,
+modelled after the "Report on the Programming Language Haskell 98" license:
 
 -----------------------------------------------------------------------------
 
-The contributed Befunge-93 example sources (with some exceptions noted
-below) are copyrighted works made by their respective authors.  They are not
-open-source or in the public domain, but their contributors' willingness to
-allow them to be included in this distribution implies that they are all
-freely redistributable unmodified for non-commercial purposes.  If you wish
-to base your next best-selling novel on one of them, you should seek out and
-contact its author for permission first.
+  Copyright (c)1993-2012 Chris Pressey, Cat's Eye Technologies.
 
-The exceptions are: all Befunge-93 example programs in this distribution
-written by the following authors are placed under the CC0 1.0 Universal
-Public Domain Dedication (http://creativecommons.org/publicdomain/zero/1.0/):
-
-*   Chris Pressey
-*   Wim Rijnders
-*   Andrew Turley
-
-Please consult the file eg/index.html to see who each program was written by.
+  The authors intend this Report to belong to the entire Befunge
+  community, and so we grant permission to copy and distribute it for
+  any purpose, provided that it is reproduced in its entirety,
+  including this Notice.  Modified versions of this Report may also be
+  copied and distributed for any purpose, provided that the modified
+  version is clearly presented as such, and that it does not claim to
+  be a definition of the Befunge-93 Programming Language.
 
 -----------------------------------------------------------------------------
 
 The source code for the reference interpreter and supporting tools (in the
 `src` subdirectory) is covered under the following BSD-style license:
+
+-----------------------------------------------------------------------------
 
    Copyright (c)1993-2012, Chris Pressey, Cat's Eye Technologies.
    All rights reserved.
@@ -57,3 +53,23 @@ The source code for the reference interpreter and supporting tools (in the
    LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
    ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
    POSSIBILITY OF SUCH DAMAGE.
+
+-----------------------------------------------------------------------------
+
+The contributed Befunge-93 example sources (with some exceptions noted
+below) are copyrighted works made by their respective authors.  They are not
+open-source or in the public domain, but their contributors' willingness to
+allow them to be included in this distribution implies that they are all
+freely redistributable unmodified for non-commercial purposes.  If you wish
+to base your next best-selling novel on one of them, you should seek out and
+contact its author for permission first.
+
+The exceptions are: all Befunge-93 example programs in this distribution
+written by the following authors are placed under the CC0 1.0 Universal
+Public Domain Dedication (http://creativecommons.org/publicdomain/zero/1.0/):
+
+*   Chris Pressey
+*   Wim Rijnders
+*   Andrew Turley
+
+Please consult the file eg/index.html to see who each program was written by.
