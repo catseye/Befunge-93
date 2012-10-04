@@ -1,7 +1,9 @@
-Befunge-93 is distributed under the following licenses.
+The contents of the Befunge-93 distribution are distributed under the
+following four licenses.
 
-All documentation is covered by the following BSD-compatible license,
-modelled after the "Report on the Programming Language Haskell 98" license:
+All documentation (in the `doc` subdirectory) is covered by the following
+BSD-compatible license, modelled after the "Report on the Programming
+Language Haskell 98" license:
 
 -----------------------------------------------------------------------------
 
@@ -60,17 +62,54 @@ The contributed Befunge-93 example sources (with some exceptions noted
 below) are copyrighted works made by their respective authors.  They are not
 open-source or in the public domain, but their contributors' willingness to
 allow them to be included in this distribution implies that they are all
-freely redistributable unmodified for non-commercial purposes.  If you wish
-to base your next best-selling novel on one of them, you should seek out and
-contact its author for permission first.
+freely redistributable unmodified for non-commercial purposes.  They are thus
+covered under the following license:
 
-The exceptions are: all Befunge-93 example programs in this distribution
-written by the following authors are placed under the CC0 1.0 Universal
-Public Domain Dedication (http://creativecommons.org/publicdomain/zero/1.0/):
+-----------------------------------------------------------------------------
+
+The files identified as "freely redistributable unmodified for non-commercial
+purposes" in this archive (hereinafter "the files") may be redistributed, but
+only if the following conditions are met:
+
+* The files must be distributed as part of the entire, original archive
+  in which they reside;
+* The files must not be modified in any way;
+* The files must not be distributed for commercial gain, or otherwise used
+  for commercial purposes.
+
+The files are copyrighted works; the copyright for each file is held by its
+original author.  Any use of the files beyond the conditions listed above
+must be by explicit written permission of the original author of the file.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.
+
+-----------------------------------------------------------------------------
+
+The exceptions to the above case are as follows.
+
+All Befunge-93 example programs in this distribution written by the following
+authors are placed under the CC0 1.0 Universal Public Domain Dedication:
 
 *   Dmitri M Litvinov
 *   Chris Pressey
 *   Wim Rijnders
 *   Andrew Turley
 
-Please consult the file eg/index.html to see who each program was written by.
+The legal text of CC0 1.0 Universal can be found at this URL:
+
+    http://creativecommons.org/publicdomain/zero/1.0/
+
+The summary is: these works are in the public domain.  You can copy, modify,
+distribute and perform these works, even for commercial purposes, all without
+asking permission.  The authors of these works make no warranties about the
+works, and disclaim liability for all uses of the works, to the fullest extent
+permitted by applicable law.
+
+Please consult the file `index.html` in the `eg` subdirectory to see who
+each program was written by.
