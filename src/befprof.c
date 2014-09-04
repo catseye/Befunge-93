@@ -138,6 +138,7 @@ unsigned long int * prof[PROFILE_HANDLES];
 
 void push (signed long val);
 signed long pop (void);
+int main (int, char **);
 
 /******************************************************* MAIN PROGRAM */
 

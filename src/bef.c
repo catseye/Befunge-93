@@ -203,6 +203,7 @@ void befsleep (int);
 void push (signed long val);
 signed long pop (void);
 void usage (void);
+int main (int, char **);
 
 /******************************************************* MAIN PROGRAM */
 

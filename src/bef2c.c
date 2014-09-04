@@ -116,6 +116,10 @@ int labelrefs[8000];             /* postoptimization table */
 char s[255];
 char t[255];
 
+/********************************************************* PROTOTYPES */
+
+int main (int, char **);
+
 /******************************************************* MAIN PROGRAM */
 
 int main (argc, argv)
