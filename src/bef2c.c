@@ -302,10 +302,10 @@ int main (argc, argv)
 	  fprintf(fo, DOWN ": fscanf(stdin,\"%cld\",&b);push(b); goto " DOWN ";\n", x, y, '%', x, y_down);
 	  break;
 	case '~':
-	  fprintf(fo, RIGHT ": c=fgetc(stdin);push(c); goto " RIGHT ";\n", x, y, '%', x_right, y);
-	  fprintf(fo, LEFT ": c=fgetc(stdin);push(c); goto " LEFT ";\n", x, y, '%', x_left, y);
-	  fprintf(fo, UP ": c=fgetc(stdin);push(c); goto " UP ";\n", x, y, '%', x, y_up);
-	  fprintf(fo, DOWN ": c=fgetc(stdin);push(c); goto " DOWN ";\n", x, y, '%', x, y_down);
+	  fprintf(fo, RIGHT ": c=fgetc(stdin);push(c); goto " RIGHT ";\n", x, y, x_right, y);
+	  fprintf(fo, LEFT ": c=fgetc(stdin);push(c); goto " LEFT ";\n", x, y, x_left, y);
+	  fprintf(fo, UP ": c=fgetc(stdin);push(c); goto " UP ";\n", x, y, x, y_up);
+	  fprintf(fo, DOWN ": c=fgetc(stdin);push(c); goto " DOWN ";\n", x, y, x, y_down);
 	  break;
 	case '"':  /* ha! */
 	  ECHO("puts(\"Error: compiled Befunge does not support stringmode\n\");");
