@@ -1,6 +1,6 @@
 # GNU Makefile for bef.
 
-PROGS=bef befprof bef2c
+PROGS=bin/bef bin/befprof bin/bef2c
 CC?=gcc
 
 WARNS=	-W -Wall -Wstrict-prototypes -Wmissing-prototypes \
@@ -22,14 +22,20 @@ endif
 
 all: $(PROGS)
 
-bef: bef.c
-	$(CC) $(CFLAGS) bef.c -o bef
+bin:
+	mkdir -p bin
 
-befprof: befprof.c
-	$(CC) $(CFLAGS) befprof.c -o befprof
+bin/bef: bin src/bef.c
+	$(CC) $(CFLAGS) src/bef.c -o bin/bef
 
-bef2c: bef2c.c
-	$(CC) $(CFLAGS) bef2c.c -o bef2c
+bin/befprof: bin src/befprof.c
+	$(CC) $(CFLAGS) src/befprof.c -o bin/befprof
+
+bin/bef2c: bin src/bef2c.c
+	$(CC) $(CFLAGS) src/bef2c.c -o bin/bef2c
 
 clean:
-	rm -f *.o *.core *.exe $(PROGS)
+	rm -f src/*.o
+
+distclean:
+	rm -rf bin/*
