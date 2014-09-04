@@ -22,20 +22,21 @@ endif
 
 all: $(PROGS)
 
-bin:
+bin/.exists:
 	mkdir -p bin
+	touch bin/.exists
 
-bin/bef: bin src/bef.c
+bin/bef: bin/.exists src/bef.c
 	$(CC) $(CFLAGS) src/bef.c -o bin/bef
 
-bin/befprof: bin src/befprof.c
+bin/befprof: bin/.exists src/befprof.c
 	$(CC) $(CFLAGS) src/befprof.c -o bin/befprof
 
-bin/bef2c: bin src/bef2c.c
+bin/bef2c: bin/.exists src/bef2c.c
 	$(CC) $(CFLAGS) src/bef2c.c -o bin/bef2c
 
 clean:
-	rm -f src/*.o
+	rm -f *.o src/*.o
 
 distclean:
 	rm -rf bin/*
