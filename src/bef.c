@@ -149,6 +149,9 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <time.h>
+#ifndef __BORLANDC__
+#  include <unistd.h>
+#endif
 #ifdef __BORLANDC__
 #  include <dos.h>
 #  include <conio.h>
