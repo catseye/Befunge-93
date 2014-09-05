@@ -149,14 +149,13 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <time.h>
-#ifndef __BORLANDC__
-#  include <unistd.h>
-#endif
 #ifdef __BORLANDC__
 #  include <dos.h>
 #  include <conio.h>
 #  define CONSOLE 1
 #  define CURSORSHAPE 1
+#else
+#  include <unistd.h>
 #endif /* __BORLANDC__ */
 #ifdef __MWERKS__
 #  include <console.h>

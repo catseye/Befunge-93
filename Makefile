@@ -1,17 +1,19 @@
-# GNU Makefile for bef.
+# GNU Makefile for bef.  No -Wshadow because horrible use of macros.
 
-PROGS=bin/bef bin/befprof bin/bef2c
+PROGS=bin/bef$(EXE) bin/befprof$(EXE) bin/bef2c$(EXE)
 CC?=gcc
+O?=.o
+EXE?=
 
 WARNS=	-W -Wall -Wstrict-prototypes -Wmissing-prototypes \
 	-Wpointer-arith	-Wno-uninitialized -Wreturn-type -Wcast-qual \
-	-Wwrite-strings -Wswitch -Wcast-align -Wchar-subscripts \
+	-Wwrite-strings -Wswitch          -Wcast-align -Wchar-subscripts \
 	-Winline -Wnested-externs -Wredundant-decls
 
 ifdef ANSI
-  CFLAGS+= -ansi -pedantic
+  CFLAGS+= -ansi -pedantic -D_BSD_SOURCE
 else
-  CFLAGS+= -std=c99 -D_POSIX_C_SOURCE=200112L
+  CFLAGS+= -std=c99 -D_POSIX_C_SOURCE=200809L
 endif
 
 CFLAGS+= ${WARNS} ${EXTRA_CFLAGS}
