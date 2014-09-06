@@ -382,7 +382,7 @@ int main (argc, argv)
     {
       for(x = 0; x < SCREENWIDTH; x++)
       {
-	if (isprint(cur))
+	if (isprint((int)cur))
 	{
 	  printf("%c", cur);
 	}
@@ -442,7 +442,7 @@ int main (argc, argv)
     }
     if (stringmode && (cur != '"'))
       push (cur);
-      else if (isdigit (cur))
+      else if (isdigit ((int)cur))
 	push (cur - '0');
       else
 	switch (cur)
@@ -774,7 +774,7 @@ int main (argc, argv)
 #else
 		 printf ("%c[%d;%dH", 27, (int)(y+1), (int)(x+1));
 #endif /* CONSOLE */
-		 if (isprint (cur)) printf ("%c", cur); else printf(".");
+		 if (isprint ((int)cur)) printf ("%c", cur); else printf(".");
 	       }
 	     }
 	     break;

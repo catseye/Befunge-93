@@ -281,7 +281,7 @@ int main (argc, argv)
       {
 	push (cur);
       }	else
-      if (isdigit (cur))
+      if (isdigit ((int)cur))
       {
 	push (cur - '0');
       } else
