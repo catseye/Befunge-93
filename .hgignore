@@ -1,3 +1,5 @@
 syntax: glob
 
-bin
+bin/bef
+bin/befprof
+bin/bef2c
