@@ -153,7 +153,7 @@
 #  include <dos.h>
 #  include <conio.h>
 #  define CONSOLE 1
-#endif /* __BORLANDC__ */
+#endif /* __DJGPP__ */
 #ifdef __BORLANDC__
 #  include <dos.h>
 #  include <conio.h>

@@ -11,12 +11,14 @@ WARNS=	-W -Wall -Wstrict-prototypes -Wmissing-prototypes \
 	-Wwrite-strings -Wswitch          -Wcast-align -Wchar-subscripts \
 	-Winline -Wnested-externs -Wredundant-decls
 
-ifdef ANSI
-  CFLAGS+= -ansi -pedantic
-else ifdef DJGPP
-  CFLAGS+= -ansi -pedantic
+ifdef DJGPP
+  EXE=.exe
 else
-  CFLAGS+= -std=c99 -D_POSIX_C_SOURCE=200809L
+  ifdef ANSI
+    CFLAGS+= -ansi -pedantic
+  else
+    CFLAGS+= -std=c99 -D_POSIX_C_SOURCE=200809L
+  endif
 endif
 
 CFLAGS+= ${WARNS} ${EXTRA_CFLAGS}
