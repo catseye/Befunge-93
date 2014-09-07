@@ -149,20 +149,23 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <time.h>
-#ifdef __DJGPP__
+#if defined(__BORLANDC__) || defined(__DJGPP__)
+#  define MSDOS 1
+#endif
+#ifdef MSDOS
 #  include <dos.h>
 #  include <conio.h>
 #  define CONSOLE 1
-#endif /* __DJGPP__ */
+#endif /* MSDOS */
 #ifdef __BORLANDC__
-#  include <dos.h>
-#  include <conio.h>
-#  define CONSOLE 1
 #  define CURSORSHAPE 1
 #endif /* __BORLANDC__ */
 #ifdef __GNUC__
 #  include <unistd.h>
-#endif
+#endif /* __GNUC__ */
+#ifdef _POSIX_C_SOURCE
+#  include <sys/time.h>
+#endif /* _POSIX_C_SOURCE */
 #ifdef __MWERKS__
 #  include <console.h>
 #  define CONSOLE 1
@@ -862,7 +865,7 @@ the_end:
 void befsleep (dur)
     int dur;
 {
-#if __BORLANDC__
+#if MSDOS
       delay (deldur);
 #else
   #ifdef _POSIX_C_SOURCE
