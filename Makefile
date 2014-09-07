@@ -1,9 +1,8 @@
 # GNU Makefile for bef.  No -Wshadow because horrible use of macros.
 
-PROGS=bin/bef$(EXE) bin/befprof$(EXE) bin/bef2c$(EXE)
+PROGS=bin/bef bin/befprof bin/bef2c
 CC?=gcc
 O?=.o
-EXE?=
 RM_F?=rm -f
 
 WARNS=	-W -Wall -Wstrict-prototypes -Wmissing-prototypes \
@@ -12,7 +11,6 @@ WARNS=	-W -Wall -Wstrict-prototypes -Wmissing-prototypes \
 	-Winline -Wnested-externs -Wredundant-decls
 
 ifdef DJGPP
-  EXE=.exe
 else
   ifdef ANSI
     CFLAGS+= -ansi -pedantic
@@ -29,17 +27,17 @@ endif
 
 all: $(PROGS)
 
-bin/bef$(EXE): src/bef.c
-	$(CC) $(CFLAGS) src/bef.c -o bin/bef$(EXE)
+bin/bef: src/bef.c
+	$(CC) $(CFLAGS) src/bef.c -o bin/bef
 
-bin/befprof$(EXE): src/befprof.c
-	$(CC) $(CFLAGS) src/befprof.c -o bin/befprof$(EXE)
+bin/befprof: src/befprof.c
+	$(CC) $(CFLAGS) src/befprof.c -o bin/befprof
 
-bin/bef2c$(EXE): src/bef2c.c
-	$(CC) $(CFLAGS) src/bef2c.c -o bin/bef2c$(EXE)
+bin/bef2c: src/bef2c.c
+	$(CC) $(CFLAGS) src/bef2c.c -o bin/bef2c
 
 clean:
-	$(RM_F) *.o src/*.o
+	$(RM_F) *$(O) src/*$(O)
 
 distclean:
 	$(RM_F) $(PROGS)
