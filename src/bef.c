@@ -149,6 +149,11 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <time.h>
+#ifdef __DJGPP__
+#  include <dos.h>
+#  include <conio.h>
+#  define CONSOLE 1
+#endif /* __BORLANDC__ */
 #ifdef __BORLANDC__
 #  include <dos.h>
 #  include <conio.h>

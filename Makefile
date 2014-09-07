@@ -12,7 +12,9 @@ WARNS=	-W -Wall -Wstrict-prototypes -Wmissing-prototypes \
 	-Winline -Wnested-externs -Wredundant-decls
 
 ifdef ANSI
-  CFLAGS+= -ansi -pedantic -D_BSD_SOURCE
+  CFLAGS+= -ansi -pedantic
+else ifdef DJGPP
+  CFLAGS+= -ansi -pedantic
 else
   CFLAGS+= -std=c99 -D_POSIX_C_SOURCE=200809L
 endif
@@ -25,14 +27,14 @@ endif
 
 all: $(PROGS)
 
-bin/bef: src/bef.c
-	$(CC) $(CFLAGS) src/bef.c -o bin/bef
+bin/bef$(EXE): src/bef.c
+	$(CC) $(CFLAGS) src/bef.c -o bin/bef$(EXE)
 
-bin/befprof: src/befprof.c
-	$(CC) $(CFLAGS) src/befprof.c -o bin/befprof
+bin/befprof$(EXE): src/befprof.c
+	$(CC) $(CFLAGS) src/befprof.c -o bin/befprof$(EXE)
 
-bin/bef2c: src/bef2c.c
-	$(CC) $(CFLAGS) src/bef2c.c -o bin/bef2c
+bin/bef2c$(EXE): src/bef2c.c
+	$(CC) $(CFLAGS) src/bef2c.c -o bin/bef2c$(EXE)
 
 clean:
 	$(RM_F) *.o src/*.o
