@@ -866,7 +866,7 @@ void befsleep (dur)
     int dur;
 {
 #if MSDOS
-      delay (deldur);
+      delay (dur);
 #else
   #ifdef _POSIX_C_SOURCE
 	struct timespec tv;
