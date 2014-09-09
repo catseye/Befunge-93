@@ -71,7 +71,7 @@
 
    v2.22: Mar 2011, Chris Pressey
           don't insert bogus EOF/directive characters into
-	    playfield when loading otherwise blank source file
+            playfield when loading otherwise blank source file
             (thanks to whoever sent me this patch 6 years ago)
           truncate long lines instead of wrapping them, so that
             programs that use the full 80 characters on adjacent
@@ -92,46 +92,46 @@
           relicensed under BSD
 
    v2.12, Mar 1998, Chris Pressey / compiles under Borland C++ v3.1
-	  added -i and -= options.  You must specify -= if
-	    you want to use b97-esque directives or the Un*x-ish
-	    # comment thing, or both.
-	  automatically appends '.bf' to filenames containing no periods.
-	  explicitly pops remaining stack elements at end of execution.
-	  compatibility messages are displayed when quiet is not specified.
-	  debug mode is much improved, especially I/O under BorlandC.
-	  bounds checking on 'p' and 'g' instructions.
+          added -i and -= options.  You must specify -= if
+            you want to use b97-esque directives or the Un*x-ish
+            # comment thing, or both.
+          automatically appends '.bf' to filenames containing no periods.
+          explicitly pops remaining stack elements at end of execution.
+          compatibility messages are displayed when quiet is not specified.
+          debug mode is much improved, especially I/O under BorlandC.
+          bounds checking on 'p' and 'g' instructions.
 
    v2.11, Jan 1998, Chris Pressey / compiles under Borland C++ v3.1
-	  divide by zero now produces the correct result
-	  improved some minor aesthetic features (messages & debug)
-	  ANSI is used only if not compiling under Borland C.
+          divide by zero now produces the correct result
+          improved some minor aesthetic features (messages & debug)
+          ANSI is used only if not compiling under Borland C.
 
    v2.10: Jul 1997, Chris Pressey
-	  added -q command line option.
-	  added primitive understanding of = directive from b97 spec.
-	  any file with a =l directive but without =l b93 is rejected.
-	  also understands # as a pre-directive line prefix for
-	    Un*x-ish systems.
+          added -q command line option.
+          added primitive understanding of = directive from b97 spec.
+          any file with a =l directive but without =l b93 is rejected.
+          also understands # as a pre-directive line prefix for
+            Un*x-ish systems.
 
    v2.02: Jun 1997, Chris Pressey
-	  pads playfield with space characters.  all unread
-	    locations remain spaces.
+          pads playfield with space characters.  all unread
+            locations remain spaces.
 
    v2.01: Jun 1997, Chris Pressey
-	  command line switches are not case-insensitive.
-	  fixes gcc Segmentation Fault error.
+          command line switches are not case-insensitive.
+          fixes gcc Segmentation Fault error.
 
    v2.00: Jun 1997, Chris Pressey
-	  combines interpreter and debugger.
-	  fixes ANSI error in debugger.
+          combines interpreter and debugger.
+          fixes ANSI error in debugger.
    v1.02: Feb 1996, Chris Pressey
-	  @ now pushes '@' onto the stack in stringmode instead of quitting.
+          @ now pushes '@' onto the stack in stringmode instead of quitting.
 
    v1.01: Feb 1996, Chris Pressey
-	  fixes off-by-one error.
+          fixes off-by-one error.
 
    v1.00: Sept 1993, Chris Pressey
-	  original Befunge-93 distribution.
+          original Befunge-93 distribution.
 
    ****************************************************************** */
 
@@ -284,60 +284,60 @@ int main (argc, argv)
     {
       tc = fgetc (f);
       if (feof (f))
-	break;
+        break;
       if (use_b97directives && (x == 0) &&
-	  ((tc == dc) || (accept_pound && (tc == '#'))))
+          ((tc == dc) || (accept_pound && (tc == '#'))))
       {
-	if (tc != '#') accept_pound = 0;
-	tc = fgetc (f);
-	if (tc == 'l')
-	{
-	  while (tc != ' ')
-	  {
-	    tc = fgetc (f);
-	  }
-	  while (tc != '\n')
-	  {
-	    tc = fgetc (f);
-	    if (tc != '\n') { s[tt++] = tc; s[tt] = (char)0; }
-	  }
-	  if (strcmp(s, "b93"))
-	  {
-	    fprintf(stderr, "Error: only Befunge-93 (not %s) sources are supported by bef.\n", s);
-	    exit(10);
-	  }
-	}
-	while (tc != '\n')
-	{
-	  tc = fgetc (f);
-	}
+        if (tc != '#') accept_pound = 0;
+        tc = fgetc (f);
+        if (tc == 'l')
+        {
+          while (tc != ' ')
+          {
+            tc = fgetc (f);
+          }
+          while (tc != '\n')
+          {
+            tc = fgetc (f);
+            if (tc != '\n') { s[tt++] = tc; s[tt] = (char)0; }
+          }
+          if (strcmp(s, "b93"))
+          {
+            fprintf(stderr, "Error: only Befunge-93 (not %s) sources are supported by bef.\n", s);
+            exit(10);
+          }
+        }
+        while (tc != '\n')
+        {
+          tc = fgetc (f);
+        }
       } else
       {
-	accept_pound = 0;
-	if (tc == '\n')
-	{
-	  x = 0;
-	  y++;
-	  if (y >= PAGEHEIGHT) break;
-	} else
-	{
-	  cur = tc;
-	  x++;
-	  if (x >= LINEWIDTH)
-	  {
-	    if (!wrap_long_program_lines)
-	    {
-	      while (tc != '\n')
-	      {
-	        tc = fgetc (f);
-	        if (feof(f)) { y = PAGEHEIGHT; break; }
-	      }
-	    }
-	    x = 0;
-	    y++;
-	    if (y >= PAGEHEIGHT) break;
-	  }
-	}
+        accept_pound = 0;
+        if (tc == '\n')
+        {
+          x = 0;
+          y++;
+          if (y >= PAGEHEIGHT) break;
+        } else
+        {
+          cur = tc;
+          x++;
+          if (x >= LINEWIDTH)
+          {
+            if (!wrap_long_program_lines)
+            {
+              while (tc != '\n')
+              {
+                tc = fgetc (f);
+                if (feof(f)) { y = PAGEHEIGHT; break; }
+              }
+            }
+            x = 0;
+            y++;
+            if (y >= PAGEHEIGHT) break;
+          }
+        }
       }
     }
     fclose (f);
@@ -391,10 +391,10 @@ int main (argc, argv)
     {
       for(x = 0; x < SCREENWIDTH; x++)
       {
-	if (isprint((int)cur))
-	{
-	  printf("%c", cur);
-	}
+        if (isprint((int)cur))
+        {
+          printf("%c", cur);
+        }
       }
       printf("\n");
     }
@@ -414,37 +414,37 @@ int main (argc, argv)
       if ((y < SCREENHEIGHT) && (x < SCREENWIDTH))
       {
 #ifdef CONSOLE
-	gotoxy(x+1, y+1);
-	if (kbhit())
-	{
-	  char c;
-	  /* ideally, pop up a debugging tool. for now, exit. */
-	  c = getch();
-	  if (c == 0)
-	  {
-	    c = getch();
-	  } else
-	  {
-	    if (c == 27)
-	    {
-	      /* pause */
-	      c = getch();
-	      if (c == 0)
-	      {
-		c = getch();
-	      } else
-	      {
-		if (c == 27)
-		{
-		  goto the_end;
-		}
-	      }
-	    }
-	  }
-	}
+        gotoxy(x+1, y+1);
+        if (kbhit())
+        {
+          char c;
+          /* ideally, pop up a debugging tool. for now, exit. */
+          c = getch();
+          if (c == 0)
+          {
+            c = getch();
+          } else
+          {
+            if (c == 27)
+            {
+              /* pause */
+              c = getch();
+              if (c == 0)
+              {
+                c = getch();
+              } else
+              {
+                if (c == 27)
+                {
+                  goto the_end;
+                }
+              }
+            }
+          }
+        }
 #else
-	printf ("%c[%d;%dH", 27, y+1, x+1);
-	fflush (stdout);
+        printf ("%c[%d;%dH", 27, y+1, x+1);
+        fflush (stdout);
 #endif /* CONSOLE */
       }
       befsleep (deldur);
@@ -452,385 +452,385 @@ int main (argc, argv)
     if (stringmode && (cur != '"'))
       push (cur);
       else if (isdigit ((int)cur))
-	push (cur - '0');
+        push (cur - '0');
       else
-	switch (cur)
-	{
-	   case '>':            /* PC Right */
-	     dx = 1;
-	     dy = 0;
-	     break;
-	   case '<':            /* PC Left */
-	     dx = -1;
-	     dy = 0;
-	     break;
-	   case '^':            /* PC Up */
-	     dx = 0;
-	     dy = -1;
-	     break;
-	   case 'v':            /* PC Down */
-	     dx = 0;
-	     dy = 1;
-	     break;
-	   case '|':            /* Vertical 'If' */
-	     dx = 0;
-	     if (pop ())
-	       dy = -1;
-	     else
-	       dy = 1;
-	     break;
-	   case '_':            /* Horizontal 'If' */
-	     dy = 0;
-	     if (pop ())
-	       dx = -1;
-	     else
-	       dx = 1;
-	     break;
-	   case '+':            /* Add */
-	     push (pop () + pop ());
-	     break;
-	   case '-':            /* Subtract */
-	     {
-	       long a = pop();
-	       long b = pop();
-	       push(b - a);
-	     }
-	     break;
-	   case '*':            /* Multiply */
-	     push (pop () * pop ());
-	     break;
-	   case '/':            /* Integer Divide */
-	     {
-	       signed long a = pop ();
-	       signed long b = pop ();
-	       if (a == 0)
-	       {
-		 if (!outfile)
-		 {
-		   printf("What do you want %ld/0 to be? ", b);
-		 } else
-		 {
-		   fprintf(fo, "What do you want %ld/0 to be? ", b);
-		 }
-		 if (infile)
-		 {
-		   fscanf (fi, "%ld", &b);
-		   push (b);
-		 } else
-		 {
-		   if (!debug)
-		   {
-		     fscanf (stdin, "%ld", &b);
-		     push (b);
-		   }
-		 }
-	       } else
-	       {
-		 push (b / a);
-	       }
-	     }
-	     break;
-	   case '%':            /* Modulo */
-	     {
-	       signed long a = pop ();
-	       signed long b = pop ();
-	       push (b % a);
-	     }
-	     break;
-	   case '\\':           /* Swap */
-	     {
-	       signed long a = pop ();
-	       signed long b = pop ();
-	       push (a);
-	       push (b);
-	     }
-	     break;
-	   case '.':            /* Pop Out Integer */
-	     {
-	       if (outfile)
-	       {
-		 fprintf (fo, "%ld ", pop ());
-		 fflush (fo);
-	       } else
-	       {
-		 if (!debug)
-		 {
-		   fprintf (stdout, "%ld ", pop ());
-		   fflush (stdout);
-		 } else
-		 {
+        switch (cur)
+        {
+           case '>':            /* PC Right */
+             dx = 1;
+             dy = 0;
+             break;
+           case '<':            /* PC Left */
+             dx = -1;
+             dy = 0;
+             break;
+           case '^':            /* PC Up */
+             dx = 0;
+             dy = -1;
+             break;
+           case 'v':            /* PC Down */
+             dx = 0;
+             dy = 1;
+             break;
+           case '|':            /* Vertical 'If' */
+             dx = 0;
+             if (pop ())
+               dy = -1;
+             else
+               dy = 1;
+             break;
+           case '_':            /* Horizontal 'If' */
+             dy = 0;
+             if (pop ())
+               dx = -1;
+             else
+               dx = 1;
+             break;
+           case '+':            /* Add */
+             push (pop () + pop ());
+             break;
+           case '-':            /* Subtract */
+             {
+               long a = pop();
+               long b = pop();
+               push(b - a);
+             }
+             break;
+           case '*':            /* Multiply */
+             push (pop () * pop ());
+             break;
+           case '/':            /* Integer Divide */
+             {
+               signed long a = pop ();
+               signed long b = pop ();
+               if (a == 0)
+               {
+                 if (!outfile)
+                 {
+                   printf("What do you want %ld/0 to be? ", b);
+                 } else
+                 {
+                   fprintf(fo, "What do you want %ld/0 to be? ", b);
+                 }
+                 if (infile)
+                 {
+                   fscanf (fi, "%ld", &b);
+                   push (b);
+                 } else
+                 {
+                   if (!debug)
+                   {
+                     fscanf (stdin, "%ld", &b);
+                     push (b);
+                   }
+                 }
+               } else
+               {
+                 push (b / a);
+               }
+             }
+             break;
+           case '%':            /* Modulo */
+             {
+               signed long a = pop ();
+               signed long b = pop ();
+               push (b % a);
+             }
+             break;
+           case '\\':           /* Swap */
+             {
+               signed long a = pop ();
+               signed long b = pop ();
+               push (a);
+               push (b);
+             }
+             break;
+           case '.':            /* Pop Out Integer */
+             {
+               if (outfile)
+               {
+                 fprintf (fo, "%ld ", pop ());
+                 fflush (fo);
+               } else
+               {
+                 if (!debug)
+                 {
+                   fprintf (stdout, "%ld ", pop ());
+                   fflush (stdout);
+                 } else
+                 {
 #ifdef CONSOLE
-		   int x, y;
-		   char s[172], t[172];
-		   x = wherex();
-		   y = wherey();
-		   sprintf(s, "%ld ", pop());
-		   gettext(1+strlen(s), DEBUGROW, 80, DEBUGROW, t);
-		   puttext(1, DEBUGROW, 80-strlen(s), DEBUGROW, t);
-		   gotoxy(81-strlen(s), DEBUGROW);
-		   cputs(s);
-		   gotoxy(x, y);
+                   int x, y;
+                   char s[172], t[172];
+                   x = wherex();
+                   y = wherey();
+                   sprintf(s, "%ld ", pop());
+                   gettext(1+strlen(s), DEBUGROW, 80, DEBUGROW, t);
+                   puttext(1, DEBUGROW, 80-strlen(s), DEBUGROW, t);
+                   gotoxy(81-strlen(s), DEBUGROW);
+                   cputs(s);
+                   gotoxy(x, y);
 #endif /* CONSOLE */
-		 }
-	       }
-	     }
-	     break;
-	   case ',':            /* Pop Out ASCII */
-	     {
-	       if (outfile)
-	       {
-		 fprintf (fo, "%c", (char)pop ());
-		 fflush (fo);
-	       } else
-	       {
-		 if (!debug)
-		 {
-		   fprintf (stdout, "%c", (char)pop ());
-		   fflush (stdout);
-		 } else
-		 {
+                 }
+               }
+             }
+             break;
+           case ',':            /* Pop Out ASCII */
+             {
+               if (outfile)
+               {
+                 fprintf (fo, "%c", (char)pop ());
+                 fflush (fo);
+               } else
+               {
+                 if (!debug)
+                 {
+                   fprintf (stdout, "%c", (char)pop ());
+                   fflush (stdout);
+                 } else
+                 {
 #ifdef CONSOLE
-		   int x, y;
-		   long int p = pop();
-		   char t[172];
-		   x = wherex();
-		   y = wherey();
-		   gettext(2, DEBUGROW, 80, DEBUGROW, t);
-		   puttext(1, DEBUGROW, 79, DEBUGROW, t);
-		   gotoxy(80, DEBUGROW);
-		   if ((p >= 32) && (p <= 255))
-		   {
-		     putch((int)p);
-		   } else
-		   {
-		     if (p == 10)
-		     {
-		       putch(179);
-		     } else
-		     {
-		       putch(168);
-		     }
-		   }
-		   gotoxy(x, y);
+                   int x, y;
+                   long int p = pop();
+                   char t[172];
+                   x = wherex();
+                   y = wherey();
+                   gettext(2, DEBUGROW, 80, DEBUGROW, t);
+                   puttext(1, DEBUGROW, 79, DEBUGROW, t);
+                   gotoxy(80, DEBUGROW);
+                   if ((p >= 32) && (p <= 255))
+                   {
+                     putch((int)p);
+                   } else
+                   {
+                     if (p == 10)
+                     {
+                       putch(179);
+                     } else
+                     {
+                       putch(168);
+                     }
+                   }
+                   gotoxy(x, y);
 #endif /* CONSOLE */
-		 }
-	       }
-	     }
-	     break;
-	   case '"':		/* Toggle String Mode */
-	     stringmode = !stringmode;
-	     break;
-	   case ':':            /* Duplicate */
-	     {
-	       signed long a = pop ();
-	       push (a);
-	       push (a);
-	     }
-	     break;
-	   case '!':            /* Negate */
-	  if (pop())
-	    push(0);
-	  else
-	    push(1);
-	     break;
-	   case '`':
-	     {
-	       signed long b = pop ();
-	       signed long a = pop ();
-	       push (a > b);
-	     }
-	     break;
-	   case '#':            /* Bridge */
-	     x += dx;
-	     y += dy;
-	     break;
-	   case '$':            /* Pop and Discard */
-	     pop ();
-	     break;
-	   case '?':            /* Random Redirect */
-	     switch ((rand () / 32) % 4)
-		{
-		case 0:
-		  dx = 1;
-		  dy = 0;
-		  break;
-		case 1:
-		  dx = -1;
-		  dy = 0;
-		  break;
-		case 2:
-		  dx = 0;
-		  dy = -1;
-		  break;
-		case 3:
-		  dx = 0;
-		  dy = 1;
-		  break;
-		}
-	     break;
-	   case '&':            /* Input Integer */
-	     {
-	       signed long b;
-	       if (infile)
-	       {
-		 fscanf (fi, "%ld", &b);
-		 push (b);
-	       } else
-	       {
-		 if (!debug)
-		 {
-		   fscanf (stdin, "%ld", &b);
-		   push (b);
-		 } else
-		 {
+                 }
+               }
+             }
+             break;
+           case '"':            /* Toggle String Mode */
+             stringmode = !stringmode;
+             break;
+           case ':':            /* Duplicate */
+             {
+               signed long a = pop ();
+               push (a);
+               push (a);
+             }
+             break;
+           case '!':            /* Negate */
+          if (pop())
+            push(0);
+          else
+            push(1);
+             break;
+           case '`':
+             {
+               signed long b = pop ();
+               signed long a = pop ();
+               push (a > b);
+             }
+             break;
+           case '#':            /* Bridge */
+             x += dx;
+             y += dy;
+             break;
+           case '$':            /* Pop and Discard */
+             pop ();
+             break;
+           case '?':            /* Random Redirect */
+             switch ((rand () / 32) % 4)
+                {
+                case 0:
+                  dx = 1;
+                  dy = 0;
+                  break;
+                case 1:
+                  dx = -1;
+                  dy = 0;
+                  break;
+                case 2:
+                  dx = 0;
+                  dy = -1;
+                  break;
+                case 3:
+                  dx = 0;
+                  dy = 1;
+                  break;
+                }
+             break;
+           case '&':            /* Input Integer */
+             {
+               signed long b;
+               if (infile)
+               {
+                 fscanf (fi, "%ld", &b);
+                 push (b);
+               } else
+               {
+                 if (!debug)
+                 {
+                   fscanf (stdin, "%ld", &b);
+                   push (b);
+                 } else
+                 {
 #ifdef CONSOLE
-		   int x, y;
-		   long int p;
-		   char t[172];
-		   x = wherex();
-		   y = wherey();
-		   gettext(10, DEBUGROW, 80, DEBUGROW, t);
-		   puttext(1, DEBUGROW, 71, DEBUGROW, t);
-		   gotoxy(72, DEBUGROW);
-		   clreol();
-		   cscanf("%ld", &p);
-		   push(p);
-		   gotoxy(x, y);
+                   int x, y;
+                   long int p;
+                   char t[172];
+                   x = wherex();
+                   y = wherey();
+                   gettext(10, DEBUGROW, 80, DEBUGROW, t);
+                   puttext(1, DEBUGROW, 71, DEBUGROW, t);
+                   gotoxy(72, DEBUGROW);
+                   clreol();
+                   cscanf("%ld", &p);
+                   push(p);
+                   gotoxy(x, y);
 #endif /* CONSOLE */
-		 }
-	       }
-	     }
-	     break;
-	   case '~':            /* Input ASCII */
-	     {
-	       char c;
-	       if (infile)
-	       {
-		 c = fgetc (fi);
-		 push (c);
-	       } else
-	       {
-		 if (!debug)
-		 {
-		   c = fgetc (stdin);
-		   push (c);
-		 } else
-		 {
+                 }
+               }
+             }
+             break;
+           case '~':            /* Input ASCII */
+             {
+               char c;
+               if (infile)
+               {
+                 c = fgetc (fi);
+                 push (c);
+               } else
+               {
+                 if (!debug)
+                 {
+                   c = fgetc (stdin);
+                   push (c);
+                 } else
+                 {
 #ifdef CONSOLE
-		   int x, y;
-		   long int p;
-		   char t[172];
-		   x = wherex();
-		   y = wherey();
-		   gettext(2, DEBUGROW, 80, DEBUGROW, t);
-		   puttext(1, DEBUGROW, 79, DEBUGROW, t);
-		   gotoxy(80, DEBUGROW);
-		   clreol();
-		   p = getche();
-		   if (p == '\r')
-		   {
-		     p = '\n';
-		     gotoxy(80, DEBUGROW);
-		     putch(179);
-		   }
-		   push(p);
-		   gotoxy(x, y);
+                   int x, y;
+                   long int p;
+                   char t[172];
+                   x = wherex();
+                   y = wherey();
+                   gettext(2, DEBUGROW, 80, DEBUGROW, t);
+                   puttext(1, DEBUGROW, 79, DEBUGROW, t);
+                   gotoxy(80, DEBUGROW);
+                   clreol();
+                   p = getche();
+                   if (p == '\r')
+                   {
+                     p = '\n';
+                     gotoxy(80, DEBUGROW);
+                     putch(179);
+                   }
+                   push(p);
+                   gotoxy(x, y);
 #endif /* CONSOLE */
-		 }
-	       }
-	     }
-	     break;
-	   case 'g':            /* Get Value */
-	     {
-	       signed long y = pop (), x = pop ();
-	       if ((y < PAGEHEIGHT) && (y >= 0) && (x < LINEWIDTH) && (x >= 0))
-	       {
-		 push (cur);
-	       } else
-	       {
-		 if (!debug)
-		 {
-		   if (!quiet)
-		   {
-		     fprintf(stderr, "g 'Get' instruction out of bounds (%ld,%ld)\n", x, y);
-		   }
-		 }
-		 push (0);
-	       }
-	     }
-	     break;
-	   case 'p':            /* Put Value */
-	     {
-	       signed long y = pop (), x = pop ();
-	       if ((y < PAGEHEIGHT) && (y >= 0) && (x < LINEWIDTH) && (x >= 0))
-	       {
-		 cur = pop ();
-	       } else
-	       {
-		 if (!debug)
-		 {
-		   if (!quiet)
-		   {
-		     fprintf(stderr, "p 'Put' instruction out of bounds (%ld,%ld)\n", x, y);
-		   }
-		 }
-		 pop();
-	       }
-	       if ((debug) && (y < SCREENHEIGHT) && (x < SCREENWIDTH))
-	       {
+                 }
+               }
+             }
+             break;
+           case 'g':            /* Get Value */
+             {
+               signed long y = pop (), x = pop ();
+               if ((y < PAGEHEIGHT) && (y >= 0) && (x < LINEWIDTH) && (x >= 0))
+               {
+                 push (cur);
+               } else
+               {
+                 if (!debug)
+                 {
+                   if (!quiet)
+                   {
+                     fprintf(stderr, "g 'Get' instruction out of bounds (%ld,%ld)\n", x, y);
+                   }
+                 }
+                 push (0);
+               }
+             }
+             break;
+           case 'p':            /* Put Value */
+             {
+               signed long y = pop (), x = pop ();
+               if ((y < PAGEHEIGHT) && (y >= 0) && (x < LINEWIDTH) && (x >= 0))
+               {
+                 cur = pop ();
+               } else
+               {
+                 if (!debug)
+                 {
+                   if (!quiet)
+                   {
+                     fprintf(stderr, "p 'Put' instruction out of bounds (%ld,%ld)\n", x, y);
+                   }
+                 }
+                 pop();
+               }
+               if ((debug) && (y < SCREENHEIGHT) && (x < SCREENWIDTH))
+               {
 #ifdef CONSOLE
-		 gotoxy(x+1,y+1);
+                 gotoxy(x+1,y+1);
 #else
-		 printf ("%c[%d;%dH", 27, (int)(y+1), (int)(x+1));
+                 printf ("%c[%d;%dH", 27, (int)(y+1), (int)(x+1));
 #endif /* CONSOLE */
-		 if (isprint ((int)cur)) printf ("%c", cur); else printf(".");
-	       }
-	     }
-	     break;
-	   case ' ':
-	     break;
-	   default:
-	     if ((!debug) && (!ignore_unsupported) && (!quiet))
-	     {
-	       fprintf(stderr, "Unsupported instruction '%c' (0x%02x) (maybe not Befunge-93?)\n", cur, cur);
-	     }
-	     break;
-	}
+                 if (isprint ((int)cur)) printf ("%c", cur); else printf(".");
+               }
+             }
+             break;
+           case ' ':
+             break;
+           default:
+             if ((!debug) && (!ignore_unsupported) && (!quiet))
+             {
+               fprintf(stderr, "Unsupported instruction '%c' (0x%02x) (maybe not Befunge-93?)\n", cur, cur);
+             }
+             break;
+        }
       x += dx;
       y += dy;
       if (x < 0)
-	if (v10err_compat)
-	{
-	  x = LINEWIDTH;
-	} else if (inconsistent_trampoline)
-	{
-	  x = LINEWIDTH - 1;
-	} else
+        if (v10err_compat)
+        {
+          x = LINEWIDTH;
+        } else if (inconsistent_trampoline)
+        {
+          x = LINEWIDTH - 1;
+        } else
         {
           x += LINEWIDTH;
         }
       else
-	x = x % LINEWIDTH;
+        x = x % LINEWIDTH;
       if (y < 0)
-	if (v10err_compat)
-	{
-	  y = PAGEHEIGHT;
-	} else if (inconsistent_trampoline)
-	{
-	  y = PAGEHEIGHT - 1;
-	} else
+        if (v10err_compat)
+        {
+          y = PAGEHEIGHT;
+        } else if (inconsistent_trampoline)
+        {
+          y = PAGEHEIGHT - 1;
+        } else
         {
           y += PAGEHEIGHT;
         }
       else
-	y = y % PAGEHEIGHT;
+        y = y % PAGEHEIGHT;
       if (stackfile)
       {
-	struct stack *s;
-	for (s = head; s; s = s->next)
-	  fprintf(fs, "%ld ", s->val);
-	fprintf(fs, "\n");
-	fflush(fs);
+        struct stack *s;
+        for (s = head; s; s = s->next)
+          fprintf(fs, "%ld ", s->val);
+        fprintf(fs, "\n");
+        fflush(fs);
       }
     }
 
@@ -869,14 +869,14 @@ void befsleep (dur)
       delay (dur);
 #else
   #ifdef _POSIX_C_SOURCE
-	struct timespec tv;
+        struct timespec tv;
 
         tv.tv_sec = dur / 1000;
         tv.tv_nsec = (dur % 1000) * 1000000;
 
-	nanosleep(&tv, NULL);
+        nanosleep(&tv, NULL);
   #else
-	sleep (dur / 1000);
+        sleep (dur / 1000);
   #endif
 #endif
 }

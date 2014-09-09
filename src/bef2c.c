@@ -48,7 +48,7 @@
 
    Known to Compile Under :
 
-	Borland C++ v3.1 (DOS)
+        Borland C++ v3.1 (DOS)
 
    History:
 
@@ -100,17 +100,17 @@ int pageheight = 1;      /* 25 */
 #define ALL RIGHT ": " LEFT ": " UP ": " DOWN ":\n"
 
 #define ECHO(s)   fprintf(fo, RIGHT ": " s " goto " RIGHT ";\n", x, y, x_right, y); \
-	  fprintf(fo, LEFT ": " s " goto " LEFT ";\n", x, y, x_left, y);           \
-	  fprintf(fo, UP ": " s " goto " UP ";\n", x, y, x, y_up);               \
-	  fprintf(fo, DOWN ": " s " goto " DOWN ";\n", x, y, x, y_down);
+          fprintf(fo, LEFT ": " s " goto " LEFT ";\n", x, y, x_left, y);           \
+          fprintf(fo, UP ": " s " goto " UP ";\n", x, y, x, y_up);               \
+          fprintf(fo, DOWN ": " s " goto " DOWN ";\n", x, y, x, y_down);
 
 /*************************************************** GLOBAL VARIABLES */
 
 char in[255];
 char pg[2000];                   /* befunge 'page' of source */
 int x = 0, y = 0, d = 0;         /* loopers */
-int pre_optimize = 1;		 /* flag: optimize before compile? */
-int post_optimize = 1;		 /* flag: optimize after compile? */
+int pre_optimize = 1;            /* flag: optimize before compile? */
+int post_optimize = 1;           /* flag: optimize after compile? */
 
 int labelrefs[8000];             /* postoptimization table */
 char s[255];
@@ -161,19 +161,19 @@ int main (argc, argv)
       if ((y+1)>pageheight) pageheight=y+1;
       if (cur == '\n')
       {
-	cur = ' ';
-	x = 0;
-	y++;
-	if (y >= 25) break;
+        cur = ' ';
+        x = 0;
+        y++;
+        if (y >= 25) break;
       } else
       {
-	x++;
-	if (x >= 80)
-	{
-	  x = 0;
-	  y++;
-	  if (y >= 25) break;
-	}
+        x++;
+        if (x >= 80)
+        {
+          x = 0;
+          y++;
+          if (y >= 25) break;
+        }
       }
     }
     fclose (fi);
@@ -192,7 +192,7 @@ int main (argc, argv)
   printf ("Compiling");
 
   fprintf (fo, "/* %s converted to ANSI C from %s by bef2c */\n",
-	       argv[argc-1], argv[argc-2]);
+               argv[argc-1], argv[argc-2]);
   fprintf (fo, "#include <stdio.h>\n");
   fprintf (fo, "#include <stdlib.h>\n");
   fprintf (fo, "#include <time.h>\n\n");
@@ -211,10 +211,10 @@ int main (argc, argv)
     {
       if (cur!='\\')
       {
-	fprintf (fo, "  pg[%d]='%c';\n", y * 80 + x, cur);
+        fprintf (fo, "  pg[%d]='%c';\n", y * 80 + x, cur);
       } else
       {
-	fprintf (fo, "  pg[%d]='%c%c';\n", y * 80 + x, cur, cur);
+        fprintf (fo, "  pg[%d]='%c%c';\n", y * 80 + x, cur, cur);
       }
     }
   }
@@ -227,126 +227,126 @@ int main (argc, argv)
     {
       switch (cur)
       {
-	case '0': case '1': case '2': case '3': case '4':
-	case '5': case '6': case '7': case '8': case '9':
-	  fprintf(fo, RIGHT ": push(%c); goto " RIGHT ";\n", x, y, cur, x_right, y);
-	  fprintf(fo, LEFT ": push(%c); goto " LEFT ";\n", x, y, cur, x_left, y);
-	  fprintf(fo, UP ": push(%c); goto " UP ";\n", x, y, cur, x, y_up);
-	  fprintf(fo, DOWN ": push(%c); goto " DOWN ";\n", x, y, cur, x, y_down);
-	  break;
-	case '>':            /* PC Right */
-	  fprintf(fo, ALL, x, y, x, y, x, y, x, y);
-	  fprintf(fo, "  goto " RIGHT ";\n", x_right, y);
-	  break;
-	case '<':            /* PC Left */
-	  fprintf(fo, ALL, x, y, x, y, x, y, x, y);
-	  fprintf(fo, "  goto " LEFT ";\n", x_left, y);
-	  break;
-	case '^':            /* PC Up */
-	  fprintf(fo, ALL, x, y, x, y, x, y, x, y);
-	  fprintf(fo, "  goto " UP ";\n", x, y_up);
-	  break;
-	case 'v':            /* PC Down */
-	  fprintf(fo, ALL, x, y, x, y, x, y, x, y);
-	  fprintf(fo, "  goto " DOWN ";\n", x, y_down);
-	  break;
-	case '|':            /* Vert If */
-	  fprintf(fo, ALL, x, y, x, y, x, y, x, y);
-	  fprintf(fo, "  if (pop ()) goto " UP "; else goto " DOWN ";\n", x, y_up, x, y_down);
-	  break;
-	case '_':            /* Horiz If */
-	  fprintf(fo, ALL, x, y, x, y, x, y, x, y);
-	  fprintf(fo, "  if (pop ()) goto " LEFT "; else goto " RIGHT ";\n", x_left, y, x_right, y);
-	  break;
-	case '+':
-	  ECHO("push(pop()+pop());");
-	  break;
-	case '-':
-	  ECHO("a=pop();b=pop();push(b-a);");
-	  break;
-	case '*':
-	  ECHO("push(pop()*pop());");
-	  break;
-	case '/':
-	  ECHO("a=pop();b=pop();push(b/a);");
-	  break;
-	case '%':
-	  sprintf(t, "a=pop();b=pop();push(b%ca);", '%');
-	  fprintf(fo, RIGHT ": %s goto " RIGHT ";\n", x, y, t, x_right, y);
-	  fprintf(fo, LEFT ": %s goto " LEFT ";\n", x, y, t, x_left, y);
-	  fprintf(fo, UP ": %s goto " UP ";\n", x, y, t, x, y_up);
-	  fprintf(fo, DOWN ": %s goto " DOWN ";\n", x, y, t, x, y_down);
-	  break;
-	case '\\':
-	  ECHO("a=pop();b=pop();push(a);push(b);");
-	  break;
-	case ':':
-	  ECHO("a=pop();push(a);push(a);");
-	  break;
-	case '.':
-	  fprintf(fo, RIGHT ": fprintf(stdout,\"%cld \",pop());fflush(stdout); goto " RIGHT ";\n", x, y, '%', x_right, y);
-	  fprintf(fo, LEFT ": fprintf(stdout,\"%cld \",pop());fflush(stdout); goto " LEFT ";\n", x, y, '%', x_left, y);
-	  fprintf(fo, UP ": fprintf(stdout,\"%cld \",pop());fflush(stdout); goto " UP ";\n", x, y, '%', x, y_up);
-	  fprintf(fo, DOWN ": fprintf(stdout,\"%cld \",pop());fflush(stdout); goto " DOWN ";\n", x, y, '%', x, y_down);
-	  break;
-	case ',':
-	  fprintf(fo, RIGHT ": fprintf(stdout,\"%cc\",pop());fflush(stdout); goto " RIGHT ";\n", x, y, '%', x_right, y);
-	  fprintf(fo, LEFT ": fprintf(stdout,\"%cc\",pop());fflush(stdout); goto " LEFT ";\n", x, y, '%', x_left, y);
-	  fprintf(fo, UP ": fprintf(stdout,\"%cc\",pop());fflush(stdout); goto " UP ";\n", x, y, '%', x, y_up);
-	  fprintf(fo, DOWN ": fprintf(stdout,\"%cc\",pop());fflush(stdout); goto " DOWN ";\n", x, y, '%', x, y_down);
-	  break;
-	case '&':
-	  fprintf(fo, RIGHT ": fscanf(stdin,\"%cld\",&b);push(b); goto " RIGHT ";\n", x, y, '%', x_right, y);
-	  fprintf(fo, LEFT ": fscanf(stdin,\"%cld\",&b);push(b); goto " LEFT ";\n", x, y, '%', x_left, y);
-	  fprintf(fo, UP ": fscanf(stdin,\"%cld\",&b);push(b); goto " UP ";\n", x, y, '%', x, y_up);
-	  fprintf(fo, DOWN ": fscanf(stdin,\"%cld\",&b);push(b); goto " DOWN ";\n", x, y, '%', x, y_down);
-	  break;
-	case '~':
-	  fprintf(fo, RIGHT ": c=fgetc(stdin);push(c); goto " RIGHT ";\n", x, y, x_right, y);
-	  fprintf(fo, LEFT ": c=fgetc(stdin);push(c); goto " LEFT ";\n", x, y, x_left, y);
-	  fprintf(fo, UP ": c=fgetc(stdin);push(c); goto " UP ";\n", x, y, x, y_up);
-	  fprintf(fo, DOWN ": c=fgetc(stdin);push(c); goto " DOWN ";\n", x, y, x, y_down);
-	  break;
-	case '"':  /* ha! */
-	  ECHO("puts(\"Error: compiled Befunge does not support stringmode\n\");");
-	  break;
-	case '!':
-	  ECHO("if(pop()) push(0); else push(1);");
-	  break;
-	case '`':
-	  ECHO("b=pop();a=pop();push(a>b);");
-	  break;
-	case '$':
-	  ECHO("pop();");
-	  break;
-	case '?':
-	  fprintf(fo, ALL, x, y, x, y, x, y, x, y);
-	  fprintf(fo, " switch ((rand () / 32) %c 4) \n"
-		      " { case 0: goto " RIGHT ";\n"
-		      "   case 1: goto " LEFT ";\n"
-		      "   case 2: goto " UP ";\n"
-		      "   case 3: goto " DOWN "; }\n",
-		  '%', x_right, y, x_left, y, x, y_up, x, y_down);
-	  break;
-	case '#':
-	  fprintf(fo, RIGHT ": goto " RIGHT ";\n", x, y, x_2right, y);
-	  fprintf(fo, LEFT ": goto " LEFT ";\n", x, y, x_2left, y);
-	  fprintf(fo, UP ": goto " UP ";\n", x, y, x, y_2up);
-	  fprintf(fo, DOWN ": goto " DOWN ";\n", x, y, x, y_2down);
-	  break;
-	case 'g':
-	  ECHO("a=pop();b=pop();push(pg[a*80+b]);");
-	  break;
-	case 'p':
-	  ECHO("a=pop();b=pop();pg[a*80+b]=pop();");
-	  break;
-	case '@':
-	  fprintf(fo, ALL, x, y, x, y, x, y, x, y);
-	  fprintf(fo, "  exit(0);");
-	  break;
-	default:
-	  ECHO("");
-	  break;
+        case '0': case '1': case '2': case '3': case '4':
+        case '5': case '6': case '7': case '8': case '9':
+          fprintf(fo, RIGHT ": push(%c); goto " RIGHT ";\n", x, y, cur, x_right, y);
+          fprintf(fo, LEFT ": push(%c); goto " LEFT ";\n", x, y, cur, x_left, y);
+          fprintf(fo, UP ": push(%c); goto " UP ";\n", x, y, cur, x, y_up);
+          fprintf(fo, DOWN ": push(%c); goto " DOWN ";\n", x, y, cur, x, y_down);
+          break;
+        case '>':            /* PC Right */
+          fprintf(fo, ALL, x, y, x, y, x, y, x, y);
+          fprintf(fo, "  goto " RIGHT ";\n", x_right, y);
+          break;
+        case '<':            /* PC Left */
+          fprintf(fo, ALL, x, y, x, y, x, y, x, y);
+          fprintf(fo, "  goto " LEFT ";\n", x_left, y);
+          break;
+        case '^':            /* PC Up */
+          fprintf(fo, ALL, x, y, x, y, x, y, x, y);
+          fprintf(fo, "  goto " UP ";\n", x, y_up);
+          break;
+        case 'v':            /* PC Down */
+          fprintf(fo, ALL, x, y, x, y, x, y, x, y);
+          fprintf(fo, "  goto " DOWN ";\n", x, y_down);
+          break;
+        case '|':            /* Vert If */
+          fprintf(fo, ALL, x, y, x, y, x, y, x, y);
+          fprintf(fo, "  if (pop ()) goto " UP "; else goto " DOWN ";\n", x, y_up, x, y_down);
+          break;
+        case '_':            /* Horiz If */
+          fprintf(fo, ALL, x, y, x, y, x, y, x, y);
+          fprintf(fo, "  if (pop ()) goto " LEFT "; else goto " RIGHT ";\n", x_left, y, x_right, y);
+          break;
+        case '+':
+          ECHO("push(pop()+pop());");
+          break;
+        case '-':
+          ECHO("a=pop();b=pop();push(b-a);");
+          break;
+        case '*':
+          ECHO("push(pop()*pop());");
+          break;
+        case '/':
+          ECHO("a=pop();b=pop();push(b/a);");
+          break;
+        case '%':
+          sprintf(t, "a=pop();b=pop();push(b%ca);", '%');
+          fprintf(fo, RIGHT ": %s goto " RIGHT ";\n", x, y, t, x_right, y);
+          fprintf(fo, LEFT ": %s goto " LEFT ";\n", x, y, t, x_left, y);
+          fprintf(fo, UP ": %s goto " UP ";\n", x, y, t, x, y_up);
+          fprintf(fo, DOWN ": %s goto " DOWN ";\n", x, y, t, x, y_down);
+          break;
+        case '\\':
+          ECHO("a=pop();b=pop();push(a);push(b);");
+          break;
+        case ':':
+          ECHO("a=pop();push(a);push(a);");
+          break;
+        case '.':
+          fprintf(fo, RIGHT ": fprintf(stdout,\"%cld \",pop());fflush(stdout); goto " RIGHT ";\n", x, y, '%', x_right, y);
+          fprintf(fo, LEFT ": fprintf(stdout,\"%cld \",pop());fflush(stdout); goto " LEFT ";\n", x, y, '%', x_left, y);
+          fprintf(fo, UP ": fprintf(stdout,\"%cld \",pop());fflush(stdout); goto " UP ";\n", x, y, '%', x, y_up);
+          fprintf(fo, DOWN ": fprintf(stdout,\"%cld \",pop());fflush(stdout); goto " DOWN ";\n", x, y, '%', x, y_down);
+          break;
+        case ',':
+          fprintf(fo, RIGHT ": fprintf(stdout,\"%cc\",pop());fflush(stdout); goto " RIGHT ";\n", x, y, '%', x_right, y);
+          fprintf(fo, LEFT ": fprintf(stdout,\"%cc\",pop());fflush(stdout); goto " LEFT ";\n", x, y, '%', x_left, y);
+          fprintf(fo, UP ": fprintf(stdout,\"%cc\",pop());fflush(stdout); goto " UP ";\n", x, y, '%', x, y_up);
+          fprintf(fo, DOWN ": fprintf(stdout,\"%cc\",pop());fflush(stdout); goto " DOWN ";\n", x, y, '%', x, y_down);
+          break;
+        case '&':
+          fprintf(fo, RIGHT ": fscanf(stdin,\"%cld\",&b);push(b); goto " RIGHT ";\n", x, y, '%', x_right, y);
+          fprintf(fo, LEFT ": fscanf(stdin,\"%cld\",&b);push(b); goto " LEFT ";\n", x, y, '%', x_left, y);
+          fprintf(fo, UP ": fscanf(stdin,\"%cld\",&b);push(b); goto " UP ";\n", x, y, '%', x, y_up);
+          fprintf(fo, DOWN ": fscanf(stdin,\"%cld\",&b);push(b); goto " DOWN ";\n", x, y, '%', x, y_down);
+          break;
+        case '~':
+          fprintf(fo, RIGHT ": c=fgetc(stdin);push(c); goto " RIGHT ";\n", x, y, x_right, y);
+          fprintf(fo, LEFT ": c=fgetc(stdin);push(c); goto " LEFT ";\n", x, y, x_left, y);
+          fprintf(fo, UP ": c=fgetc(stdin);push(c); goto " UP ";\n", x, y, x, y_up);
+          fprintf(fo, DOWN ": c=fgetc(stdin);push(c); goto " DOWN ";\n", x, y, x, y_down);
+          break;
+        case '"':  /* ha! */
+          ECHO("puts(\"Error: compiled Befunge does not support stringmode\n\");");
+          break;
+        case '!':
+          ECHO("if(pop()) push(0); else push(1);");
+          break;
+        case '`':
+          ECHO("b=pop();a=pop();push(a>b);");
+          break;
+        case '$':
+          ECHO("pop();");
+          break;
+        case '?':
+          fprintf(fo, ALL, x, y, x, y, x, y, x, y);
+          fprintf(fo, " switch ((rand () / 32) %c 4) \n"
+                      " { case 0: goto " RIGHT ";\n"
+                      "   case 1: goto " LEFT ";\n"
+                      "   case 2: goto " UP ";\n"
+                      "   case 3: goto " DOWN "; }\n",
+                  '%', x_right, y, x_left, y, x, y_up, x, y_down);
+          break;
+        case '#':
+          fprintf(fo, RIGHT ": goto " RIGHT ";\n", x, y, x_2right, y);
+          fprintf(fo, LEFT ": goto " LEFT ";\n", x, y, x_2left, y);
+          fprintf(fo, UP ": goto " UP ";\n", x, y, x, y_2up);
+          fprintf(fo, DOWN ": goto " DOWN ";\n", x, y, x, y_2down);
+          break;
+        case 'g':
+          ECHO("a=pop();b=pop();push(pg[a*80+b]);");
+          break;
+        case 'p':
+          ECHO("a=pop();b=pop();pg[a*80+b]=pop();");
+          break;
+        case '@':
+          fprintf(fo, ALL, x, y, x, y, x, y, x, y);
+          fprintf(fo, "  exit(0);");
+          break;
+        default:
+          ECHO("");
+          break;
       }
     }
     printf (".");
@@ -371,63 +371,63 @@ int main (argc, argv)
     {
       for(y = 0; y < 25; y++)
       {
-	for(x = 0; x < 80; x++)
-	{
-	  labelrefs[y * 80 + x] = 0;
-	}
+        for(x = 0; x < 80; x++)
+        {
+          labelrefs[y * 80 + x] = 0;
+        }
       }
       if ((fi = fopen (argv[argc - 1], "r")) != NULL)
       {
-	while (!feof(fi))
-	{
-	  fscanf(fi, "%s", in);
-	  if (!strcmp(in, "goto"))
-	  {
-	    fscanf(fi, "%d_%d_%s", &x, &y, s);
-	    switch (s[0]) { case 'L': d = 0; break;
-			  case 'R': d = 1; break;
-			  case 'U': d = 2; break;
-			  case 'D': d = 3; break; }
-	    labelrefs[d * 2000 + y * 80 + x]++;
-	  }
-	}
-	rewind(fi);
+        while (!feof(fi))
+        {
+          fscanf(fi, "%s", in);
+          if (!strcmp(in, "goto"))
+          {
+            fscanf(fi, "%d_%d_%s", &x, &y, s);
+            switch (s[0]) { case 'L': d = 0; break;
+                          case 'R': d = 1; break;
+                          case 'U': d = 2; break;
+                          case 'D': d = 3; break; }
+            labelrefs[d * 2000 + y * 80 + x]++;
+          }
+        }
+        rewind(fi);
       }
       printf (".");
       if ((fo = fopen ("temp.c", "w")) != NULL)
       {
-	while (!feof(fi))
-	{
-	  fgets(in, 255, fi);
-	  if (sscanf(in, "_%d_%d_%s:  goto _%d_%d_%s;\n", &x0, &y0, t, &x1, &y1, s))
-	  {
-	    switch (s[0]) { case 'L': d = 0; break;
-			  case 'R': d = 1; break;
-			  case 'U': d = 2; break;
-			  case 'D': d = 3; break; }
-	    if (labelrefs[d * 2000 + y1 * 80 + x1])
-	    {
-	      fprintf(fo, "_%2.2d_%2.2d_%s ", x0, y0, t);
-	      fprintf(fo, "goto _%2.2d_%2.2d_%s;\n", x1, y1, s);
-	    }
-	  } else
-	  {
-	    fprintf(fo, "%s", in);
-	  }
-	}
+        while (!feof(fi))
+        {
+          fgets(in, 255, fi);
+          if (sscanf(in, "_%d_%d_%s:  goto _%d_%d_%s;\n", &x0, &y0, t, &x1, &y1, s))
+          {
+            switch (s[0]) { case 'L': d = 0; break;
+                          case 'R': d = 1; break;
+                          case 'U': d = 2; break;
+                          case 'D': d = 3; break; }
+            if (labelrefs[d * 2000 + y1 * 80 + x1])
+            {
+              fprintf(fo, "_%2.2d_%2.2d_%s ", x0, y0, t);
+              fprintf(fo, "goto _%2.2d_%2.2d_%s;\n", x1, y1, s);
+            }
+          } else
+          {
+            fprintf(fo, "%s", in);
+          }
+        }
       }
       fclose (fi);
       fclose (fo);
       if ((fi = fopen ("temp.c", "r")) != NULL)
       {
-	if ((fo = fopen (argv[argc - 1], "w")) != NULL)
-	{
-	  while (!feof(fi))
-	  {
-	    fgets(in, 255, fi);
-	    fprintf(fo, "%s", in);
-	  }
-	}
+        if ((fo = fopen (argv[argc - 1], "w")) != NULL)
+        {
+          while (!feof(fi))
+          {
+            fgets(in, 255, fi);
+            fprintf(fo, "%s", in);
+          }
+        }
       }
       printf (".");
     }

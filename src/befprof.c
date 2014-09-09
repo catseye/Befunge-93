@@ -40,20 +40,20 @@
    Usage :
 
    befprof [-l] [-i] [-n count] [-r input-file] [-w report-file]
-	   <befunge-source>
+           <befunge-source>
 
       -i: use interactive I/O
       -r: redirect input from a specified file instead of stdin
-	  generally use these only if random input and logic
-	  does not well reflect reality, or causes a problem
-	  with your source code (e.g. anagram.bf)
+          generally use these only if random input and logic
+          does not well reflect reality, or causes a problem
+          with your source code (e.g. anagram.bf)
       -l: randomize logic - makes | and _ execute randomly.
       -w: specify an output filename for report (if omitted,
-	  <input-file>.map is used)
+          <input-file>.map is used)
       -n: repeat execution a given number of times (def. 1)
-	  use to generate data with a better resolution.
-	  although note that cells are stored as 2-byte words,
-	  so too many repetitions may cause them to wrap back to 0.
+          use to generate data with a better resolution.
+          although note that cells are stored as 2-byte words,
+          so too many repetitions may cause them to wrap back to 0.
 
    ******************************************************************
 
@@ -66,7 +66,7 @@
           relicensed under BSD license
 
    v0.92: Mar 1998, Chris Pressey
-	  original Befunge-93 Profiler 'befprof' distribution.
+          original Befunge-93 Profiler 'befprof' distribution.
 
    ****************************************************************** */
 
@@ -222,19 +222,19 @@ int main (argc, argv)
       curbuf = fgetc (f);
       if (curbuf == '\n')
       {
-	curbuf = ' ';
-	x = 0;
-	y++;
-	if (y >= PAGEHEIGHT) break;
+        curbuf = ' ';
+        x = 0;
+        y++;
+        if (y >= PAGEHEIGHT) break;
       } else
       {
-	x++;
-	if (x >= LINEWIDTH)
-	{
-	  x = 0;
-	  y++;
-	  if (y >= PAGEHEIGHT) break;
-	}
+        x++;
+        if (x >= LINEWIDTH)
+        {
+          x = 0;
+          y++;
+          if (y >= PAGEHEIGHT) break;
+        }
       }
     }
     fclose (f);
@@ -265,8 +265,8 @@ int main (argc, argv)
     {
       if (!(fi = fopen (argv[ia], "r")))
       {
-	printf ("Error : couldn't open '%s' for input.\n", argv[ia]);
-	exit (0);
+        printf ("Error : couldn't open '%s' for input.\n", argv[ia]);
+        exit (0);
       }
     }
 
@@ -279,302 +279,302 @@ int main (argc, argv)
       if ((dx == 0) && (dy == -1)) incprof(INGRESS_SOUTH);
       if (stringmode && (cur != '"'))
       {
-	push (cur);
-      }	else
+        push (cur);
+      } else
       if (isdigit ((int)cur))
       {
-	push (cur - '0');
+        push (cur - '0');
       } else
       switch (cur)
       {
-	case '>':            /* PC Right */
-	  dx = 1;
-	  dy = 0;
-	  break;
-	case '<':            /* PC Left */
-	  dx = -1;
-	  dy = 0;
-	  break;
-	case '^':            /* PC Up */
-	  dx = 0;
-	  dy = -1;
-	  break;
-	case 'v':            /* PC Down */
-	  dx = 0;
-	  dy = 1;
-	  break;
-	case '|':            /* Vertical 'If' */
-	{
-	  long int pp = pop();
-	  dx = 0;
-	  if (rand_logic) pp = ((rand () >> 3) % 2);
-	  if (pp)
-	  {
-	    dy = -1;
-	  } else
-	  {
-	    dy = 1;
-	  }
-	  break;
-	}
-	case '_':            /* Horizontal 'If' */
-	{
-	  long int pp = pop();
-	  dy = 0;
-	  if (rand_logic) pp = ((rand () >> 3) % 2);
-	  if (pp)
-	  {
-	    dx = -1;
-	  } else
-	  {
-	    dx = 1;
-	  }
-	  break;
-	}
-	case '+':            /* Add */
-	  push (pop () + pop ());
-	  break;
-	case '-':            /* Subtract */
-	{
-	  long a = pop();
-	  long b = pop();
-	  push(b - a);
-	  break;
-	}
-	case '*':            /* Multiply */
-	  push (pop () * pop ());
-	  break;
-	case '/':            /* Integer Divide */
-	{
-	  signed long a = pop ();
-	  signed long b = pop ();
-	  if (a == 0)
-	  {
-	    if (infile)
-	    {
-	      fscanf (fi, "%ld", &b);
-	      push (b);
-	    } else
-	    if (interactive)
-	    {
-	      printf("What do you want %ld/0 to be? ", b);
-	      scanf ("%ld", &b);
-	      push (b);
-	    } else
-	    {
-	      push (rand() - 32767);
-	    }
-	  } else
-	  {
-	    push (b / a);
-	  }
-	  break;
-	}
-	case '%':            /* Modulo */
-	{
-	  signed long a = pop ();
-	  signed long b = pop ();
-	  push (b % a);
-	  break;
-	}
-	case '\\':           /* Swap */
-	{
-	  signed long a = pop ();
-	  signed long b = pop ();
-	  push (a);
-	  push (b);
-	  break;
-	}
-	case '.':            /* Pop Out Integer */
-	{
-	  if (interactive)
-	  {
-	    printf ("%ld ", pop ());
-	    fflush (stdout);
-	  } else pop();
-	  break;
-	}
-	case ',':            /* Pop Out ASCII */
-	{
-	  if (interactive)
-	  {
-	    printf ("%c", (char)pop ());
-	    fflush (stdout);
-	  } else pop();
-	  break;
-	}
-	case '"':		/* Toggle String Mode */
-	  stringmode = !stringmode;
-	  break;
-	case ':':            /* Duplicate */
-	{
-	  signed long a = pop ();
-	  push (a);
-	  push (a);
-	  break;
-	}
-	case '!':            /* Negate */
-	{
-	  if (pop())
-	  {
-	    push(0);
-	  } else
-	  {
-	    push(1);
-	  }
-	  break;
-	}
-	case '`':
-	{
-	  signed long b = pop ();
-	  signed long a = pop ();
-	  if (a > b)
-	  {
-	    push(1);
-	  } else
-	  {
-	    push(0);
-	  }
-	  break;
-	}
-	case '#':            /* Bridge */
-	{
-	  if ((dx == 1) && (dy == 0)) incprof(EGRESS_EAST);
-	  if ((dx == -1) && (dy == 0)) incprof(EGRESS_WEST);
-	  if ((dx == 0) && (dy == 1)) incprof(EGRESS_SOUTH);
-	  if ((dx == 0) && (dy == -1)) incprof(EGRESS_NORTH);
-	  x += dx;
-	  y += dy;
-	  flag_egress = 1;
-	  break;
-	}
-	case '$':            /* Pop and Discard */
-	{
-	  pop ();
-	  break;
-	}
-	case '?':            /* Random Redirect */
-	{
-	  switch ((rand () / 32) % 4)
-	  {
-	    case 0:
-	      dx = 1;
-	      dy = 0;
-	      break;
-	    case 1:
-	      dx = -1;
-	      dy = 0;
-	      break;
-	    case 2:
-	      dx = 0;
-	      dy = -1;
-	      break;
-	    case 3:
-	      dx = 0;
-	      dy = 1;
-	      break;
-	  }
-	  break;
-	}
-	case '&':            /* Input Integer */
-	{
-	  signed long b;
-	  if (infile)
-	  {
-	    fscanf (fi, "%ld", &b);
-	    push (b);
-	  } else
-	  if (interactive)
-	  {
-	    scanf ("%ld", &b);
-	    push (b);
-	  } else
-	  {
-	    push (rand() - 32767);
-	  }
-	  break;
-	}
-	case '~':            /* Input ASCII */
-	{
-	  char c;
-	  if (infile)
-	  {
-	    c = fgetc (fi);
-	    push (c);
-	  } else
-	  if (interactive)
-	  {
-	    c = fgetc (stdin);
-	    push (c);
-	  } else
-	  {
-	    c = ((rand() / 32) % 128);
-	    while (c < 32)
-	    {
-	      c = ((rand() / 32) % 128);
-	    }
-	    push (c);
-	  }
-	  break;
-	}
-	case 'g':            /* Get Value */
-	{
-	  signed long y = pop (), x = pop ();
-	  incprof(GET_CELL);
-	  push (cur);
-	  break;
-	}
-	case 'p':            /* Put Value */
-	{
-	  signed long y = pop (), x = pop ();
-	  if ((y < PAGEHEIGHT) && (y >= 0) && (x < LINEWIDTH) && (x >= 0))
-	  {
-	    incprof(PUT_CELL);
-	    cur = pop ();
-	  } else
-	  {
-	    /* fprintf(stderr, "p 'Put' instruction out of bounds (%d,%d)\n", x, y); */
-	    putoob++;
-	  }
-	  break;
-	}
-	case ' ':
-	  break;
-	default:
-	{
-	  unsupp++;
-	  break;
-	}
+        case '>':            /* PC Right */
+          dx = 1;
+          dy = 0;
+          break;
+        case '<':            /* PC Left */
+          dx = -1;
+          dy = 0;
+          break;
+        case '^':            /* PC Up */
+          dx = 0;
+          dy = -1;
+          break;
+        case 'v':            /* PC Down */
+          dx = 0;
+          dy = 1;
+          break;
+        case '|':            /* Vertical 'If' */
+        {
+          long int pp = pop();
+          dx = 0;
+          if (rand_logic) pp = ((rand () >> 3) % 2);
+          if (pp)
+          {
+            dy = -1;
+          } else
+          {
+            dy = 1;
+          }
+          break;
+        }
+        case '_':            /* Horizontal 'If' */
+        {
+          long int pp = pop();
+          dy = 0;
+          if (rand_logic) pp = ((rand () >> 3) % 2);
+          if (pp)
+          {
+            dx = -1;
+          } else
+          {
+            dx = 1;
+          }
+          break;
+        }
+        case '+':            /* Add */
+          push (pop () + pop ());
+          break;
+        case '-':            /* Subtract */
+        {
+          long a = pop();
+          long b = pop();
+          push(b - a);
+          break;
+        }
+        case '*':            /* Multiply */
+          push (pop () * pop ());
+          break;
+        case '/':            /* Integer Divide */
+        {
+          signed long a = pop ();
+          signed long b = pop ();
+          if (a == 0)
+          {
+            if (infile)
+            {
+              fscanf (fi, "%ld", &b);
+              push (b);
+            } else
+            if (interactive)
+            {
+              printf("What do you want %ld/0 to be? ", b);
+              scanf ("%ld", &b);
+              push (b);
+            } else
+            {
+              push (rand() - 32767);
+            }
+          } else
+          {
+            push (b / a);
+          }
+          break;
+        }
+        case '%':            /* Modulo */
+        {
+          signed long a = pop ();
+          signed long b = pop ();
+          push (b % a);
+          break;
+        }
+        case '\\':           /* Swap */
+        {
+          signed long a = pop ();
+          signed long b = pop ();
+          push (a);
+          push (b);
+          break;
+        }
+        case '.':            /* Pop Out Integer */
+        {
+          if (interactive)
+          {
+            printf ("%ld ", pop ());
+            fflush (stdout);
+          } else pop();
+          break;
+        }
+        case ',':            /* Pop Out ASCII */
+        {
+          if (interactive)
+          {
+            printf ("%c", (char)pop ());
+            fflush (stdout);
+          } else pop();
+          break;
+        }
+        case '"':               /* Toggle String Mode */
+          stringmode = !stringmode;
+          break;
+        case ':':            /* Duplicate */
+        {
+          signed long a = pop ();
+          push (a);
+          push (a);
+          break;
+        }
+        case '!':            /* Negate */
+        {
+          if (pop())
+          {
+            push(0);
+          } else
+          {
+            push(1);
+          }
+          break;
+        }
+        case '`':
+        {
+          signed long b = pop ();
+          signed long a = pop ();
+          if (a > b)
+          {
+            push(1);
+          } else
+          {
+            push(0);
+          }
+          break;
+        }
+        case '#':            /* Bridge */
+        {
+          if ((dx == 1) && (dy == 0)) incprof(EGRESS_EAST);
+          if ((dx == -1) && (dy == 0)) incprof(EGRESS_WEST);
+          if ((dx == 0) && (dy == 1)) incprof(EGRESS_SOUTH);
+          if ((dx == 0) && (dy == -1)) incprof(EGRESS_NORTH);
+          x += dx;
+          y += dy;
+          flag_egress = 1;
+          break;
+        }
+        case '$':            /* Pop and Discard */
+        {
+          pop ();
+          break;
+        }
+        case '?':            /* Random Redirect */
+        {
+          switch ((rand () / 32) % 4)
+          {
+            case 0:
+              dx = 1;
+              dy = 0;
+              break;
+            case 1:
+              dx = -1;
+              dy = 0;
+              break;
+            case 2:
+              dx = 0;
+              dy = -1;
+              break;
+            case 3:
+              dx = 0;
+              dy = 1;
+              break;
+          }
+          break;
+        }
+        case '&':            /* Input Integer */
+        {
+          signed long b;
+          if (infile)
+          {
+            fscanf (fi, "%ld", &b);
+            push (b);
+          } else
+          if (interactive)
+          {
+            scanf ("%ld", &b);
+            push (b);
+          } else
+          {
+            push (rand() - 32767);
+          }
+          break;
+        }
+        case '~':            /* Input ASCII */
+        {
+          char c;
+          if (infile)
+          {
+            c = fgetc (fi);
+            push (c);
+          } else
+          if (interactive)
+          {
+            c = fgetc (stdin);
+            push (c);
+          } else
+          {
+            c = ((rand() / 32) % 128);
+            while (c < 32)
+            {
+              c = ((rand() / 32) % 128);
+            }
+            push (c);
+          }
+          break;
+        }
+        case 'g':            /* Get Value */
+        {
+          signed long y = pop (), x = pop ();
+          incprof(GET_CELL);
+          push (cur);
+          break;
+        }
+        case 'p':            /* Put Value */
+        {
+          signed long y = pop (), x = pop ();
+          if ((y < PAGEHEIGHT) && (y >= 0) && (x < LINEWIDTH) && (x >= 0))
+          {
+            incprof(PUT_CELL);
+            cur = pop ();
+          } else
+          {
+            /* fprintf(stderr, "p 'Put' instruction out of bounds (%d,%d)\n", x, y); */
+            putoob++;
+          }
+          break;
+        }
+        case ' ':
+          break;
+        default:
+        {
+          unsupp++;
+          break;
+        }
       }
       if (!flag_egress)
       {
-	if ((dx == 1) && (dy == 0)) incprof(EGRESS_EAST);
-	if ((dx == -1) && (dy == 0)) incprof(EGRESS_WEST);
-	if ((dx == 0) && (dy == 1)) incprof(EGRESS_SOUTH);
-	if ((dx == 0) && (dy == -1)) incprof(EGRESS_NORTH);
+        if ((dx == 1) && (dy == 0)) incprof(EGRESS_EAST);
+        if ((dx == -1) && (dy == 0)) incprof(EGRESS_WEST);
+        if ((dx == 0) && (dy == 1)) incprof(EGRESS_SOUTH);
+        if ((dx == 0) && (dy == -1)) incprof(EGRESS_NORTH);
       }
       x += dx;
       y += dy;
       if (x < 0)
       {
-	x = LINEWIDTH - 1;
+        x = LINEWIDTH - 1;
       } else
       {
-	x = x % LINEWIDTH;
+        x = x % LINEWIDTH;
       }
       if (y < 0)
       {
-	y = PAGEHEIGHT - 1;
+        y = PAGEHEIGHT - 1;
       } else
       {
-	y = y % PAGEHEIGHT;
+        y = y % PAGEHEIGHT;
       }
 
       curiter++;
       if (curiter > maxiter)
       {
-	printf("more than %ld iterations\n", maxiter);
-	break;
+        printf("more than %ld iterations\n", maxiter);
+        break;
       }
     }
 
@@ -598,7 +598,7 @@ int main (argc, argv)
     {
       for (x=0;x<LINEWIDTH;x++)
       {
-	fprintf(fp, "%c", cur);
+        fprintf(fp, "%c", cur);
       }
       fprintf(fp, "\n");
     }
@@ -608,48 +608,48 @@ int main (argc, argv)
       fprintf(fp, "BEGIN map %d; bf93prof %s ", z + 1, filename);
       switch(z)
       {
-	case INGRESS_NORTH: fprintf(fp, "ip enters from north"); break;
-	case INGRESS_SOUTH: fprintf(fp, "ip enters from south"); break;
-	case INGRESS_EAST: fprintf(fp, "ip enters from east"); break;
-	case INGRESS_WEST: fprintf(fp, "ip enters from west"); break;
-	case EGRESS_NORTH: fprintf(fp, "ip exits to north"); break;
-	case EGRESS_SOUTH: fprintf(fp, "ip exits to south"); break;
-	case EGRESS_EAST: fprintf(fp, "ip exits to east"); break;
-	case EGRESS_WEST: fprintf(fp, "ip exits to west"); break;
-	case PUT_CELL: fprintf(fp, "g (get) addresses cell"); break;
-	case GET_CELL: fprintf(fp, "p (put) addresses cell"); break;
+        case INGRESS_NORTH: fprintf(fp, "ip enters from north"); break;
+        case INGRESS_SOUTH: fprintf(fp, "ip enters from south"); break;
+        case INGRESS_EAST: fprintf(fp, "ip enters from east"); break;
+        case INGRESS_WEST: fprintf(fp, "ip enters from west"); break;
+        case EGRESS_NORTH: fprintf(fp, "ip exits to north"); break;
+        case EGRESS_SOUTH: fprintf(fp, "ip exits to south"); break;
+        case EGRESS_EAST: fprintf(fp, "ip exits to east"); break;
+        case EGRESS_WEST: fprintf(fp, "ip exits to west"); break;
+        case PUT_CELL: fprintf(fp, "g (get) addresses cell"); break;
+        case GET_CELL: fprintf(fp, "p (put) addresses cell"); break;
       }
       fprintf(fp, "\n");
       maxprof = 0;
       {
-	for (y=0;y<PAGEHEIGHT;y++)
-	{
-	  for (x=0;x<LINEWIDTH;x++)
-	  {
-	    if (curprof(z) > maxprof) maxprof = curprof(z);
-	  }
-	}
-	for (y=0;y<PAGEHEIGHT;y++)
-	{
-	  for (x=0;x<LINEWIDTH;x++)
-	  {
-	    if (maxprof > 0)
-	    {
-	      c = '0' + ((curprof(z) * 10) / maxprof);
-	      if (curprof(z) == 0) c = '.';
-	      if (curprof(z) == maxprof) c = '*';
-	      if ((c > '9') && (c != '*') && (c != '.'))
-	      {
-		c = '*';
-	      }
-	      fprintf(fp, "%c", c);
-	    } else
-	    {
-	      fprintf(fp, ".");
-	    }
-	  }
-	  fprintf(fp, "\n");
-	}
+        for (y=0;y<PAGEHEIGHT;y++)
+        {
+          for (x=0;x<LINEWIDTH;x++)
+          {
+            if (curprof(z) > maxprof) maxprof = curprof(z);
+          }
+        }
+        for (y=0;y<PAGEHEIGHT;y++)
+        {
+          for (x=0;x<LINEWIDTH;x++)
+          {
+            if (maxprof > 0)
+            {
+              c = '0' + ((curprof(z) * 10) / maxprof);
+              if (curprof(z) == 0) c = '.';
+              if (curprof(z) == maxprof) c = '*';
+              if ((c > '9') && (c != '*') && (c != '.'))
+              {
+                c = '*';
+              }
+              fprintf(fp, "%c", c);
+            } else
+            {
+              fprintf(fp, ".");
+            }
+          }
+          fprintf(fp, "\n");
+        }
       }
       fprintf(fp, "END map %d\n", z + 1);
     }
@@ -661,18 +661,18 @@ int main (argc, argv)
     {
       for (x=0;x<LINEWIDTH;x++)
       {
-	int b=0;
-	if (curprof(INGRESS_NORTH) > 0) { b |= 0x08; }
-	if (curprof(INGRESS_SOUTH) > 0) { b |= 0x04; }
-	if (curprof(INGRESS_EAST) > 0) { b |= 0x02; }
-	if (curprof(INGRESS_WEST) > 0) { b |= 0x01; }
-	if (b)
-	{
-	  fprintf(fp, "%x", b);
-	} else
-	{
-	  fprintf(fp, ".");
-	}
+        int b=0;
+        if (curprof(INGRESS_NORTH) > 0) { b |= 0x08; }
+        if (curprof(INGRESS_SOUTH) > 0) { b |= 0x04; }
+        if (curprof(INGRESS_EAST) > 0) { b |= 0x02; }
+        if (curprof(INGRESS_WEST) > 0) { b |= 0x01; }
+        if (b)
+        {
+          fprintf(fp, "%x", b);
+        } else
+        {
+          fprintf(fp, ".");
+        }
       }
       fprintf(fp, "\n");
     }
@@ -685,18 +685,18 @@ int main (argc, argv)
     {
       for (x=0;x<LINEWIDTH;x++)
       {
-	int b=0;
-	if (curprof(EGRESS_NORTH) > 0) { b |= 0x08; }
-	if (curprof(EGRESS_SOUTH) > 0) { b |= 0x04; }
-	if (curprof(EGRESS_EAST) > 0) { b |= 0x02; }
-	if (curprof(EGRESS_WEST) > 0) { b |= 0x01; }
-	if (b)
-	{
-	  fprintf(fp, "%x", b);
-	} else
-	{
-	  fprintf(fp, ".");
-	}
+        int b=0;
+        if (curprof(EGRESS_NORTH) > 0) { b |= 0x08; }
+        if (curprof(EGRESS_SOUTH) > 0) { b |= 0x04; }
+        if (curprof(EGRESS_EAST) > 0) { b |= 0x02; }
+        if (curprof(EGRESS_WEST) > 0) { b |= 0x01; }
+        if (b)
+        {
+          fprintf(fp, "%x", b);
+        } else
+        {
+          fprintf(fp, ".");
+        }
       }
       fprintf(fp, "\n");
     }
@@ -709,33 +709,33 @@ int main (argc, argv)
     {
       for (x=0;x<LINEWIDTH;x++)
       {
-	int b=0;
-	if ((curprof(EGRESS_NORTH) > 0) ||
-	    (curprof(EGRESS_SOUTH) > 0) ||
-	    (curprof(EGRESS_EAST) > 0) ||
-	    (curprof(EGRESS_WEST) > 0) ||
-	    (curprof(INGRESS_NORTH) > 0) ||
-	    (curprof(INGRESS_SOUTH) > 0) ||
-	    (curprof(INGRESS_EAST) > 0) ||
-	    (curprof(INGRESS_WEST) > 0))
-	{
-	  b |= 0x01;
-	}
-	if (curprof(PUT_CELL) > 0)
-	{
-	  b |= 0x02;
-	}
-	if (curprof(GET_CELL) > 0)
-	{
-	  b |= 0x04;
-	}
-	if (b)
-	{
-	  fprintf(fp, "%x", b);
-	} else
-	{
-	  fprintf(fp, ".");
-	}
+        int b=0;
+        if ((curprof(EGRESS_NORTH) > 0) ||
+            (curprof(EGRESS_SOUTH) > 0) ||
+            (curprof(EGRESS_EAST) > 0) ||
+            (curprof(EGRESS_WEST) > 0) ||
+            (curprof(INGRESS_NORTH) > 0) ||
+            (curprof(INGRESS_SOUTH) > 0) ||
+            (curprof(INGRESS_EAST) > 0) ||
+            (curprof(INGRESS_WEST) > 0))
+        {
+          b |= 0x01;
+        }
+        if (curprof(PUT_CELL) > 0)
+        {
+          b |= 0x02;
+        }
+        if (curprof(GET_CELL) > 0)
+        {
+          b |= 0x04;
+        }
+        if (b)
+        {
+          fprintf(fp, "%x", b);
+        } else
+        {
+          fprintf(fp, ".");
+        }
       }
       fprintf(fp, "\n");
     }
