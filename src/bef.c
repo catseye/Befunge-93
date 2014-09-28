@@ -135,13 +135,6 @@
 
    ****************************************************************** */
 
-/********************************************************* #PRAGMA'S */
-
-/* This switches Borland C++ v3.1 to small memory model */
-#ifdef __BORLANDC__
-#pragma option -ms
-#endif /* __BORLANDC__ */
-
 /********************************************************* #INCLUDE'S */
 
 #include <stdio.h>
@@ -149,17 +142,15 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <time.h>
-#if defined(__BORLANDC__) || defined(__DJGPP__)
-#  define MSDOS 1
+#if defined(__TURBOC__) || defined(__BORLANDC__) || defined(__DJGPP__)
+  #define MSDOS 1
 #endif
 #ifdef MSDOS
 #  include <dos.h>
 #  include <conio.h>
 #  define CONSOLE 1
-#endif /* MSDOS */
-#ifdef __BORLANDC__
 #  define CURSORSHAPE 1
-#endif /* __BORLANDC__ */
+#endif /* MSDOS */
 #ifdef __GNUC__
 #  include <unistd.h>
 #endif /* __GNUC__ */
