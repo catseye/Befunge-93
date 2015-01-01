@@ -1,11 +1,11 @@
 /* ******************************************************************
 
    bef.c - The Original Befunge-93 Interpreter/Debugger in ANSI C
-   v2.23 Aug 25 2011 Chris Pressey, Cat's Eye Technologies
+   v2.23-and-then-some-TODO-describe-the-changes-then-bump-this
 
-   Copyright (c)1993-2012, Chris Pressey, Cat's Eye Technologies.
+   Copyright (c)1993-2015, Chris Pressey, Cat's Eye Technologies.
    All rights reserved.
- 
+
    Redistribution and use in source and binary forms, with or without
    modification, are permitted provided that the following conditions
    are met:
@@ -59,7 +59,6 @@
 
       Borland C++ v3.1   (16-bit MS-DOS)
       DJGPP v2.952       (32-bit Protected-Mode MS-DOS)
-      Mingw v2.
 
    ******************************************************************
 
