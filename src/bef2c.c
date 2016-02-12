@@ -80,7 +80,6 @@ int linewidth = 1;       /* 80 */
 int pageheight = 1;      /* 25 */
 
 #define cur pg[y * 80 + x]
-#define shrink(s) s[strlen(s)-1]=0
 
 #define RIGHT "_%2.2d_%2.2d_R"
 #define LEFT  "_%2.2d_%2.2d_L"
@@ -93,9 +92,9 @@ int pageheight = 1;      /* 25 */
 #define x_left   (x ? x-1 : linewidth-1)
 
 #define y_2down   (y+2)%pageheight
-#define y_2up     ((y>1) ? y-2 : ((pageheight-2)<0 ? 0 : (pageheight-2)))
+#define y_2up     ((y>1) ? y-2 : ((pageheight-2)<0 ? 0 : (y-2+pageheight)))
 #define x_2right  (x+2)%linewidth
-#define x_2left   ((x>1) ? x-2 : ((linewidth-2)<0 ? 0 : (linewidth-2)))
+#define x_2left   ((x>1) ? x-2 : ((linewidth-2)<0 ? 0 : (x-2+linewidth)))
 
 #define ALL RIGHT ": " LEFT ": " UP ": " DOWN ":\n"
 
@@ -156,27 +155,30 @@ int main (argc, argv)
     int x = 0, y = 0;
     while (!feof (fi))
     {
-      cur = fgetc (fi);
-      if ((x+1)>linewidth) linewidth=x+1;
-      if ((y+1)>pageheight) pageheight=y+1;
-      if (cur == '\n')
+      int ch = fgetc (fi);
+      if (ch == -1) break;
+      if (ch == '\n')
       {
-        cur = ' ';
         x = 0;
         y++;
         if (y >= 25) break;
+        else if (y > pageheight) pageheight=y;
       } else
       {
+        cur = ch;
         x++;
         if (x >= 80)
         {
           x = 0;
           y++;
           if (y >= 25) break;
+          else if (y > pageheight) pageheight=y;
+        } else if (x > linewidth)
+        {
+          linewidth = x;
         }
       }
     }
-    fclose (fi);
   } else
   {
     printf ("Error : couldn't open '%s' for input.\n", argv[argc - 1]);
@@ -209,13 +211,7 @@ int main (argc, argv)
   {
     for(x = 0; x < linewidth; x++)
     {
-      if (cur!='\\')
-      {
-        fprintf (fo, "  pg[%d]='%c';\n", y * 80 + x, cur);
-      } else
-      {
-        fprintf (fo, "  pg[%d]='%c%c';\n", y * 80 + x, cur, cur);
-      }
+      if (cur) fprintf (fo, "  pg[%d]=%d;\n", y * 80 + x, cur);
     }
   }
 
@@ -229,10 +225,10 @@ int main (argc, argv)
       {
         case '0': case '1': case '2': case '3': case '4':
         case '5': case '6': case '7': case '8': case '9':
-          fprintf(fo, RIGHT ": push(%c); goto " RIGHT ";\n", x, y, cur, x_right, y);
-          fprintf(fo, LEFT ": push(%c); goto " LEFT ";\n", x, y, cur, x_left, y);
-          fprintf(fo, UP ": push(%c); goto " UP ";\n", x, y, cur, x, y_up);
-          fprintf(fo, DOWN ": push(%c); goto " DOWN ";\n", x, y, cur, x, y_down);
+          fprintf(fo, RIGHT ": push(%d); goto " RIGHT ";\n", x, y, cur, x_right, y);
+          fprintf(fo, LEFT ": push(%d); goto " LEFT ";\n", x, y, cur, x_left, y);
+          fprintf(fo, UP ": push(%d); goto " UP ";\n", x, y, cur, x, y_up);
+          fprintf(fo, DOWN ": push(%d); goto " DOWN ";\n", x, y, cur, x, y_down);
           break;
         case '>':            /* PC Right */
           fprintf(fo, ALL, x, y, x, y, x, y, x, y);
@@ -271,7 +267,7 @@ int main (argc, argv)
           ECHO("a=pop();b=pop();push(b/a);");
           break;
         case '%':
-          sprintf(t, "a=pop();b=pop();push(b%ca);", '%');
+          sprintf(t, "a=pop();b=pop();push(b%%a);");
           fprintf(fo, RIGHT ": %s goto " RIGHT ";\n", x, y, t, x_right, y);
           fprintf(fo, LEFT ": %s goto " LEFT ";\n", x, y, t, x_left, y);
           fprintf(fo, UP ": %s goto " UP ";\n", x, y, t, x, y_up);
@@ -284,22 +280,22 @@ int main (argc, argv)
           ECHO("a=pop();push(a);push(a);");
           break;
         case '.':
-          fprintf(fo, RIGHT ": fprintf(stdout,\"%cld \",pop());fflush(stdout); goto " RIGHT ";\n", x, y, '%', x_right, y);
-          fprintf(fo, LEFT ": fprintf(stdout,\"%cld \",pop());fflush(stdout); goto " LEFT ";\n", x, y, '%', x_left, y);
-          fprintf(fo, UP ": fprintf(stdout,\"%cld \",pop());fflush(stdout); goto " UP ";\n", x, y, '%', x, y_up);
-          fprintf(fo, DOWN ": fprintf(stdout,\"%cld \",pop());fflush(stdout); goto " DOWN ";\n", x, y, '%', x, y_down);
+          fprintf(fo, RIGHT ": fprintf(stdout,\"%%ld \",pop());fflush(stdout); goto " RIGHT ";\n", x, y, x_right, y);
+          fprintf(fo, LEFT ": fprintf(stdout,\"%%ld \",pop());fflush(stdout); goto " LEFT ";\n", x, y, x_left, y);
+          fprintf(fo, UP ": fprintf(stdout,\"%%ld \",pop());fflush(stdout); goto " UP ";\n", x, y, x, y_up);
+          fprintf(fo, DOWN ": fprintf(stdout,\"%%ld \",pop());fflush(stdout); goto " DOWN ";\n", x, y, x, y_down);
           break;
         case ',':
-          fprintf(fo, RIGHT ": fprintf(stdout,\"%cc\",pop());fflush(stdout); goto " RIGHT ";\n", x, y, '%', x_right, y);
-          fprintf(fo, LEFT ": fprintf(stdout,\"%cc\",pop());fflush(stdout); goto " LEFT ";\n", x, y, '%', x_left, y);
-          fprintf(fo, UP ": fprintf(stdout,\"%cc\",pop());fflush(stdout); goto " UP ";\n", x, y, '%', x, y_up);
-          fprintf(fo, DOWN ": fprintf(stdout,\"%cc\",pop());fflush(stdout); goto " DOWN ";\n", x, y, '%', x, y_down);
+          fprintf(fo, RIGHT ": fprintf(stdout,\"%%c\",pop());fflush(stdout); goto " RIGHT ";\n", x, y, x_right, y);
+          fprintf(fo, LEFT ": fprintf(stdout,\"%%c\",pop());fflush(stdout); goto " LEFT ";\n", x, y, x_left, y);
+          fprintf(fo, UP ": fprintf(stdout,\"%%c\",pop());fflush(stdout); goto " UP ";\n", x, y, x, y_up);
+          fprintf(fo, DOWN ": fprintf(stdout,\"%%c\",pop());fflush(stdout); goto " DOWN ";\n", x, y, x, y_down);
           break;
         case '&':
-          fprintf(fo, RIGHT ": fscanf(stdin,\"%cld\",&b);push(b); goto " RIGHT ";\n", x, y, '%', x_right, y);
-          fprintf(fo, LEFT ": fscanf(stdin,\"%cld\",&b);push(b); goto " LEFT ";\n", x, y, '%', x_left, y);
-          fprintf(fo, UP ": fscanf(stdin,\"%cld\",&b);push(b); goto " UP ";\n", x, y, '%', x, y_up);
-          fprintf(fo, DOWN ": fscanf(stdin,\"%cld\",&b);push(b); goto " DOWN ";\n", x, y, '%', x, y_down);
+          fprintf(fo, RIGHT ": fscanf(stdin,\"%%ld\",&b);push(b); goto " RIGHT ";\n", x, y, x_right, y);
+          fprintf(fo, LEFT ": fscanf(stdin,\"%%ld\",&b);push(b); goto " LEFT ";\n", x, y, x_left, y);
+          fprintf(fo, UP ": fscanf(stdin,\"%%ld\",&b);push(b); goto " UP ";\n", x, y, x, y_up);
+          fprintf(fo, DOWN ": fscanf(stdin,\"%%ld\",&b);push(b); goto " DOWN ";\n", x, y, x, y_down);
           break;
         case '~':
           fprintf(fo, RIGHT ": c=fgetc(stdin);push(c); goto " RIGHT ";\n", x, y, x_right, y);
@@ -321,12 +317,12 @@ int main (argc, argv)
           break;
         case '?':
           fprintf(fo, ALL, x, y, x, y, x, y, x, y);
-          fprintf(fo, " switch ((rand () / 32) %c 4) \n"
+          fprintf(fo, " switch ((rand () / 32) %% 4) \n"
                       " { case 0: goto " RIGHT ";\n"
                       "   case 1: goto " LEFT ";\n"
                       "   case 2: goto " UP ";\n"
                       "   case 3: goto " DOWN "; }\n",
-                  '%', x_right, y, x_left, y, x, y_up, x, y_down);
+                  x_right, y, x_left, y, x, y_up, x, y_down);
           break;
         case '#':
           fprintf(fo, RIGHT ": goto " RIGHT ";\n", x, y, x_2right, y);
@@ -416,8 +412,8 @@ int main (argc, argv)
           }
         }
       }
-      fclose (fi);
-      fclose (fo);
+      if (fi) fclose (fi);
+      if (fo) fclose (fo);
       if ((fi = fopen ("temp.c", "r")) != NULL)
       {
         if ((fo = fopen (argv[argc - 1], "w")) != NULL)
