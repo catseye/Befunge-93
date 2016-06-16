@@ -1,0 +1,3 @@
+dcc src/bef.c -o bin/bef
+dcc src/befprof.c -o bin/befprof
+dcc src/bef2c.c -o bin/bef2c
