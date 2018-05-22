@@ -1,6 +1,5 @@
 syntax: glob
 
-_UAEFSDB.___
 bin/bef
 bin/befprof
 bin/bef2c
