@@ -557,14 +557,14 @@ int main (argc, argv)
       y += dy;
       if (x < 0)
       {
-        x = LINEWIDTH - 1;
+        x += LINEWIDTH;
       } else
       {
         x = x % LINEWIDTH;
       }
       if (y < 0)
       {
-        y = PAGEHEIGHT - 1;
+        y += PAGEHEIGHT;
       } else
       {
         y = y % PAGEHEIGHT;
