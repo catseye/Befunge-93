@@ -246,10 +246,10 @@ int main (argc, argv)
       {
         case '0': case '1': case '2': case '3': case '4':
         case '5': case '6': case '7': case '8': case '9':
-          fprintf(fo, RIGHT ": push(%d); goto " RIGHT ";\n", x, y, cur, x_right, y);
-          fprintf(fo, LEFT ": push(%d); goto " LEFT ";\n", x, y, cur, x_left, y);
-          fprintf(fo, UP ": push(%d); goto " UP ";\n", x, y, cur, x, y_up);
-          fprintf(fo, DOWN ": push(%d); goto " DOWN ";\n", x, y, cur, x, y_down);
+          fprintf(fo, RIGHT ": push(%c); goto " RIGHT ";\n", x, y, cur, x_right, y);
+          fprintf(fo, LEFT ": push(%c); goto " LEFT ";\n", x, y, cur, x_left, y);
+          fprintf(fo, UP ": push(%c); goto " UP ";\n", x, y, cur, x, y_up);
+          fprintf(fo, DOWN ": push(%c); goto " DOWN ";\n", x, y, cur, x, y_down);
           break;
         case '>':            /* PC Right */
           fprintf(fo, ALL, x, y, x, y, x, y, x, y);
