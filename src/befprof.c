@@ -59,6 +59,7 @@
    v1.0: circa Jun 2018
           handle trampoline at leftmost/topmost edges
             (thanks to https://github.com/serprex for this fix!)
+          exit with non-zero error code on error
 
    v0.94: Sep 2004, Chris Pressey
           cleanup only, no functional changes
@@ -168,7 +169,7 @@ int main (argc, argv)
   if ((pg == NULL) || (pgbuf == NULL))
   {
     printf ("Error: can't allocate %d bytes of memory.\n", LINEWIDTH * PAGEHEIGHT);
-    exit(0);
+    exit (1);
   }
   memset(pg, ' ', LINEWIDTH * PAGEHEIGHT);
   memset(pgbuf, ' ', LINEWIDTH * PAGEHEIGHT);
@@ -179,7 +180,7 @@ int main (argc, argv)
     if (prof[i] == NULL)
     {
       printf ("Error: can't allocate %lu bytes of memory.\n", (long)(LINEWIDTH * PAGEHEIGHT * sizeof(long int)));
-      exit(0);
+      exit (1);
     }
     memset(prof[i], 0, LINEWIDTH * PAGEHEIGHT * sizeof(long int));
   }
@@ -187,7 +188,7 @@ int main (argc, argv)
   if (argc < 2)
   {
     printf ("USAGE: befprof [-l] [-q] [-i] [-n count] [-r input] [-w foo.map] foo.bf\n");
-    exit (0);
+    exit (1);
   }
 
   strcpy(filename, argv[argc - 1]);
@@ -244,13 +245,13 @@ int main (argc, argv)
   } else
   {
     printf ("Error: couldn't open '%s' for input.\n", filename);
-    exit (0);
+    exit (1);
   }
 
   if (!(fp = fopen (mapfilename, "w")))
   {
     printf ("Error : couldn't open '%s' for output.\n", mapfilename);
-    exit (0);
+    exit (1);
   }
 
   while (rep <= reps)
@@ -269,7 +270,7 @@ int main (argc, argv)
       if (!(fi = fopen (argv[ia], "r")))
       {
         printf ("Error : couldn't open '%s' for input.\n", argv[ia]);
-        exit (0);
+        exit (1);
       }
     }
 
