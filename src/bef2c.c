@@ -312,7 +312,7 @@ int main (argc, argv)
           fprintf(fo, DOWN ": c=fgetc(stdin);push(c); goto " DOWN ";\n", x, y, x, y_down);
           break;
         case '"':  /* ha! */
-          ECHO("puts(\"Error: compiled Befunge does not support stringmode\n\");");
+          ECHO("puts(\"Error: compiled Befunge does not support stringmode\\n\");");
           break;
         case '!':
           ECHO("if(pop()) push(0); else push(1);");
