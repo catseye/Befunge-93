@@ -38,9 +38,8 @@
 
    Usage :
 
-   bef2c [-p] [-o] [-w width] [-h height] <befunge-source> <c-destination>
+   bef2c [-o] [-w width] [-h height] <befunge-source> <c-destination>
 
-     -p : suppress pre-optimization
      -o : suppress post-optimization
      -w : explicit width
      -h : explicit height
@@ -59,6 +58,8 @@
           - don't load NULs into playfield
           - use %% instead of %c with '%' being passed in
           - avoid freeing fo/fi on failure to open
+        removed -p flag as it is equivalent to
+          `-w 80 -h 25`, just use that instread
 
      v0.94: Sep 2004, Chris Pressey
         display correct version number
@@ -116,7 +117,6 @@ int pageheight = 1;      /* 25 */
 char in[255];
 char pg[2000];                   /* befunge 'page' of source */
 int x = 0, y = 0, d = 0;         /* loopers */
-int pre_optimize = 1;            /* flag: optimize before compile? */
 int post_optimize = 1;           /* flag: optimize after compile? */
 
 int labelrefs[8000];             /* postoptimization table */
@@ -153,7 +153,6 @@ int main (argc, argv)
   }
   for (i = 1; i < argc; i++)
   {
-    if (!strcmp(argv[i], "-p")) { pre_optimize = 0; linewidth=80; pageheight=25; }
     if (!strcmp(argv[i], "-o")) { post_optimize = 0; }
     if (!strcmp(argv[i], "-w")) { linewidth = atoi(argv[i+1]); }
     if (!strcmp(argv[i], "-h")) { pageheight = atoi(argv[i+1]); }
