@@ -59,7 +59,10 @@
           - use %% instead of %c with '%' being passed in
           - avoid freeing fo/fi on failure to open
         removed -p flag as it is equivalent to
-          `-w 80 -h 25`, just use that instread
+          `-w 80 -h 25`, just use that instead
+        show usage and exit if unrecognized command-line
+          options are given
+        exit with a non-zero exit code if an error occurs
 
      v0.94: Sep 2004, Chris Pressey
         display correct version number
@@ -198,13 +201,13 @@ int main (argc, argv)
   } else
   {
     printf ("Error : couldn't open '%s' for input.\n", argv[argc - 1]);
-    exit (0);
+    exit (1);
   }
 
   if (!(fo = fopen (argv[argc - 1], "w")))             /*** Output */
   {
     printf ("Error : couldn't open '%s' for output.\n", argv[argc - 1]);
-    exit (0);
+    exit (1);
   }
 
   printf ("Compiling");
