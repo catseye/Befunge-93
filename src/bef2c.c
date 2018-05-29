@@ -1,9 +1,8 @@
 /********************************************************************
 
    bef2c.c - Befunge-93 to ANSI C Compiler in ANSI C
-   v0.94 Sep 20 2004 Chris Pressey, Cat's-Eye Technologies
 
-   Copyright (c)1997-2012, Chris Pressey, Cat's Eye Technologies.
+   Copyright (c)1997-2018, Chris Pressey, Cat's Eye Technologies.
    All rights reserved.
  
    Redistribution and use in source and binary forms, with or without
@@ -49,8 +48,17 @@
    Known to Compile Under :
 
         Borland C++ v3.1 (DOS)
+        gcc 5.4.0 (Ubuntu 16.04)
 
    History:
+
+     v1.0: circa Jun 2018
+        fixes submitted by https://github.com/serprex (thanks!):
+          - avoid double free due to double fclose
+          - handle trampoline at leftmost/topmost edges
+          - don't load NULs into playfield
+          - use %% instead of %c with '%' being passed in
+          - avoid freeing fo/fi on failure to open
 
      v0.94: Sep 2004, Chris Pressey
         display correct version number
@@ -136,7 +144,7 @@ int main (argc, argv)
 
   srand (time (0));
 
-  printf ("Befunge-93 to ANSI C Compiler v0.94\n");
+  printf ("Befunge-93 to ANSI C Compiler v1.0\n");
 
   if (argc < 3)
   {

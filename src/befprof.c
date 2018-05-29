@@ -1,9 +1,8 @@
 /********************************************************************
 
    befprof.c - Befunge-93 Profiler
-   v0.94 Sep 20 2004 Chris Pressey, Cat's-Eye Technologies
 
-   Copyright (c)1998-2012, Chris Pressey, Cat's Eye Technologies.
+   Copyright (c)1998-2018, Chris Pressey, Cat's Eye Technologies.
    All rights reserved.
  
    Redistribution and use in source and binary forms, with or without
@@ -56,6 +55,10 @@
           so too many repetitions may cause them to wrap back to 0.
 
    ******************************************************************
+
+   v1.0: circa Jun 2018
+          handle trampoline at leftmost/topmost edges
+            (thanks to https://github.com/serprex for this fix!)
 
    v0.94: Sep 2004, Chris Pressey
           cleanup only, no functional changes
@@ -211,7 +214,7 @@ int main (argc, argv)
     if (!strcmp(argv[i], "-w")) { strcpy(mapfilename, argv[i + 1]); }
   }
 
-  printf ("Befunge-93 Profiler v0.94\n");
+  printf ("Befunge-93 Profiler v1.0\n");
 
   if ((f = fopen (filename, "r")) != NULL)             /*** Input Phase */
   {
