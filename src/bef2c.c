@@ -65,6 +65,9 @@
         show usage and exit if unrecognized command-line
           options are given
         exit with a non-zero exit code if an error occurs
+        when detecing pageheight, add one on the assumption
+          that the source does not end with a newline
+          (this lets some existing example programs compile)
 
      v0.94: Sep 2004, Chris Pressey
         display correct version number
@@ -206,12 +209,16 @@ int main (argc, argv)
     exit (1);
   }
 
+  /* Most Befunge-93 sources do not end with a newline.  Therefore: */
+  if (pageheight < 25) pageheight++;
+
   if (!(fo = fopen (argv[argc - 1], "w")))             /*** Output */
   {
     printf ("Error : couldn't open '%s' for output.\n", argv[argc - 1]);
     exit (1);
   }
 
+  printf ("Loaded %d columns by %d rows.\n", linewidth, pageheight);
   printf ("Compiling");
 
   fprintf (fo, "/* %s converted to ANSI C from %s by bef2c */\n",
