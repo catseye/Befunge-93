@@ -38,9 +38,9 @@
 
    Usage :
 
-   bef2c [-o] [-w width] [-h height] <befunge-source> <c-destination>
+   bef2c [-O] [-w width] [-h height] <befunge-source> <c-destination>
 
-     -o : suppress post-optimization
+     -O : enable [buggy] post-optimization phase
      -w : explicit width
      -h : explicit height
 
@@ -60,6 +60,8 @@
           - avoid freeing fo/fi on failure to open
         removed -p flag as it is equivalent to
           `-w 80 -h 25`, just use that instead
+        replaced -o (disable post-optimization) flag
+          with -O (enable post-optimization) because buggy
         show usage and exit if unrecognized command-line
           options are given
         exit with a non-zero exit code if an error occurs
@@ -120,7 +122,7 @@ int pageheight = 1;      /* 25 */
 char in[255];
 char pg[2000];                   /* befunge 'page' of source */
 int x = 0, y = 0, d = 0;         /* loopers */
-int post_optimize = 1;           /* flag: optimize after compile? */
+int post_optimize = 0;           /* flag: optimize after compile? */
 
 int labelrefs[8000];             /* postoptimization table */
 char s[255];
@@ -135,7 +137,7 @@ int main (int, char **);
 
 void usage(char *e)
 {
-  printf ("USAGE : %s [-o] [-w width] [-h height] <befunge-source> <c-destination>\n", e);
+  printf ("USAGE : %s [-O] [-w width] [-h height] <befunge-source> <c-destination>\n", e);
   exit (1);
 }
 
@@ -163,7 +165,7 @@ int main (argc, argv)
   {
     if (argv[i][0] == '-')
     {
-      if (!strcmp(argv[i], "-o")) { post_optimize = 0; }
+      if (!strcmp(argv[i], "-O")) { post_optimize = 1; }
       else if (!strcmp(argv[i], "-w")) { linewidth = atoi(argv[i+1]); }
       else if (!strcmp(argv[i], "-h")) { pageheight = atoi(argv[i+1]); }
       else usage(argv[0]);
