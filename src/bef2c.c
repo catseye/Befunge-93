@@ -125,7 +125,16 @@ char t[255];
 
 /********************************************************* PROTOTYPES */
 
+void usage(char *);
 int main (int, char **);
+
+/********************************************************** FUNCTIONS */
+
+void usage(char *e)
+{
+  printf ("USAGE : %s [-o] [-w width] [-h height] <befunge-source> <c-destination>\n", e);
+  exit (1);
+}
 
 /******************************************************* MAIN PROGRAM */
 
@@ -146,16 +155,16 @@ int main (argc, argv)
 
   printf ("Befunge-93 to ANSI C Compiler v1.0\n");
 
-  if (argc < 3)
-  {
-    printf ("USAGE : %s [-p] [-o] [-w width] [-h height] <befunge-source> <c-destination>\n", argv[0]);
-    exit (0);
-  }
+  if (argc < 3) usage(argv[0]);
   for (i = 1; i < argc; i++)
   {
-    if (!strcmp(argv[i], "-o")) { post_optimize = 0; }
-    if (!strcmp(argv[i], "-w")) { linewidth = atoi(argv[i+1]); }
-    if (!strcmp(argv[i], "-h")) { pageheight = atoi(argv[i+1]); }
+    if (argv[i][0] == '-')
+    {
+      if (!strcmp(argv[i], "-o")) { post_optimize = 0; }
+      else if (!strcmp(argv[i], "-w")) { linewidth = atoi(argv[i+1]); }
+      else if (!strcmp(argv[i], "-h")) { pageheight = atoi(argv[i+1]); }
+      else usage(argv[0]);
+    }
   }
   if ((fi = fopen (argv[argc - 2], "r")) != NULL)             /*** Input Phase */
   {
