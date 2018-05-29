@@ -60,6 +60,7 @@
           handle trampoline at leftmost/topmost edges
             (thanks to https://github.com/serprex for this fix!)
           exit with non-zero error code on error
+          remove unimplemented -q option from usage help text
 
    v0.94: Sep 2004, Chris Pressey
           cleanup only, no functional changes
@@ -187,7 +188,7 @@ int main (argc, argv)
 
   if (argc < 2)
   {
-    printf ("USAGE: befprof [-l] [-q] [-i] [-n count] [-r input] [-w foo.map] foo.bf\n");
+    printf ("USAGE: befprof [-l] [-i] [-n count] [-r input] [-w foo.map] foo.bf\n");
     exit (1);
   }
 
