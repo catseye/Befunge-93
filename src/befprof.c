@@ -61,6 +61,7 @@
             (thanks to https://github.com/serprex for this fix!)
           exit with non-zero error code on error
           remove unimplemented -q option from usage help text
+          don't load invalid (past-EOF) bytes into playfield
 
    v0.94: Sep 2004, Chris Pressey
           cleanup only, no functional changes
@@ -225,6 +226,11 @@ int main (argc, argv)
     while (!feof (f))
     {
       curbuf = fgetc (f);
+      if (feof (f))
+      {
+        curbuf = ' ';
+        break;
+      }
       if (curbuf == '\n')
       {
         curbuf = ' ';
