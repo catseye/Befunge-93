@@ -1,0 +1,12 @@
+;
+; To build the Befunge-93 reference executables using DICE C
+; under AmigaDOS 1.3, you can either run
+;
+;   protect build.seq srwd
+;   build.seq
+;
+; or you can simply type the following commands into the shell:
+;
+dcc src/bef.c -o bin/bef
+dcc src/befprof.c -o bin/befprof
+;dcc src/bef2c.c -o bin/bef2c    ; DICE C can't handle this one.
