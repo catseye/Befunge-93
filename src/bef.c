@@ -1,9 +1,9 @@
 /* ******************************************************************
 
    bef.c - The Original Befunge-93 Interpreter/Debugger in ANSI C
-   v2.23-and-then-some-TODO-describe-the-changes-then-bump-this
+   v2.24
 
-   Copyright (c)1993-2015, Chris Pressey, Cat's Eye Technologies.
+   Copyright (c)1993-2018, Chris Pressey, Cat's Eye Technologies.
    All rights reserved.
 
    Redistribution and use in source and binary forms, with or without
@@ -39,12 +39,13 @@
 
    Usage :
 
-   bef [-d] [-o] [-q] [-i] [-=] [-l] [-t]
+   bef [-d] [-o] [-u] [-q] [-i] [-=] [-l] [-t]
        [-r input-file] [-w output-file]
        [-s stack-file] [-y delay] <befunge-source>
 
       -d: visual ANSI debugging display
       -o: do not fix off-by-one error (for old sources)
+      -u: & on error or EOF is undefined, not -1 (backwards compat)
       -q: produce no output except Befunge program output ('quiet')
       -i: ignore unsupported instructions
       -=: use b97-ish = directives
@@ -61,6 +62,12 @@
       DJGPP v2.952       (32-bit Protected-Mode MS-DOS)
 
    ******************************************************************
+
+   v2.24: Summer 2018, Chris Pressey
+          when & encounters an error or EOF condition it pushes
+            -1 onto the stack instead of an undefined value;
+            added -u option to retain old behaviour in this case
+            (thanks to James Holderness for noticing and suggesting)
 
    v2.23: Aug 2012, Chris Pressey
           delay given with -y now actually happens when compiled
@@ -123,6 +130,7 @@
    v2.00: Jun 1997, Chris Pressey
           combines interpreter and debugger.
           fixes ANSI error in debugger.
+
    v1.02: Feb 1996, Chris Pressey
           @ now pushes '@' onto the stack in stringmode instead of quitting.
 
@@ -192,6 +200,7 @@ int stackfile = 0, sa;           /* flag : use stack log file, & assoc arg? */
 int stringmode = 0;              /* flag : are we in string mode? */
 int quiet = 0;                   /* flag : are we quiet? */
 int v10err_compat = 0;           /* flag : emulate v1.0 off-by-one err? */
+int undef_input_int = 0;         /* flag : undefined value on "&" err/EOF? */
 int deldur = 25;                 /* debugging delay in milliseconds */
 int ignore_unsupported = 0;      /* flag : ignore unsupported instructions? */
 int use_b97directives = 0;       /* flag : use b97-esque directives? */
@@ -233,6 +242,7 @@ int main (argc, argv)
   {
     if (argv[i][0] == '-') {
       if (!strcmp(argv[i], "-o")) { v10err_compat = 1; }
+      else if (!strcmp(argv[i], "-u")) { undef_input_int = 1; }
       else if (!strcmp(argv[i], "-d")) { debug = 1; }
       else if (!strcmp(argv[i], "-r")) { infile = 1; ia = i + 1; }
       else if (!strcmp(argv[i], "-w")) { outfile = 1; oa = i + 1; }
@@ -252,7 +262,7 @@ int main (argc, argv)
   }
   if (!quiet)
   {
-    printf ("Befunge-93 Interpreter/Debugger v2.23\n");
+    printf ("Befunge-93 Interpreter/Debugger v2.24\n");
   }
 
   memset(pg, ' ', LINEWIDTH * PAGEHEIGHT);
@@ -661,6 +671,9 @@ int main (argc, argv)
            case '&':            /* Input Integer */
              {
                signed long b;
+               if (!undef_input_int) {
+                 b = -1;
+               }
                if (infile)
                {
                  fscanf (fi, "%ld", &b);
@@ -677,6 +690,9 @@ int main (argc, argv)
                    int x, y;
                    long int p;
                    char t[172];
+                   if (!undef_input_int) {
+                     p = -1;
+                   }
                    x = wherex();
                    y = wherey();
                    gettext(10, DEBUGROW, 80, DEBUGROW, t);
@@ -905,7 +921,7 @@ signed long pop ()
 
 void usage ()
 {
-  printf ("USAGE: bef [-d] [-o] [-q] [-i] [-=] [-l] [-t]\n");
+  printf ("USAGE: bef [-d] [-o] [-u] [-q] [-i] [-=] [-l] [-t]\n");
   printf ("           [-r input] [-w output] [-s stack] [-y delay] foo.bf\n");
   exit (1);
 }
