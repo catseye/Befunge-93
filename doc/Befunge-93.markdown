@@ -10,8 +10,9 @@ Befunge-93 Documentation
 Chris Pressey, Cat's Eye Technologies  
 *Original document September, 1993*  
 *Updated December, 1996*  
-*Updated Yet Again September, 2004*
-*Converted from HTML to Markdown August 2012*
+*Updated Yet Again September, 2004*  
+*Converted from HTML to Markdown August 2012*  
+*Updated for Silver Jubilee, 2018*
 
 ### The Basics of Befunge-93 ###
 
@@ -252,13 +253,13 @@ the same value as was put there with the `p` instruction.
     : (dup)         <value>                 <value> <value>
     \ (swap)        <value1> <value2>       <value2> <value1>
     $ (pop)         <value>                 pops <value> but does nothing
-    . (pop)         <value>                 outputs <value> as integer
-    , (pop)         <value>                 outputs <value> as ASCII
+    . (output int)  <value>                 outputs <value> as integer
+    , (output char) <value>                 outputs <value> as ASCII
     # (bridge)                              'jumps' PC one farther; skips
                                             over next command
     g (get)         <x> <y>                 <value at (x,y)>
     p (put)         <value> <x> <y>         puts <value> at (x,y)
-    & (input value)                         <value user entered>
+    & (input int)                           <value user entered>
     ~ (input character)                     <character user entered>
     @ (end)                                 ends program
 
