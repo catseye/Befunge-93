@@ -54,6 +54,10 @@ information.
 
   [chars.bf](chars.bf)                   Kalyna Zazelenchuk    1/1/93     Generates a printable ASCII table, with characters and corresponding codes in decimal, from 34 to 127.
 
+  [chars2.bf](chars2.bf)                 ???                   ?/?/9?     Modified version of chars.bf that was distributed as chars.bf for the longest time. Outputs all chars on 1 line. Program is 3 rows tall instead of 2. Unclear who made these modifications, or why.
+
+  [chars3.bf](chars3.bf)                 Chris Pressey         5/29/118   Modified version of chars2.bf that does not use stringmode and thus can be compiled by bef2c.
+
   [copyme.bf](copyme.bf)       CC0       Wim Rijnders          6/5/97     Program which reproduces itself in Befunge-space.
 
   [digitalr.bf](digitalr.bf)             Keymaker              9/3/08     Computes the digital root (see numer.bf) of the input.
