@@ -1,9 +1,8 @@
 /********************************************************************
 
    bef2c.c - Befunge-93 to ANSI C Compiler in ANSI C
-   v0.94 Sep 20 2004 Chris Pressey, Cat's-Eye Technologies
 
-   Copyright (c)1997-2012, Chris Pressey, Cat's Eye Technologies.
+   Copyright (c)1997-2018, Chris Pressey, Cat's Eye Technologies.
    All rights reserved.
  
    Redistribution and use in source and binary forms, with or without
@@ -39,18 +38,36 @@
 
    Usage :
 
-   bef2c [-p] [-o] [-w width] [-h height] <befunge-source> <c-destination>
+   bef2c [-O] [-w width] [-h height] <befunge-source> <c-destination>
 
-     -p : suppress pre-optimization
-     -o : suppress post-optimization
+     -O : enable [buggy] post-optimization phase
      -w : explicit width
      -h : explicit height
 
    Known to Compile Under :
 
         Borland C++ v3.1 (DOS)
+        gcc 5.4.0 (Ubuntu 16.04)
 
    History:
+
+     v1.0: circa Jun 2018
+        fixes submitted by https://github.com/serprex (thanks!):
+          - avoid double free due to double fclose
+          - handle trampoline at leftmost/topmost edges
+          - don't load NULs into playfield
+          - use %% instead of %c with '%' being passed in
+          - avoid freeing fo/fi on failure to open
+        removed -p flag as it is equivalent to
+          `-w 80 -h 25`, just use that instead
+        replaced -o (disable post-optimization) flag
+          with -O (enable post-optimization) because buggy
+        show usage and exit if unrecognized command-line
+          options are given
+        exit with a non-zero exit code if an error occurs
+        when detecing pageheight, add one on the assumption
+          that the source does not end with a newline
+          (this lets some existing example programs compile)
 
      v0.94: Sep 2004, Chris Pressey
         display correct version number
@@ -80,7 +97,6 @@ int linewidth = 1;       /* 80 */
 int pageheight = 1;      /* 25 */
 
 #define cur pg[y * 80 + x]
-#define shrink(s) s[strlen(s)-1]=0
 
 #define RIGHT "_%2.2d_%2.2d_R"
 #define LEFT  "_%2.2d_%2.2d_L"
@@ -93,9 +109,9 @@ int pageheight = 1;      /* 25 */
 #define x_left   (x ? x-1 : linewidth-1)
 
 #define y_2down   (y+2)%pageheight
-#define y_2up     ((y>1) ? y-2 : ((pageheight-2)<0 ? 0 : (pageheight-2)))
+#define y_2up     ((y>1) ? y-2 : ((pageheight-2)<0 ? 0 : (y-2+pageheight)))
 #define x_2right  (x+2)%linewidth
-#define x_2left   ((x>1) ? x-2 : ((linewidth-2)<0 ? 0 : (linewidth-2)))
+#define x_2left   ((x>1) ? x-2 : ((linewidth-2)<0 ? 0 : (x-2+linewidth)))
 
 #define ALL RIGHT ": " LEFT ": " UP ": " DOWN ":\n"
 
@@ -109,8 +125,7 @@ int pageheight = 1;      /* 25 */
 char in[255];
 char pg[2000];                   /* befunge 'page' of source */
 int x = 0, y = 0, d = 0;         /* loopers */
-int pre_optimize = 1;            /* flag: optimize before compile? */
-int post_optimize = 1;           /* flag: optimize after compile? */
+int post_optimize = 0;           /* flag: optimize after compile? */
 
 int labelrefs[8000];             /* postoptimization table */
 char s[255];
@@ -118,7 +133,16 @@ char t[255];
 
 /********************************************************* PROTOTYPES */
 
+void usage(char *);
 int main (int, char **);
+
+/********************************************************** FUNCTIONS */
+
+void usage(char *e)
+{
+  printf ("USAGE : %s [-O] [-w width] [-h height] <befunge-source> <c-destination>\n", e);
+  exit (1);
+}
 
 /******************************************************* MAIN PROGRAM */
 
@@ -137,58 +161,64 @@ int main (argc, argv)
 
   srand (time (0));
 
-  printf ("Befunge-93 to ANSI C Compiler v0.94\n");
+  printf ("Befunge-93 to ANSI C Compiler v1.0\n");
 
-  if (argc < 3)
-  {
-    printf ("USAGE : %s [-p] [-o] [-w width] [-h height] <befunge-source> <c-destination>\n", argv[0]);
-    exit (0);
-  }
+  if (argc < 3) usage(argv[0]);
   for (i = 1; i < argc; i++)
   {
-    if (!strcmp(argv[i], "-p")) { pre_optimize = 0; linewidth=80; pageheight=25; }
-    if (!strcmp(argv[i], "-o")) { post_optimize = 0; }
-    if (!strcmp(argv[i], "-w")) { linewidth = atoi(argv[i+1]); }
-    if (!strcmp(argv[i], "-h")) { pageheight = atoi(argv[i+1]); }
+    if (argv[i][0] == '-')
+    {
+      if (!strcmp(argv[i], "-O")) { post_optimize = 1; }
+      else if (!strcmp(argv[i], "-w")) { linewidth = atoi(argv[i+1]); }
+      else if (!strcmp(argv[i], "-h")) { pageheight = atoi(argv[i+1]); }
+      else usage(argv[0]);
+    }
   }
   if ((fi = fopen (argv[argc - 2], "r")) != NULL)             /*** Input Phase */
   {
     int x = 0, y = 0;
     while (!feof (fi))
     {
-      cur = fgetc (fi);
-      if ((x+1)>linewidth) linewidth=x+1;
-      if ((y+1)>pageheight) pageheight=y+1;
-      if (cur == '\n')
+      int ch = fgetc (fi);
+      if (ch == -1) break;
+      if (ch == '\n')
       {
-        cur = ' ';
         x = 0;
         y++;
         if (y >= 25) break;
+        else if (y > pageheight) pageheight=y;
       } else
       {
+        cur = ch;
         x++;
         if (x >= 80)
         {
           x = 0;
           y++;
           if (y >= 25) break;
+          else if (y > pageheight) pageheight=y;
+        } else if (x > linewidth)
+        {
+          linewidth = x;
         }
       }
     }
-    fclose (fi);
   } else
   {
     printf ("Error : couldn't open '%s' for input.\n", argv[argc - 1]);
-    exit (0);
+    exit (1);
   }
+
+  /* Most Befunge-93 sources do not end with a newline.  Therefore: */
+  if (pageheight < 25) pageheight++;
 
   if (!(fo = fopen (argv[argc - 1], "w")))             /*** Output */
   {
     printf ("Error : couldn't open '%s' for output.\n", argv[argc - 1]);
-    exit (0);
+    exit (1);
   }
 
+  printf ("Loaded %d columns by %d rows.\n", linewidth, pageheight);
   printf ("Compiling");
 
   fprintf (fo, "/* %s converted to ANSI C from %s by bef2c */\n",
@@ -209,13 +239,7 @@ int main (argc, argv)
   {
     for(x = 0; x < linewidth; x++)
     {
-      if (cur!='\\')
-      {
-        fprintf (fo, "  pg[%d]='%c';\n", y * 80 + x, cur);
-      } else
-      {
-        fprintf (fo, "  pg[%d]='%c%c';\n", y * 80 + x, cur, cur);
-      }
+      if (cur) fprintf (fo, "  pg[%d]=%d;\n", y * 80 + x, cur);
     }
   }
 
@@ -271,7 +295,7 @@ int main (argc, argv)
           ECHO("a=pop();b=pop();push(b/a);");
           break;
         case '%':
-          sprintf(t, "a=pop();b=pop();push(b%ca);", '%');
+          sprintf(t, "a=pop();b=pop();push(b%%a);");
           fprintf(fo, RIGHT ": %s goto " RIGHT ";\n", x, y, t, x_right, y);
           fprintf(fo, LEFT ": %s goto " LEFT ";\n", x, y, t, x_left, y);
           fprintf(fo, UP ": %s goto " UP ";\n", x, y, t, x, y_up);
@@ -284,22 +308,22 @@ int main (argc, argv)
           ECHO("a=pop();push(a);push(a);");
           break;
         case '.':
-          fprintf(fo, RIGHT ": fprintf(stdout,\"%cld \",pop());fflush(stdout); goto " RIGHT ";\n", x, y, '%', x_right, y);
-          fprintf(fo, LEFT ": fprintf(stdout,\"%cld \",pop());fflush(stdout); goto " LEFT ";\n", x, y, '%', x_left, y);
-          fprintf(fo, UP ": fprintf(stdout,\"%cld \",pop());fflush(stdout); goto " UP ";\n", x, y, '%', x, y_up);
-          fprintf(fo, DOWN ": fprintf(stdout,\"%cld \",pop());fflush(stdout); goto " DOWN ";\n", x, y, '%', x, y_down);
+          fprintf(fo, RIGHT ": fprintf(stdout,\"%%ld \",pop());fflush(stdout); goto " RIGHT ";\n", x, y, x_right, y);
+          fprintf(fo, LEFT ": fprintf(stdout,\"%%ld \",pop());fflush(stdout); goto " LEFT ";\n", x, y, x_left, y);
+          fprintf(fo, UP ": fprintf(stdout,\"%%ld \",pop());fflush(stdout); goto " UP ";\n", x, y, x, y_up);
+          fprintf(fo, DOWN ": fprintf(stdout,\"%%ld \",pop());fflush(stdout); goto " DOWN ";\n", x, y, x, y_down);
           break;
         case ',':
-          fprintf(fo, RIGHT ": fprintf(stdout,\"%cc\",pop());fflush(stdout); goto " RIGHT ";\n", x, y, '%', x_right, y);
-          fprintf(fo, LEFT ": fprintf(stdout,\"%cc\",pop());fflush(stdout); goto " LEFT ";\n", x, y, '%', x_left, y);
-          fprintf(fo, UP ": fprintf(stdout,\"%cc\",pop());fflush(stdout); goto " UP ";\n", x, y, '%', x, y_up);
-          fprintf(fo, DOWN ": fprintf(stdout,\"%cc\",pop());fflush(stdout); goto " DOWN ";\n", x, y, '%', x, y_down);
+          fprintf(fo, RIGHT ": fprintf(stdout,\"%%c\",pop());fflush(stdout); goto " RIGHT ";\n", x, y, x_right, y);
+          fprintf(fo, LEFT ": fprintf(stdout,\"%%c\",pop());fflush(stdout); goto " LEFT ";\n", x, y, x_left, y);
+          fprintf(fo, UP ": fprintf(stdout,\"%%c\",pop());fflush(stdout); goto " UP ";\n", x, y, x, y_up);
+          fprintf(fo, DOWN ": fprintf(stdout,\"%%c\",pop());fflush(stdout); goto " DOWN ";\n", x, y, x, y_down);
           break;
         case '&':
-          fprintf(fo, RIGHT ": fscanf(stdin,\"%cld\",&b);push(b); goto " RIGHT ";\n", x, y, '%', x_right, y);
-          fprintf(fo, LEFT ": fscanf(stdin,\"%cld\",&b);push(b); goto " LEFT ";\n", x, y, '%', x_left, y);
-          fprintf(fo, UP ": fscanf(stdin,\"%cld\",&b);push(b); goto " UP ";\n", x, y, '%', x, y_up);
-          fprintf(fo, DOWN ": fscanf(stdin,\"%cld\",&b);push(b); goto " DOWN ";\n", x, y, '%', x, y_down);
+          fprintf(fo, RIGHT ": fscanf(stdin,\"%%ld\",&b);push(b); goto " RIGHT ";\n", x, y, x_right, y);
+          fprintf(fo, LEFT ": fscanf(stdin,\"%%ld\",&b);push(b); goto " LEFT ";\n", x, y, x_left, y);
+          fprintf(fo, UP ": fscanf(stdin,\"%%ld\",&b);push(b); goto " UP ";\n", x, y, x, y_up);
+          fprintf(fo, DOWN ": fscanf(stdin,\"%%ld\",&b);push(b); goto " DOWN ";\n", x, y, x, y_down);
           break;
         case '~':
           fprintf(fo, RIGHT ": c=fgetc(stdin);push(c); goto " RIGHT ";\n", x, y, x_right, y);
@@ -308,7 +332,7 @@ int main (argc, argv)
           fprintf(fo, DOWN ": c=fgetc(stdin);push(c); goto " DOWN ";\n", x, y, x, y_down);
           break;
         case '"':  /* ha! */
-          ECHO("puts(\"Error: compiled Befunge does not support stringmode\n\");");
+          ECHO("puts(\"Error: compiled Befunge does not support stringmode\\n\");");
           break;
         case '!':
           ECHO("if(pop()) push(0); else push(1);");
@@ -321,12 +345,12 @@ int main (argc, argv)
           break;
         case '?':
           fprintf(fo, ALL, x, y, x, y, x, y, x, y);
-          fprintf(fo, " switch ((rand () / 32) %c 4) \n"
+          fprintf(fo, " switch ((rand () / 32) %% 4) \n"
                       " { case 0: goto " RIGHT ";\n"
                       "   case 1: goto " LEFT ";\n"
                       "   case 2: goto " UP ";\n"
                       "   case 3: goto " DOWN "; }\n",
-                  '%', x_right, y, x_left, y, x, y_up, x, y_down);
+                  x_right, y, x_left, y, x, y_up, x, y_down);
           break;
         case '#':
           fprintf(fo, RIGHT ": goto " RIGHT ";\n", x, y, x_2right, y);
@@ -416,8 +440,8 @@ int main (argc, argv)
           }
         }
       }
-      fclose (fi);
-      fclose (fo);
+      if (fi) fclose (fi);
+      if (fo) fclose (fo);
       if ((fi = fopen ("temp.c", "r")) != NULL)
       {
         if ((fo = fopen (argv[argc - 1], "w")) != NULL)
