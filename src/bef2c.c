@@ -46,8 +46,15 @@
 
    Known to Compile Under :
 
-        Borland C++ v3.1 (DOS)
         gcc 5.4.0 (Ubuntu 16.04)
+
+   Has, in the Past, been Known to Compile Under:
+
+        Borland C++ v3.1 (16-bit MS-DOS)
+        DJGPP v2.952 (32-bit Protected-Mode MS-DOS)
+        Metroworks CodeWarrior (MacOS)
+
+   ******************************************************************
 
    History:
 

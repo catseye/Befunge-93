@@ -54,7 +54,20 @@
           although note that cells are stored as 2-byte words,
           so too many repetitions may cause them to wrap back to 0.
 
+   Known to Compile Under :
+
+        gcc 5.4.0 (Ubuntu 16.04)
+
+   Has, in the Past, been Known to Compile Under:
+
+        DICE C 3.15 (AmigaDOS 1.3)
+        Borland C++ v3.1 (16-bit MS-DOS)
+        DJGPP v2.952 (32-bit Protected-Mode MS-DOS)
+        Metroworks CodeWarrior (MacOS)
+
    ******************************************************************
+
+   History:
 
    v1.0: circa Jun 2018
           handle trampoline at leftmost/topmost edges

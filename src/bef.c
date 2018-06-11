@@ -56,12 +56,20 @@
       -s: write contents of stack to log file
       -y: specify debugging delay in milliseconds
 
-   Compiles Under:
+   Known to Compile Under :
 
-      Borland C++ v3.1   (16-bit MS-DOS)
-      DJGPP v2.952       (32-bit Protected-Mode MS-DOS)
+        gcc 5.4.0 (Ubuntu 16.04)
+
+   Has, in the Past, been Known to Compile Under:
+
+        DICE C 3.15 (AmigaDOS 1.3)
+        Borland C++ v3.1 (16-bit MS-DOS)
+        DJGPP v2.952 (32-bit Protected-Mode MS-DOS)
+        Metroworks CodeWarrior (MacOS)
 
    ******************************************************************
+
+   History:
 
    v2.24: Summer 2018, Chris Pressey
           when & encounters an error or EOF condition it pushes
