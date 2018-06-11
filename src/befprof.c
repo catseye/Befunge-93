@@ -57,10 +57,10 @@
    Known to Compile Under :
 
         gcc 5.4.0 (Ubuntu 16.04)
+        DICE C 3.15 (AmigaDOS 1.3)
 
    Has, in the Past, been Known to Compile Under:
 
-        DICE C 3.15 (AmigaDOS 1.3)
         Borland C++ v3.1 (16-bit MS-DOS)
         DJGPP v2.952 (32-bit Protected-Mode MS-DOS)
         Metroworks CodeWarrior (MacOS)
