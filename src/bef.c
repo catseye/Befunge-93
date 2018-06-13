@@ -60,10 +60,11 @@
 
         gcc 5.4.0 (Ubuntu 16.04)
         DICE C 3.15 (AmigaDOS 1.3)
-        DJGPP 2.05 gcc 8.1.0 (32-bit Protected-Mode MS-DOS)
+        DJGPP 2.05 gcc 8.1.0 (32-bit Protected-Mode FreeDOS 1.1)
 
    Has, in the Past, been Known to Compile Under:
 
+        gcc 4.5.3 (NetBSD 6.1.4)
         Borland C++ v3.1 (16-bit MS-DOS)
         Metroworks CodeWarrior (MacOS)
 
