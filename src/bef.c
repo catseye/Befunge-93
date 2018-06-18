@@ -66,7 +66,7 @@
 
         gcc 4.5.3 (NetBSD 6.1.4)
         Borland C++ v3.1 (16-bit MS-DOS)
-        Metroworks CodeWarrior (MacOS)
+        Metrowerks CodeWarrior (MacOS)
 
    ******************************************************************
 
@@ -102,7 +102,7 @@
 
    v2.20, Jul 2000, Chris Pressey
           prettied up preprocessor directives a bit
-          added defines for Metroworks CodeWarrior
+          added defines for Metrowerks CodeWarrior
             so that bef will build on MacOS
           relicensed under BSD
 
