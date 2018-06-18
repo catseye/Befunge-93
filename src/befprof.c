@@ -76,6 +76,8 @@
           exit with non-zero error code on error
           remove unimplemented -q option from usage help text
           don't load invalid (past-EOF) bytes into playfield
+          default to Large memory model for Borland C compilers
+            ("small" is too small, and "compact" crashes)
 
    v0.94: Sep 2004, Chris Pressey
           cleanup only, no functional changes
@@ -92,9 +94,11 @@
 
 /********************************************************* #PRAGMA'S */
 
-/* This switches Borland C++ v3.1 to compact memory model, which doesn't crash */
+/* This selects the "large" memory model so that, when compiled to
+   x86 real mode (DOS or Windows), we can access more than 64K of data.
+   (Used to be "compact" but that leads to crashes for some reason.) */
 #ifdef __BORLANDC__
-#pragma option -mc
+#pragma option -ml
 #endif
 
 /********************************************************* #INCLUDE'S */
