@@ -54,7 +54,22 @@
           although note that cells are stored as 2-byte words,
           so too many repetitions may cause them to wrap back to 0.
 
+   Known to Compile Under :
+
+        gcc 5.4.0 (Ubuntu 16.04)
+        gcc 4.5.3 (NetBSD 6.1.5)
+        DICE C 3.15 (AmigaDOS 1.3)
+        DJGPP 2.05 gcc 8.1.0 (32-bit Protected-Mode, FreeDOS 1.1)
+        Borland C++ v3.1 (16-bit, FreeDOS 1.1)
+          (NOTE: use "compact" or "large" memory model!)
+
+   Has, in the Past, been Known to Compile Under:
+
+        Metrowerks CodeWarrior (MacOS)
+
    ******************************************************************
+
+   History:
 
    v1.0: circa Jun 2018
           handle trampoline at leftmost/topmost edges
@@ -67,7 +82,7 @@
           cleanup only, no functional changes
 
    v0.93: Jul 2000, Chris Pressey
-          added defines for Metroworks CodeWarrior
+          added defines for Metrowerks CodeWarrior
             so that befprof will build on MacOS
           relicensed under BSD license
 
@@ -75,13 +90,6 @@
           original Befunge-93 Profiler 'befprof' distribution.
 
    ****************************************************************** */
-
-/********************************************************* #PRAGMA'S */
-
-/* This switches Borland C++ v3.1 to compact memory model, which doesn't crash */
-#ifdef __BORLANDC__
-#pragma option -mc
-#endif
 
 /********************************************************* #INCLUDE'S */
 

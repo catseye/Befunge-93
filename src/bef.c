@@ -56,12 +56,21 @@
       -s: write contents of stack to log file
       -y: specify debugging delay in milliseconds
 
-   Compiles Under:
+   Known to Compile Under :
 
-      Borland C++ v3.1   (16-bit MS-DOS)
-      DJGPP v2.952       (32-bit Protected-Mode MS-DOS)
+        gcc 5.4.0 (Ubuntu 16.04)
+        gcc 4.5.3 (NetBSD 6.1.5)
+        DICE C 3.15 (AmigaDOS 1.3)
+        DJGPP 2.05 gcc 8.1.0 (32-bit Protected-Mode, FreeDOS 1.1)
+        Borland C++ v3.1 (16-bit, FreeDOS 1.1)
+
+   Has, in the Past, been Known to Compile Under:
+
+        Metrowerks CodeWarrior (MacOS)
 
    ******************************************************************
+
+   History:
 
    v2.24: Summer 2018, Chris Pressey
           when & encounters an error or EOF condition it pushes
@@ -93,7 +102,7 @@
 
    v2.20, Jul 2000, Chris Pressey
           prettied up preprocessor directives a bit
-          added defines for Metroworks CodeWarrior
+          added defines for Metrowerks CodeWarrior
             so that bef will build on MacOS
           relicensed under BSD
 
