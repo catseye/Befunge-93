@@ -177,6 +177,9 @@
 #  include <console.h>
 #  define CONSOLE 1
 #endif /* __MWERKS__ */
+#ifdef _MSC_VER
+#  define sleep(s) _sleep(1000 * s)
+#endif /* _MSC_VER */
 
 /********************************************************** #DEFINE'S */
 
