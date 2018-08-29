@@ -62,6 +62,7 @@
         DJGPP 2.05 gcc 8.1.0 (32-bit Protected-Mode, FreeDOS 1.1)
         Borland C++ v3.1 (16-bit, FreeDOS 1.1)
           (NOTE: use "compact" or "large" memory model!)
+        Microsoft Visual C (see NMakefile)
 
    Has, in the Past, been Known to Compile Under:
 

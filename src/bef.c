@@ -63,6 +63,7 @@
         DICE C 3.15 (AmigaDOS 1.3)
         DJGPP 2.05 gcc 8.1.0 (32-bit Protected-Mode, FreeDOS 1.1)
         Borland C++ v3.1 (16-bit, FreeDOS 1.1)
+        Microsoft Visual C (see NMakefile)
 
    Has, in the Past, been Known to Compile Under:
 
@@ -77,6 +78,7 @@
             -1 onto the stack instead of an undefined value;
             added -u option to retain old behaviour in this case
             (thanks to James Holderness for noticing and suggesting)
+          support for compiling with MSVC (also by James Holderness)
 
    v2.23: Aug 2012, Chris Pressey
           delay given with -y now actually happens when compiled
