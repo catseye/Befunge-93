@@ -50,7 +50,7 @@
         gcc 4.5.3 (NetBSD 6.1.5)
         DJGPP 2.05 gcc 8.1.0 (32-bit Protected-Mode, FreeDOS 1.1)
         Borland C++ v3.1 (16-bit, FreeDOS 1.1)
-        Microsoft Visual C (see NMakefile)
+        Microsoft Visual C++ 14.15 (see NMakefile)
 
    Has, in the Past, been Known to Compile Under:
 
