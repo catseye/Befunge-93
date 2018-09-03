@@ -73,7 +73,7 @@
 
    History:
 
-   v2.24: Summer 2018, Chris Pressey
+   v2.24: Sep 2018, Chris Pressey
           when & encounters an error or EOF condition it pushes
             -1 onto the stack instead of an undefined value;
             added -u option to retain old behaviour in this case

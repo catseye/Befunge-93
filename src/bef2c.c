@@ -60,7 +60,7 @@
 
    History:
 
-     v1.0: circa Jun 2018
+     v1.0: Sep 2018, Chris Pressey
         fixes submitted by https://github.com/serprex (thanks!):
           - avoid double free due to double fclose
           - handle trampoline at leftmost/topmost edges

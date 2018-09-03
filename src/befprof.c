@@ -72,7 +72,7 @@
 
    History:
 
-   v1.0: circa Jun 2018
+   v1.0: Sep 2018, Chris Pressey
           handle trampoline at leftmost/topmost edges
             (thanks to https://github.com/serprex for this fix!)
           exit with non-zero error code on error
