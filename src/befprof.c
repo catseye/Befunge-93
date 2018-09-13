@@ -1,9 +1,8 @@
 /********************************************************************
 
    befprof.c - Befunge-93 Profiler
-   v0.94 Sep 20 2004 Chris Pressey, Cat's-Eye Technologies
 
-   Copyright (c)1998-2012, Chris Pressey, Cat's Eye Technologies.
+   Copyright (c)1998-2018, Chris Pressey, Cat's Eye Technologies.
    All rights reserved.
  
    Redistribution and use in source and binary forms, with or without
@@ -55,13 +54,36 @@
           although note that cells are stored as 2-byte words,
           so too many repetitions may cause them to wrap back to 0.
 
+   Known to Compile Under :
+
+        gcc 5.4.0 (Ubuntu 16.04)
+        gcc 4.5.3 (NetBSD 6.1.5)
+        DICE C 3.15 (AmigaDOS 1.3)
+        DJGPP 2.05 gcc 8.1.0 (32-bit Protected-Mode, FreeDOS 1.1)
+        Borland C++ v3.1 (16-bit, FreeDOS 1.1)
+          (NOTE: use "compact" or "large" memory model!)
+        Microsoft Visual C++ 14.15 (see NMakefile)
+
+   Has, in the Past, been Known to Compile Under:
+
+        Metrowerks CodeWarrior (MacOS)
+
    ******************************************************************
+
+   History:
+
+   v1.0: Sep 2018, Chris Pressey
+          handle trampoline at leftmost/topmost edges
+            (thanks to https://github.com/serprex for this fix!)
+          exit with non-zero error code on error
+          remove unimplemented -q option from usage help text
+          don't load invalid (past-EOF) bytes into playfield
 
    v0.94: Sep 2004, Chris Pressey
           cleanup only, no functional changes
 
    v0.93: Jul 2000, Chris Pressey
-          added defines for Metroworks CodeWarrior
+          added defines for Metrowerks CodeWarrior
             so that befprof will build on MacOS
           relicensed under BSD license
 
@@ -69,13 +91,6 @@
           original Befunge-93 Profiler 'befprof' distribution.
 
    ****************************************************************** */
-
-/********************************************************* #PRAGMA'S */
-
-/* This switches Borland C++ v3.1 to compact memory model, which doesn't crash */
-#ifdef __BORLANDC__
-#pragma option -mc
-#endif
 
 /********************************************************* #INCLUDE'S */
 
@@ -165,7 +180,7 @@ int main (argc, argv)
   if ((pg == NULL) || (pgbuf == NULL))
   {
     printf ("Error: can't allocate %d bytes of memory.\n", LINEWIDTH * PAGEHEIGHT);
-    exit(0);
+    exit (1);
   }
   memset(pg, ' ', LINEWIDTH * PAGEHEIGHT);
   memset(pgbuf, ' ', LINEWIDTH * PAGEHEIGHT);
@@ -176,15 +191,15 @@ int main (argc, argv)
     if (prof[i] == NULL)
     {
       printf ("Error: can't allocate %lu bytes of memory.\n", (long)(LINEWIDTH * PAGEHEIGHT * sizeof(long int)));
-      exit(0);
+      exit (1);
     }
     memset(prof[i], 0, LINEWIDTH * PAGEHEIGHT * sizeof(long int));
   }
 
   if (argc < 2)
   {
-    printf ("USAGE: befprof [-l] [-q] [-i] [-n count] [-r input] [-w foo.map] foo.bf\n");
-    exit (0);
+    printf ("USAGE: befprof [-l] [-i] [-n count] [-r input] [-w foo.map] foo.bf\n");
+    exit (1);
   }
 
   strcpy(filename, argv[argc - 1]);
@@ -211,7 +226,7 @@ int main (argc, argv)
     if (!strcmp(argv[i], "-w")) { strcpy(mapfilename, argv[i + 1]); }
   }
 
-  printf ("Befunge-93 Profiler v0.94\n");
+  printf ("Befunge-93 Profiler v1.0\n");
 
   if ((f = fopen (filename, "r")) != NULL)             /*** Input Phase */
   {
@@ -220,6 +235,11 @@ int main (argc, argv)
     while (!feof (f))
     {
       curbuf = fgetc (f);
+      if (feof (f))
+      {
+        curbuf = ' ';
+        break;
+      }
       if (curbuf == '\n')
       {
         curbuf = ' ';
@@ -241,13 +261,13 @@ int main (argc, argv)
   } else
   {
     printf ("Error: couldn't open '%s' for input.\n", filename);
-    exit (0);
+    exit (1);
   }
 
   if (!(fp = fopen (mapfilename, "w")))
   {
     printf ("Error : couldn't open '%s' for output.\n", mapfilename);
-    exit (0);
+    exit (1);
   }
 
   while (rep <= reps)
@@ -266,7 +286,7 @@ int main (argc, argv)
       if (!(fi = fopen (argv[ia], "r")))
       {
         printf ("Error : couldn't open '%s' for input.\n", argv[ia]);
-        exit (0);
+        exit (1);
       }
     }
 
@@ -557,14 +577,14 @@ int main (argc, argv)
       y += dy;
       if (x < 0)
       {
-        x = LINEWIDTH - 1;
+        x += LINEWIDTH;
       } else
       {
         x = x % LINEWIDTH;
       }
       if (y < 0)
       {
-        y = PAGEHEIGHT - 1;
+        y += PAGEHEIGHT;
       } else
       {
         y = y % PAGEHEIGHT;
