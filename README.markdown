@@ -32,7 +32,7 @@ For More Information
 
 See the official entry for [Befunge-93][] at [Cat's Eye Technologies][].
 
-[Befunge-93 Project Page]: http://catseye.tc/node/Befunge-93
+[Befunge-93]: http://catseye.tc/node/Befunge-93
 [Cat's Eye Technologies]: http://catseye.tc/
 
 Happy Befunging!  
