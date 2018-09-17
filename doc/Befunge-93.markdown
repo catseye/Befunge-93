@@ -19,7 +19,7 @@ Chris Pressey, Cat's Eye Technologies
 Most likely the most unique element of Befunge-93 programming is the
 Program Counter (PC.) In almost all computer programming languages, the
 program counter is continually moving forward through the program,
-occassionally jumping to another spot in the code (but continuing
+occasionally jumping to another spot in the code (but continuing
 forward thereafter, nonetheless.)
 
 The PC in Befunge-93, however, is subject to different rules. It may go
@@ -75,7 +75,7 @@ entire Befunge-93 program, this assumption is correct: the PC starts at
 the upper-left of the torus and is initially oriented to execute
 rightward.
 
-NB. If the stack is be empty when you pop something off, be warned that
+NB. If the stack is empty when you pop something off, be warned that
 this will *not* generate an underflow! It will simply push a 0 value
 onto the stack. Hope you can live with it!
 
@@ -212,7 +212,7 @@ the second. For example,
 
 The last two commands that need to be explained are the ones that allow
 you to examine and change the contents of the torus where the program is
-stored. This 'playfield' can be used for auxilliary storage when the
+stored. This 'playfield' can be used for auxiliary storage when the
 stack alone will not suffice, but keep in mind that it also contains the
 running program.
 
