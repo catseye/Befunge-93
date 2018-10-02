@@ -77,8 +77,8 @@ information.
 | [rand7.bf](rand7.bf)       |         | Artyom Baranov      | 2/28/96  | A 13x3 random number generator a la rand5.bf and rand6.bf.
 | [rand8.bf](rand8.bf)       |         | Chris Howe          | 4/9/97   | A 4x9 flexible random number generator; if you change the 4 in position (1,2) to another integer n it will generate a number between 1 and 2\^n (inclusive) for 0\<n\<9.
 | [rand9.bf](rand9.bf)       |         | Chris Lahey         | 4/11/97  | A 3x7 random number generator.
-| [rdp.bf](rdp.bf)           | CC0     | Dmitry M Litvinov   | 2/1/96   | A command-line calculator with postfix notation.
-| [rdp2.bf](rdp2.bf)         |         | Kimberley Burchette | 12/1/96  | A version of rdp.bf crammed into a 23x12 block.
+| [rpn.bf](rpn.bf)           | CC0     | Dmitry M Litvinov   | 2/1/96   | A command-line calculator with postfix notation.
+| [rpn2.bf](rpn2.bf)         |         | Kimberley Burchette | 12/1/96  | A version of rpn.bf crammed into a 23x12 block.
 | [robot.bf](robot.bf)       | CC0     | Chris Pressey       | 9/5/93   | You control an 'O' going through a maze of '\*''s. You can type in 'n', 's', 'e', or 'w', and the 'O' travels in that map direction. This not-particularly-challenging game ends when you hit a '\*'.
 | [rot13.bf](rot13.bf)       |         | ???                 | 9/11/97  | Performs the rot13 algorithm.
 | [selflis2.bf](selflis2.bf) | CC0     | Chris Pressey       | 12/1/96  | A self-reproducing 80x1 program. This program can also be used to test for the @ vs StringMode bug.
