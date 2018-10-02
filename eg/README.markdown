@@ -73,8 +73,8 @@ information.
 | [rand3.bf](rand3.bf)       |         | Chris Pressey       | 9/5/93   | 12x9 random number generator, like rand.bf and rand2.bf.
 | [rand4.bf](rand4.bf)       |         | Matthew D Moss      | 2/1/96   | A 7x7 random number generator in the tradition of rand.bf .. rand3.bf, but using mathematics to reduce the problem before writing the code
 | [rand5.bf](rand5.bf)       | CC0     | Dmitry M Litvinov   | 2/1/96   | A 4x10 random number generator which produces the same output as rand.bf .. rand4.bf. Unlike most Befunge sources this one has a symmetrical beauty to it.
-| [rand6.bf](rand6.bf)       |         | Artyom Baranov?     | 12/1/96  | An 8x4 random number generator a la rand5.bf.
-| [rand7.bf](rand7.bf)       |         | ???                 | 12/1/96  | A 13x3 random number generator a la rand5.bf and rand6.bf.
+| [rand6.bf](rand6.bf)       |         | Chris Pressey       | 3/10/96  | An 8x4 random number generator a la rand5.bf.
+| [rand7.bf](rand7.bf)       |         | Artyom Baranov      | 2/28/96  | A 13x3 random number generator a la rand5.bf and rand6.bf.
 | [rand8.bf](rand8.bf)       |         | Chris Howe          | 4/9/97   | A 4x9 flexible random number generator; if you change the 4 in position (1,2) to another integer n it will generate a number between 1 and 2\^n (inclusive) for 0\<n\<9.
 | [rand9.bf](rand9.bf)       |         | Chris Lahey         | 4/11/97  | A 3x7 random number generator.
 | [rdp.bf](rdp.bf)           | CC0     | Dmitry M Litvinov   | 2/1/96   | A command-line calculator with postfix notation.
@@ -85,12 +85,12 @@ information.
 | [selflis3.bf](selflis3.bf) |         | Kevin Vigor         | 5/28/97  | A 14-byte Quine (self-reproducing program.)
 | [selflis5.bf](selflis5.bf) |         | David Johnston      | 5/7/97   | Crammed (14x6) self-listing program.
 | [selflis6.bf](selflis6.bf) |         | Denis Moskowitz     | 5/8/97   | 14-byte quine.
-| [selflist.bf](selflist.bf) |         | ???                 | ?/?/?    | A self-reproducing Befunge program, 13x4.
+| [selflist.bf](selflist.bf) |         | Dmitry M Litvinov   | 2/21/96  | A self-reproducing Befunge program, 13x4.
 | [serp.bf](serp.bf)         |         | Kevin Vigor         | 4/9/97   | Generates and prints a Serpinsky triangle, a simple type of fractal. Since the resolution is 20x30, the detail of the fractal isn't really visible, but hey, what can you do?
 | [serp2.bf](serp2.bf)       |         | Kevin Vigor         | 4/10/97  | Improved Serpinsky Triangle generator.
 | [sinus.bf](sinus.bf)       | CC0     | Dmitry M Litvinov   | 12/1/96  | Program to generate sine wave patterns. Based on cos(a+b)=cos(a)\*cos(b)-sin(a)\*sin(b) and sin(a+b)=sin(a)\*cos(b)+cos(a)\*sin(b). sin and cos values are kept in one stack cell = abs(sin) \* 2\^16 + abs(cos).
 | [sort.bf](sort.bf)         |         | Kalyna Zazelenchuk  | 9/5/93   | Same as anagram.bf, except sorts the letters of your word in ascending order.
-| [surprise.bf](surprise.bf) |         | ???                 | 6/1/97   | A big surprise.
+| [surprise.bf](surprise.bf) |         | Timothy Howe        | 11/26/96 | A big surprise.
 | [switchbx.bf](switchbx.bf) |         | Zach Baker          | 7/10/97  | A real purty 'switch' statement.
 | [testbrdg.bf](testbrdg.bf) | CC0     | Chris Pressey       | 10/27/111| Tests whether the \# instruction interacts properly with wrapping.
 | [testmodu.bf](testmodu.bf) | CC0     | Chris Pressey       | 8/23/111 | Tests how your implementation of Befunge-93 calculates modulus (there is no right way.)
