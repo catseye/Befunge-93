@@ -82,9 +82,8 @@ information.
 | [robot.bf](robot.bf)       | CC0     | Chris Pressey       | 9/5/93   | You control an 'O' going through a maze of '\*''s. You can type in 'n', 's', 'e', or 'w', and the 'O' travels in that map direction. This not-particularly-challenging game ends when you hit a '\*'.
 | [rot13.bf](rot13.bf)       |         | ???                 | 9/11/97  | Performs the rot13 algorithm.
 | [selflis2.bf](selflis2.bf) | CC0     | Chris Pressey       | 12/1/96  | A self-reproducing 80x1 program. This program can also be used to test for the @ vs StringMode bug.
-| [selflis3.bf](selflis3.bf) |         | Kevin Vigor         | 5/28/97  | A 14-byte Quine (self-reproducing program.)
 | [selflis5.bf](selflis5.bf) |         | David Johnston      | 5/7/97   | Crammed (14x6) self-listing program.
-| [selflis6.bf](selflis6.bf) |         | Denis Moskowitz     | 5/8/97   | 14-byte quine.
+| [selflis6.bf](selflis6.bf) |         | Denis Moskowitz     | 5/8/97   | 14-byte quine. This is a tiny fix to Kevin Vigor's 14-byte self-listing program (previously incorrectly listed here as `selflis3.bf`) which was released earlier on the same day.
 | [selflist.bf](selflist.bf) |         | Dmitry M Litvinov   | 2/21/96  | A self-reproducing Befunge program, 13x4.
 | [serp.bf](serp.bf)         |         | Kevin Vigor         | 4/9/97   | Generates and prints a Serpinsky triangle, a simple type of fractal. Since the resolution is 20x30, the detail of the fractal isn't really visible, but hey, what can you do?
 | [serp2.bf](serp2.bf)       |         | Kevin Vigor         | 4/10/97  | Improved Serpinsky Triangle generator.
