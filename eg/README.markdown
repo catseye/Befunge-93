@@ -85,7 +85,7 @@ information.
 | [selflis3.bf](selflis3.bf) |         | Kevin Vigor         | 5/8/97   | A 14-byte (almost-)self-reproducing program (the result contains an extra space, but is itself a 15-byte self-reproducing program.)
 | [selflis5.bf](selflis5.bf) |         | David Johnston      | 5/7/97   | Crammed (14x6) self-listing program.
 | [selflis6.bf](selflis6.bf) |         | Denis Moskowitz     | 5/8/97   | 14-byte quine. This was submitted as a tiny fix to `selflis3.bf` which makes it reproduce itself exactly.
-| [selflist.bf](selflist.bf) |         | Dmitry M Litvinov   | 2/21/96  | A self-reproducing Befunge program, 13x4.
+| [selflist.bf](selflist.bf) | CC0     | Dmitry M Litvinov   | 2/21/96  | A self-reproducing Befunge program, 13x4.
 | [serp.bf](serp.bf)         |         | Kevin Vigor         | 4/9/97   | Generates and prints a Serpinsky triangle, a simple type of fractal. Since the resolution is 20x30, the detail of the fractal isn't really visible, but hey, what can you do?
 | [serp2.bf](serp2.bf)       |         | Kevin Vigor         | 4/10/97  | Improved Serpinsky Triangle generator.
 | [sinus.bf](sinus.bf)       | CC0     | Dmitry M Litvinov   | 12/1/96  | Program to generate sine wave patterns. Based on cos(a+b)=cos(a)\*cos(b)-sin(a)\*sin(b) and sin(a+b)=sin(a)\*cos(b)+cos(a)\*sin(b). sin and cos values are kept in one stack cell = abs(sin) \* 2\^16 + abs(cos).
