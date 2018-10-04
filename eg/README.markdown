@@ -10,7 +10,7 @@ information.
 | Name                       | License | Author              | Date     | Notes                                                                                                                                                                                                                                                                                                                                                                                                 | 
 | -------------------------- | ------- | ------------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [anagram.bf](anagram.bf)   |         | Kalyna Zazelenchuk  | 9/5/93   | This program will input a string of sixteen characters or less, and (p)ut those characters in order on line 3 (the line with the \*'s). It will then randomly find numbers from 1 to 16, (g)et the characters at line 3 in random order, replace them with \*'s, and print them out. Effectively produces anagrams of words you type in. It uses the code from 'rand2.bf' to generate random numbers.
-| [aturley.bf](aturley.bf)   | CC0     | Andrew Turley       | ?/?/?    | aturley's .sig; cellular automata gasket generator.
+| [aturley.bf](aturley.bf)   | CC0     | Andrew Turley       | 10/30/97 | aturley's .sig; cellular automata gasket generator.
 | [beer.bf](beer.bf)         |         | Kevin Vigor         | 4/9/97   | A simple program that prints the "beer song" (99 bottles of beer on the wall...) from 99 down to 0. Part of the Beer Song archive.
 | [beer10.bf](beer10.bf)     |         | Chris Lahey         | 6/8/97   | A squashed (22x10) beer singing program, gramatically correct.
 | [beer2.bf](beer2.bf)       |         | Keith Arner         | 4/10/97  | Another "99 Bottles of Beer" program.
@@ -73,24 +73,24 @@ information.
 | [rand3.bf](rand3.bf)       |         | Chris Pressey       | 9/5/93   | 12x9 random number generator, like rand.bf and rand2.bf.
 | [rand4.bf](rand4.bf)       |         | Matthew D Moss      | 2/1/96   | A 7x7 random number generator in the tradition of rand.bf .. rand3.bf, but using mathematics to reduce the problem before writing the code
 | [rand5.bf](rand5.bf)       | CC0     | Dmitry M Litvinov   | 2/1/96   | A 4x10 random number generator which produces the same output as rand.bf .. rand4.bf. Unlike most Befunge sources this one has a symmetrical beauty to it.
-| [rand6.bf](rand6.bf)       |         | Artyom Baranov?     | 12/1/96  | An 8x4 random number generator a la rand5.bf.
-| [rand7.bf](rand7.bf)       |         | ???                 | 12/1/96  | A 13x3 random number generator a la rand5.bf and rand6.bf.
+| [rand6.bf](rand6.bf)       |         | Chris Pressey       | 3/10/96  | An 8x4 random number generator a la rand5.bf.
+| [rand7.bf](rand7.bf)       |         | Artyom Baranov      | 2/28/96  | A 13x3 random number generator a la rand5.bf and rand6.bf.
 | [rand8.bf](rand8.bf)       |         | Chris Howe          | 4/9/97   | A 4x9 flexible random number generator; if you change the 4 in position (1,2) to another integer n it will generate a number between 1 and 2\^n (inclusive) for 0\<n\<9.
 | [rand9.bf](rand9.bf)       |         | Chris Lahey         | 4/11/97  | A 3x7 random number generator.
-| [rdp.bf](rdp.bf)           | CC0     | Dmitry M Litvinov   | 2/1/96   | A command-line calculator with postfix notation.
-| [rdp2.bf](rdp2.bf)         |         | Kimberley Burchette | 12/1/96  | A version of rdp.bf crammed into a 23x12 block.
 | [robot.bf](robot.bf)       | CC0     | Chris Pressey       | 9/5/93   | You control an 'O' going through a maze of '\*''s. You can type in 'n', 's', 'e', or 'w', and the 'O' travels in that map direction. This not-particularly-challenging game ends when you hit a '\*'.
 | [rot13.bf](rot13.bf)       |         | ???                 | 9/11/97  | Performs the rot13 algorithm.
+| [rpn.bf](rpn.bf)           | CC0     | Dmitry M Litvinov   | 2/22/96  | A command-line calculator with postfix notation.
+| [rpn2.bf](rpn2.bf)         |         | Kimberley Burchett  | 11/16/96 | A version of rpn.bf crammed into a 23x12 block.
 | [selflis2.bf](selflis2.bf) | CC0     | Chris Pressey       | 12/1/96  | A self-reproducing 80x1 program. This program can also be used to test for the @ vs StringMode bug.
-| [selflis3.bf](selflis3.bf) |         | Kevin Vigor         | 5/28/97  | A 14-byte Quine (self-reproducing program.)
+| [selflis3.bf](selflis3.bf) |         | Kevin Vigor         | 5/8/97   | A 14-byte (almost-)self-reproducing program (the result contains an extra space, but is itself a 15-byte self-reproducing program.)
 | [selflis5.bf](selflis5.bf) |         | David Johnston      | 5/7/97   | Crammed (14x6) self-listing program.
-| [selflis6.bf](selflis6.bf) |         | Denis Moskowitz     | 5/8/97   | 14-byte quine.
-| [selflist.bf](selflist.bf) |         | ???                 | ?/?/?    | A self-reproducing Befunge program, 13x4.
+| [selflis6.bf](selflis6.bf) |         | Denis Moskowitz     | 5/8/97   | 14-byte quine. This was submitted as a tiny fix to `selflis3.bf` which makes it reproduce itself exactly.
+| [selflist.bf](selflist.bf) | CC0     | Dmitry M Litvinov   | 2/21/96  | A self-reproducing Befunge program, 13x4.
 | [serp.bf](serp.bf)         |         | Kevin Vigor         | 4/9/97   | Generates and prints a Serpinsky triangle, a simple type of fractal. Since the resolution is 20x30, the detail of the fractal isn't really visible, but hey, what can you do?
 | [serp2.bf](serp2.bf)       |         | Kevin Vigor         | 4/10/97  | Improved Serpinsky Triangle generator.
 | [sinus.bf](sinus.bf)       | CC0     | Dmitry M Litvinov   | 12/1/96  | Program to generate sine wave patterns. Based on cos(a+b)=cos(a)\*cos(b)-sin(a)\*sin(b) and sin(a+b)=sin(a)\*cos(b)+cos(a)\*sin(b). sin and cos values are kept in one stack cell = abs(sin) \* 2\^16 + abs(cos).
 | [sort.bf](sort.bf)         |         | Kalyna Zazelenchuk  | 9/5/93   | Same as anagram.bf, except sorts the letters of your word in ascending order.
-| [surprise.bf](surprise.bf) |         | ???                 | 6/1/97   | A big surprise.
+| [surprise.bf](surprise.bf) |         | Timothy Howe        | 11/26/96 | A big surprise.
 | [switchbx.bf](switchbx.bf) |         | Zach Baker          | 7/10/97  | A real purty 'switch' statement.
 | [testbrdg.bf](testbrdg.bf) | CC0     | Chris Pressey       | 10/27/111| Tests whether the \# instruction interacts properly with wrapping.
 | [testmodu.bf](testmodu.bf) | CC0     | Chris Pressey       | 8/23/111 | Tests how your implementation of Befunge-93 calculates modulus (there is no right way.)
