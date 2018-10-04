@@ -61,7 +61,7 @@ information.
 | [pascserp.bf](pascserp.bf) | CC0     | Chris Pressey       | 7/12/97  | Generates a gasket (Serpinsky triangle) using Pascal's Triangle.
 | [pi.bf](pi.bf)             |         | Ben Olmstead        | 6/25/97  | Produces the first hundred digits of pi in under one hundred characters of Befunge, but cheats in that it simply decompresses the digits encoded in the source code.
 | [pi2.bf](pi2.bf)           |         | Kevin Vigor         | 7/2/97   | Generates the first hundred digits of Pi. It does this not by cheating, but actually calculating Pi; unfortunately it far exceeds 100 characters of Befunge code.
-| [prime.bf](prime.bf)       |         | Kalyna Zazelenchuk  | 9/5/93   | Lists the counting numbers incrementally from one and checks if each is prime.
+| [prime.bf](prime.bf)       |         | Kalyna Zazelenchuk  | 9/5/93   | Lists the integers between 2 and 127 (inclusive), and reports whether each one is prime. Also reports that -128 is not prime.
 | [rand.bf](rand.bf)         |         | Chris Pressey       | 9/5/93   | Generates random numbers between 1 and 9 as statistically evenly distributed as the computer's random number generator.
 | [rand10.bf](rand10.bf)     |         | Ken Bateman         | 4/12/97  | A 3x10 random number generator.
 | [rand11.bf](rand11.bf)     |         | Ken Bateman         | 4/12/97  | A 5x7 flexible random number generator. The number of bits is set with the 88+ at the top left. As shown this program will generate a random number from 0 to 32767.
