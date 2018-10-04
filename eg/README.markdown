@@ -65,7 +65,7 @@ information.
 | [rand.bf](rand.bf)         |         | Chris Pressey       | 9/5/93   | Generates random numbers between 1 and 9 as statistically evenly distributed as the computer's random number generator.
 | [rand10.bf](rand10.bf)     |         | Ken Bateman         | 4/12/97  | A 3x10 random number generator.
 | [rand11.bf](rand11.bf)     |         | Ken Bateman         | 4/12/97  | A 5x7 flexible random number generator. The number of bits is set with the 88+ at the top left. As shown this program will generate a random number from 0 to 32767.
-| [rand12.bf](rand12.bf)     |         | Ben Olmstead        | 4/24/97  | A 2x13, 0..255 random number generator.
+| [rand12.bf](rand12.bf)     |         | Ben Olmstead        | 4/24/97  | A 2x13 random number generator that generates numbers from -128 to 127. (On an interpreter with unsigned char cells, such as the one on which this example was originally developed, it will produce values from 0..255.)
 | [rand13.bf](rand13.bf)     |         | Ben Olmstead        | 4/24/97  | A 2x12, infinitely looping 0..31 random number generator.
 | [rand14.bf](rand14.bf)     |         | Greg Wright         | 5/18/97  | 4x7 random number generator.
 | [rand15.bf](rand15.bf)     |         | Artyom Baranov      | 4/5/96   | THE smallest Befunge RNG-16. (16x1)
