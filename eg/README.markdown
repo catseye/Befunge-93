@@ -18,9 +18,6 @@ suppress extraneous output with `bef -q`.
 **NOTE**: dates are given in Month/Day/Year Minus 1900 format, and many of
 these dates are questionable, especially when Day is 1.
 
-**NOTE**: Sierpinski is normally spelt with a "i" as the second letter,
-contrary to several of the descriptions below.
-
 | Name                       | License | Author              | Date     | Notes                                                                                                                                                                                                                                                                                                                                                                                                 | 
 | -------------------------- | ------- | ------------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [anagram.bf](anagram.bf)   |         | Kalyna Zazelenchuk  | 9/5/93   | This program will input a string of sixteen characters or less, and (p)ut those characters in order on line 3 (the line with the \*'s). It will then randomly find numbers from 1 to 16, (g)et the characters at line 3 in random order, replace them with \*'s, and print them out. Effectively produces anagrams of words you type in. It uses the code from 'rand2.bf' to generate random numbers.
@@ -70,7 +67,7 @@ contrary to several of the descriptions below.
 | [numer.bf](numer.bf)       | CC0     | Chris Pressey       | 9/5/93   | Produces single-digit numerological equivalents of words you type in. Words should consist of lowercase letters and be terminated by a linefeed character. (Users should be warned that the significance of the output of this program is of extremely questionable practical value. But it is consistant.) (This algorithm could be known as taking the "digital root of the word".)
 | [pairing.bf](pairing.bf)   |         | Aaron Dale          | 3/20/97  | A program to implement the "pairing function" (\<x1,x2\> = (2\^(x1) \* (2\*(x2) + 1)) - 1), which maps any two natural numbers onto the set of natural numbers, without repetition.
 | [pangram.bf](pangram.bf)   | CC0     | Chris Pressey       | 8/25/112 | Checks if the first line of input is a pangram -- a sentence which contains all the letters of the alphabet, such as "The quick brown fox jumps over the lazy dog" or "Pack my lunch box with five dozen liquor jugs." Case-insensitive, and ignores most punctuation, but "high" punctuation (above ASCII character 90) will likely confuse it.
-| [pascserp.bf](pascserp.bf) | CC0     | Chris Pressey       | 7/12/97  | Generates a gasket (Serpinsky triangle) using Pascal's Triangle.
+| [pascserp.bf](pascserp.bf) | CC0     | Chris Pressey       | 7/12/97  | Generates a gasket (Sierpinsky triangle) using Pascal's Triangle.
 | [pi.bf](pi.bf)             |         | Ben Olmstead        | 6/25/97  | Produces the first hundred digits of pi in under one hundred characters of Befunge, but cheats in that it simply decompresses the digits encoded in the source code.
 | [prime.bf](prime.bf)       |         | Kalyna Zazelenchuk  | 9/5/93   | Lists the counting numbers incrementally from one and checks if each is prime.
 | [rand.bf](rand.bf)         |         | Chris Pressey       | 9/5/93   | Generates random numbers between 1 and 9 as statistically evenly distributed as the computer's random number generator.
@@ -97,7 +94,7 @@ contrary to several of the descriptions below.
 | [selflis5.bf](selflis5.bf) |         | David Johnston      | 5/7/97   | Crammed (14x6) self-listing program.
 | [selflis6.bf](selflis6.bf) |         | Denis Moskowitz     | 5/8/97   | 14-byte quine. This was submitted as a tiny fix to `selflis3.bf` which makes it reproduce itself exactly.
 | [selflist.bf](selflist.bf) | CC0     | Dmitry M Litvinov   | 2/21/96  | A self-reproducing Befunge program, 13x4.
-| [serp2.bf](serp2.bf)       |         | Kevin Vigor         | 4/9/97   | Generates and prints a Serpinsky triangle, a simple type of fractal. Since the resolution is 20x30, the detail of the fractal isn't really visible, but hey, what can you do? This is the second revision, released 4/10/97, which is Improved.
+| [serp2.bf](serp2.bf)       |         | Kevin Vigor         | 4/9/97   | Generates and prints a Sierpinsky triangle, a simple type of fractal. Since the resolution is 20x30, the detail of the fractal isn't really visible, but hey, what can you do? This is the second revision, released 4/10/97, which is Improved.
 | [sinus.bf](sinus.bf)       | CC0     | Dmitry M Litvinov   | 12/1/96  | Program to generate sine wave patterns. Based on cos(a+b)=cos(a)\*cos(b)-sin(a)\*sin(b) and sin(a+b)=sin(a)\*cos(b)+cos(a)\*sin(b). sin and cos values are kept in one stack cell = abs(sin) \* 2\^16 + abs(cos).
 | [sort.bf](sort.bf)         |         | Kalyna Zazelenchuk  | 9/5/93   | Same as anagram.bf, except sorts the letters of your word in ascending order.
 | [surprise.bf](surprise.bf) |         | Timothy Howe        | 11/26/96 | A big surprise.
