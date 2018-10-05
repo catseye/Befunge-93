@@ -7,16 +7,19 @@ others are freely redistributable in this archive, but remain
 copyrighted by their original authors. See the file LICENSE for more
 information.
 
-NOTE: in the interests of improving the general experience of exploring
+**NOTE**: in the interests of improving the general experience of exploring
 these examples, some buggy and/or bitrotting examples have been removed
 in the 2.25 release.  Refer to the 2.24 release if you wish to find them.
 
-NOTE: many of these programs were developed on interpreters that did not
+**NOTE**: many of these programs were developed on interpreters that did not
 produce warnings.  When running them with `bef` it is recommended to
 suppress extraneous output with `bef -q`.
 
-NOTE: dates are given in Month/Day/Year Minus 1900 format, and many of
+**NOTE**: dates are given in Month/Day/Year Minus 1900 format, and many of
 these dates are questionable, especially when Day is 1.
+
+**NOTE**: Sierpinski is normally spelt with a "i" as the second letter,
+contrary to several of the descriptions below.
 
 | Name                       | License | Author              | Date     | Notes                                                                                                                                                                                                                                                                                                                                                                                                 | 
 | -------------------------- | ------- | ------------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -94,8 +97,7 @@ these dates are questionable, especially when Day is 1.
 | [selflis5.bf](selflis5.bf) |         | David Johnston      | 5/7/97   | Crammed (14x6) self-listing program.
 | [selflis6.bf](selflis6.bf) |         | Denis Moskowitz     | 5/8/97   | 14-byte quine. This was submitted as a tiny fix to `selflis3.bf` which makes it reproduce itself exactly.
 | [selflist.bf](selflist.bf) | CC0     | Dmitry M Litvinov   | 2/21/96  | A self-reproducing Befunge program, 13x4.
-| [serp.bf](serp.bf)         |         | Kevin Vigor         | 4/9/97   | Generates and prints a Serpinsky triangle, a simple type of fractal. Since the resolution is 20x30, the detail of the fractal isn't really visible, but hey, what can you do?
-| [serp2.bf](serp2.bf)       |         | Kevin Vigor         | 4/10/97  | Improved Serpinsky Triangle generator.
+| [serp2.bf](serp2.bf)       |         | Kevin Vigor         | 4/9/97   | Generates and prints a Serpinsky triangle, a simple type of fractal. Since the resolution is 20x30, the detail of the fractal isn't really visible, but hey, what can you do? This is the second revision, released 4/10/97, which is Improved.
 | [sinus.bf](sinus.bf)       | CC0     | Dmitry M Litvinov   | 12/1/96  | Program to generate sine wave patterns. Based on cos(a+b)=cos(a)\*cos(b)-sin(a)\*sin(b) and sin(a+b)=sin(a)\*cos(b)+cos(a)\*sin(b). sin and cos values are kept in one stack cell = abs(sin) \* 2\^16 + abs(cos).
 | [sort.bf](sort.bf)         |         | Kalyna Zazelenchuk  | 9/5/93   | Same as anagram.bf, except sorts the letters of your word in ascending order.
 | [surprise.bf](surprise.bf) |         | Timothy Howe        | 11/26/96 | A big surprise.
