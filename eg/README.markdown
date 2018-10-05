@@ -88,12 +88,12 @@ information.
 | [selflist.bf](selflist.bf) | CC0     | Dmitry M Litvinov   | 2/21/96  | A self-reproducing Befunge program, 13x4.
 | [serp.bf](serp.bf)         |         | Kevin Vigor         | 4/9/97   | Generates and prints a Serpinsky triangle, a simple type of fractal. Since the resolution is 20x30, the detail of the fractal isn't really visible, but hey, what can you do?
 | [serp2.bf](serp2.bf)       |         | Kevin Vigor         | 4/10/97  | Improved Serpinsky Triangle generator.
-| [signdpfc.bf](signdpfc.bf) | CC0     | Chris Pressey       | 10/4/118 | Prints "S" if your `bef` was compiled with a compiler that treats C's bare `char` type (and thus playfield cells) as signed chars, "U" if unsigned chars. Neither choice is normatively specified, but signed playfield cells are by far more common, and many consider it the de facto standard.
 | [sinus.bf](sinus.bf)       | CC0     | Dmitry M Litvinov   | 12/1/96  | Program to generate sine wave patterns. Based on cos(a+b)=cos(a)\*cos(b)-sin(a)\*sin(b) and sin(a+b)=sin(a)\*cos(b)+cos(a)\*sin(b). sin and cos values are kept in one stack cell = abs(sin) \* 2\^16 + abs(cos).
 | [sort.bf](sort.bf)         |         | Kalyna Zazelenchuk  | 9/5/93   | Same as anagram.bf, except sorts the letters of your word in ascending order.
 | [surprise.bf](surprise.bf) |         | Timothy Howe        | 11/26/96 | A big surprise.
 | [switchbx.bf](switchbx.bf) |         | Zach Baker          | 7/10/97  | A real purty 'switch' statement.
 | [testbrdg.bf](testbrdg.bf) | CC0     | Chris Pressey       | 10/27/111| Tests whether the \# instruction interacts properly with wrapping.
 | [testmodu.bf](testmodu.bf) | CC0     | Chris Pressey       | 8/23/111 | Tests how your implementation of Befunge-93 calculates modulus (there is no right way.)
+| [testpfcl.bf](testpfcl.bf) | CC0     | Chris Pressey       | 10/5/118 | Prints out the largest and smallest values that can be stored in a playfield cell in your implementation of Befunge-93. A very large number of C compilers interpret `char` to mean a signed 8-bit value, so a very common result of running this is "127 -128".
 | [toupper.bf](toupper.bf)   | CC0     | Chris Pressey       | 9/5/93   | Converts letters to upper-case. An example of the \` (greater) statement.
 | [wumpus.bf](wumpus.bf)     | CC0     | Wim Rijnders        | 8/15/97  | The classic game of Hunt the Wumpus!
