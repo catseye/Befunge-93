@@ -69,7 +69,6 @@ these dates are questionable, especially when Day is 1.
 | [pangram.bf](pangram.bf)   | CC0     | Chris Pressey       | 8/25/112 | Checks if the first line of input is a pangram -- a sentence which contains all the letters of the alphabet, such as "The quick brown fox jumps over the lazy dog" or "Pack my lunch box with five dozen liquor jugs." Case-insensitive, and ignores most punctuation, but "high" punctuation (above ASCII character 90) will likely confuse it.
 | [pascserp.bf](pascserp.bf) | CC0     | Chris Pressey       | 7/12/97  | Generates a gasket (Serpinsky triangle) using Pascal's Triangle.
 | [pi.bf](pi.bf)             |         | Ben Olmstead        | 6/25/97  | Produces the first hundred digits of pi in under one hundred characters of Befunge, but cheats in that it simply decompresses the digits encoded in the source code.
-| [pi2.bf](pi2.bf)           |         | Kevin Vigor         | 7/2/97   | Generates the first hundred digits of Pi. It does this not by cheating, but actually calculating Pi; unfortunately it far exceeds 100 characters of Befunge code.
 | [prime.bf](prime.bf)       |         | Kalyna Zazelenchuk  | 9/5/93   | Lists the counting numbers incrementally from one and checks if each is prime.
 | [rand.bf](rand.bf)         |         | Chris Pressey       | 9/5/93   | Generates random numbers between 1 and 9 as statistically evenly distributed as the computer's random number generator.
 | [rand10.bf](rand10.bf)     |         | Ken Bateman         | 4/12/97  | A 3x10 random number generator.
