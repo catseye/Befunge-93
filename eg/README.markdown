@@ -7,6 +7,13 @@ others are freely redistributable in this archive, but remain
 copyrighted by their original authors. See the file LICENSE for more
 information.
 
+NOTE: many of these programs were developed on interpreters that did not
+produce warnings.  When running them with `bef` it is recommended to
+suppress extraneous output with `bef -q`.
+
+NOTE: dates are given in Month/Day/Year Minus 1900 format, and many of
+these dates are questionable, especially when Day is 1.
+
 | Name                       | License | Author              | Date     | Notes                                                                                                                                                                                                                                                                                                                                                                                                 | 
 | -------------------------- | ------- | ------------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [anagram.bf](anagram.bf)   |         | Kalyna Zazelenchuk  | 9/5/93   | This program will input a string of sixteen characters or less, and (p)ut those characters in order on line 3 (the line with the \*'s). It will then randomly find numbers from 1 to 16, (g)et the characters at line 3 in random order, replace them with \*'s, and print them out. Effectively produces anagrams of words you type in. It uses the code from 'rand2.bf' to generate random numbers.
