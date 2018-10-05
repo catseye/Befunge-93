@@ -32,8 +32,7 @@ these dates are questionable, especially when Day is 1.
 | [beer7.bf](beer7.bf)       | CC0     | Wim Rijnders        | 5/2/97   | A beer bottling program.
 | [beer8.bf](beer8.bf)       | CC0     | Wim Rijnders        | 5/12/97  | Again with the bottles.
 | [beer9.bf](beer9.bf)       |         | David Johnston      | 5/13/97  | Crammed (22x9) singing beer program which doesn't use good grammar or punctuation.
-| [befbef.bf](befbef.bf)     | CC0     | Wim Rijnders        | 5/12/97  | A small subset Befunge-93 interpreter written in Befunge-93. Barely smart enough to execute the helloworld program within the \#-delimited block. Runs like a cow.
-| [befbef2.bf](befbef2.bf)   | CC0     | Wim Rijnders        | ?/?/100  | A version of befbef.bf with some bugs (pointed out by Amir Karger) fixed.
+| [befbef2.bf](befbef2.bf)   | CC0     | Wim Rijnders        | 5/12/97  | A small subset Befunge-93 interpreter written in Befunge-93. Barely smart enough to execute the helloworld program within the \#-delimited block. Runs like a cow. This is the second revision (ca. 2000?) which has some bugs (pointed out by Amir Karger) fixed.
 | [befunge1.bf](befunge1.bf) |         | Denis Moskowitz     | 7/17/97  | Befunge logo source.
 | [befunge2.bf](befunge2.bf) |         | Sam Holden          | 7/17/97  | Befunge logo source.
 | [befunge3.bf](befunge3.bf) |         | Ben Olmstead        | 7/18/97  | Befunge logo source.
