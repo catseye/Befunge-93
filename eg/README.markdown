@@ -7,6 +7,10 @@ others are freely redistributable in this archive, but remain
 copyrighted by their original authors. See the file LICENSE for more
 information.
 
+NOTE: in the interests of improving the general experience of exploring
+these examples, some buggy and/or bitrotting examples have been removed
+in the 2.25 release.  Refer to the 2.24 release if you wish to find them.
+
 NOTE: many of these programs were developed on interpreters that did not
 produce warnings.  When running them with `bef` it is recommended to
 suppress extraneous output with `bef -q`.
@@ -45,7 +49,7 @@ these dates are questionable, especially when Day is 1.
 | [dladv.bf](dladv.bf)       | CC0     | Dmitry M Litvinov   | 12/1/96  | A minimalist adventure game. n - go north. s - go south. e - go east. w - go west. d - dress. l - labour.
 | [drx.bf](drx.bf)           | CC0     | Chris Pressey       | 9/5/93   | "Like Eliza, except better :-)"
 | [ea.bf](ea.bf)             | CC0     | Chris Pressey       | 9/5/93   | Makes 'enigmatic aphorisms.' A loose interpretation of a program in '1001 things to do with your Commodore 64.' This is an example of how to simulate a 'gosub' with a value.
-| [easm.bf](easm.bf)         | CC0     | Chris Pressey       | 9/5/93   | Same as 'ea.bf', but uses self-modifying code.
+| [easm2.bf](easm2.bf)       | CC0     | Chris Pressey       | ?/?/??   | Shortly after `ea.bf` was written, a version using self-modifying code for the branches (`easm.bf`) was written. Unfortunately it didn't work. This version of it works, but unfortunately doesn't quite do the same thing as `ea.bf`.
 | [euclid.bf](euclid.bf)     |         | Greg Wright         | 6/5/97   | Euclidean algorithm.
 | [fact.bf](fact.bf)         | CC0     | Chris Pressey       | 9/5/93   | Asks for a number, and supplies the factorial of that number.
 | [fact2.bf](fact2.bf)       |         | Jason Reed          | 5/18/97  | Factorial generator, (3x12)
