@@ -22,7 +22,7 @@ these dates are questionable, especially when Day is 1.
 | -------------------------- | ------- | ------------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [anagram.bf](anagram.bf)   |         | Kalyna Zazelenchuk  | 9/5/93   | This program will input a string of sixteen characters or less, and (p)ut those characters in order on line 3 (the line with the \*'s). It will then randomly find numbers from 1 to 16, (g)et the characters at line 3 in random order, replace them with \*'s, and print them out. Effectively produces anagrams of words you type in. It uses the code from 'rand2.bf' to generate random numbers.
 | [aturley.bf](aturley.bf)   | CC0     | Andrew Turley       | 10/30/97 | aturley's .sig; cellular automata gasket generator.
-| [beer.bf](beer.bf)         |         | Kevin Vigor         | 4/9/97   | A simple program that prints the "beer song" (99 bottles of beer on the wall...) from 99 down to 0. Part of the Beer Song archive.
+| [beer.bf](beer.bf)         |         | Kevin Vigor         | 4/9/97   | A simple program that prints the "beer song" (99 bottles of beer on the wall...) from 99 down to 0. Does not get the lyrics exactly right, but I think we can assume that's because it's had a few. Part of the Beer Song archive.
 | [beer10.bf](beer10.bf)     |         | Chris Lahey         | 6/8/97   | A squashed (22x10) beer singing program, gramatically correct.
 | [beer2.bf](beer2.bf)       |         | Keith Arner         | 4/10/97  | Another "99 Bottles of Beer" program.
 | [beer3.bf](beer3.bf)       |         | Chris Lahey         | 4/11/97  | Another singing algorithm.
@@ -74,7 +74,7 @@ these dates are questionable, especially when Day is 1.
 | [rand10.bf](rand10.bf)     |         | Ken Bateman         | 4/12/97  | A 3x10 random number generator.
 | [rand11.bf](rand11.bf)     |         | Ken Bateman         | 4/12/97  | A 5x7 flexible random number generator. The number of bits is set with the 88+ at the top left. As shown this program will generate a random number from 0 to 32767.
 | [rand12.bf](rand12.bf)     |         | Ben Olmstead        | 4/24/97  | A 2x13, 0..255 random number generator.
-| [rand13.bf](rand13.bf)     |         | Ben Olmstead        | 4/24/97  | A 2x12, infinitely looping 0..31 random number generator.
+| [rand13.bf](rand13.bf)     |         | Ben Olmstead        | 4/24/97  | A 2x12, infinitely looping random number generator, which was originally intended to generate numbers in the range 0..31, but in actuality, it generates random powers of 2. Fixing it to generate 0..31 is left as an exercise for the reader.
 | [rand14.bf](rand14.bf)     |         | Greg Wright         | 5/18/97  | 4x7 random number generator.
 | [rand15.bf](rand15.bf)     |         | Artyom Baranov      | 4/5/96   | THE smallest Befunge RNG-16. (16x1)
 | [rand2.bf](rand2.bf)       |         | Kalyna Zazelenchuk  | 9/5/93   | This program, crammed into a 14x14 block, makes random numbers from 1 to 16 using multiple "?" statements.
@@ -98,7 +98,7 @@ these dates are questionable, especially when Day is 1.
 | [sinus.bf](sinus.bf)       | CC0     | Dmitry M Litvinov   | 12/1/96  | Program to generate sine wave patterns. Based on cos(a+b)=cos(a)\*cos(b)-sin(a)\*sin(b) and sin(a+b)=sin(a)\*cos(b)+cos(a)\*sin(b). sin and cos values are kept in one stack cell = abs(sin) \* 2\^16 + abs(cos).
 | [sort.bf](sort.bf)         |         | Kalyna Zazelenchuk  | 9/5/93   | Same as anagram.bf, except sorts the letters of your word in ascending order.
 | [surprise.bf](surprise.bf) |         | Timothy Howe        | 11/26/96 | A big surprise.
-| [switchbx.bf](switchbx.bf) |         | Zach Baker          | 7/10/97  | A real purty 'switch' statement.
+| [switchbx.bf](switchbx.bf) |         | Zach Baker          | 7/10/97  | A real purty 'switch' statement. NOTE: This is not a runnable problem in itself. It's just a (two-dimensional) snippet of code.
 | [testbrdg.bf](testbrdg.bf) | CC0     | Chris Pressey       | 10/27/111| Tests whether the \# instruction interacts properly with wrapping.
 | [testmodu.bf](testmodu.bf) | CC0     | Chris Pressey       | 8/23/111 | Tests how your implementation of Befunge-93 calculates modulus (there is no right way.)
 | [toupper.bf](toupper.bf)   | CC0     | Chris Pressey       | 9/5/93   | Converts letters to upper-case. An example of the \` (greater) statement.
