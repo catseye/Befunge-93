@@ -45,7 +45,6 @@ these dates are questionable, especially when Day is 1.
 | [chars2.bf](chars2.bf)     |         | ???                 | ?/?/9?   | Modified version of chars.bf that was distributed as chars.bf for the longest time. Outputs all chars on 1 line. Program is 3 rows tall instead of 2. Unclear who made these modifications, or why.
 | [chars3.bf](chars3.bf)     |         | Chris Pressey       | 5/29/118 | Modified version of chars2.bf that does not use stringmode and thus can be compiled by bef2c.
 | [copyme.bf](copyme.bf)     | CC0     | Wim Rijnders        | 6/5/97   | Program which reproduces itself in Befunge-space.
-| [digitalr.bf](digitalr.bf) |         | Keymaker            | 9/3/108  | Computes the digital root (see numer.bf) of the input.
 | [dladv.bf](dladv.bf)       | CC0     | Dmitry M Litvinov   | 12/1/96  | A minimalist adventure game. n - go north. s - go south. e - go east. w - go west. d - dress. l - labour.
 | [drx.bf](drx.bf)           | CC0     | Chris Pressey       | 9/5/93   | "Like Eliza, except better :-)"
 | [ea.bf](ea.bf)             | CC0     | Chris Pressey       | 9/5/93   | Makes 'enigmatic aphorisms.' A loose interpretation of a program in '1001 things to do with your Commodore 64.' This is an example of how to simulate a 'gosub' with a value.
