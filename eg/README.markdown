@@ -69,11 +69,11 @@ these dates are questionable, especially when Day is 1.
 | [pangram.bf](pangram.bf)   | CC0     | Chris Pressey       | 8/25/112 | Checks if the first line of input is a pangram -- a sentence which contains all the letters of the alphabet, such as "The quick brown fox jumps over the lazy dog" or "Pack my lunch box with five dozen liquor jugs." Case-insensitive, and ignores most punctuation, but "high" punctuation (above ASCII character 90) will likely confuse it.
 | [pascserp.bf](pascserp.bf) | CC0     | Chris Pressey       | 7/12/97  | Generates a gasket (Sierpinsky triangle) using Pascal's Triangle.
 | [pi.bf](pi.bf)             |         | Ben Olmstead        | 6/25/97  | Produces the first hundred digits of pi in under one hundred characters of Befunge, but cheats in that it simply decompresses the digits encoded in the source code.
-| [prime.bf](prime.bf)       |         | Kalyna Zazelenchuk  | 9/5/93   | Lists the counting numbers incrementally from one and checks if each is prime.
+| [prime.bf](prime.bf)       |         | Kalyna Zazelenchuk  | 9/5/93   | Lists the integers between 2 and 127 (inclusive), and reports whether each one is prime. Also reports that -128 is not prime.
 | [rand.bf](rand.bf)         |         | Chris Pressey       | 9/5/93   | Generates random numbers between 1 and 9 as statistically evenly distributed as the computer's random number generator.
 | [rand10.bf](rand10.bf)     |         | Ken Bateman         | 4/12/97  | A 3x10 random number generator.
 | [rand11.bf](rand11.bf)     |         | Ken Bateman         | 4/12/97  | A 5x7 flexible random number generator. The number of bits is set with the 88+ at the top left. As shown this program will generate a random number from 0 to 32767.
-| [rand12.bf](rand12.bf)     |         | Ben Olmstead        | 4/24/97  | A 2x13, 0..255 random number generator.
+| [rand12.bf](rand12.bf)     |         | Ben Olmstead        | 4/24/97  | A 2x13 random number generator that generates numbers from -128 to 127. (On an interpreter with unsigned char cells, such as the one on which this example was originally developed, it will produce values from 0..255.)
 | [rand13.bf](rand13.bf)     |         | Ben Olmstead        | 4/24/97  | A 2x12, infinitely looping random number generator, which was originally intended to generate numbers in the range 0..31, but in actuality, it generates random powers of 2. Fixing it to generate 0..31 is left as an exercise for the reader.
 | [rand14.bf](rand14.bf)     |         | Greg Wright         | 5/18/97  | 4x7 random number generator.
 | [rand15.bf](rand15.bf)     |         | Artyom Baranov      | 4/5/96   | THE smallest Befunge RNG-16. (16x1)
@@ -101,5 +101,6 @@ these dates are questionable, especially when Day is 1.
 | [switchbx.bf](switchbx.bf) |         | Zach Baker          | 7/10/97  | A real purty 'switch' statement. NOTE: This is not a runnable problem in itself. It's just a (two-dimensional) snippet of code.
 | [testbrdg.bf](testbrdg.bf) | CC0     | Chris Pressey       | 10/27/111| Tests whether the \# instruction interacts properly with wrapping.
 | [testmodu.bf](testmodu.bf) | CC0     | Chris Pressey       | 8/23/111 | Tests how your implementation of Befunge-93 calculates modulus (there is no right way.)
+| [testpfcl.bf](testpfcl.bf) | CC0     | Chris Pressey       | 10/5/118 | Prints out the largest and smallest values that can be stored in a playfield cell in your implementation of Befunge-93. A very large number of C compilers interpret `char` to mean a signed 8-bit value, so a very common result of running this is "127 -128".
 | [toupper.bf](toupper.bf)   | CC0     | Chris Pressey       | 9/5/93   | Converts letters to upper-case. An example of the \` (greater) statement.
 | [wumpus.bf](wumpus.bf)     | CC0     | Wim Rijnders        | 8/15/97  | The classic game of Hunt the Wumpus!
