@@ -35,7 +35,7 @@ these dates are questionable, especially when Day is 1.
 | [befbef2.bf](befbef2.bf)   | CC0     | Wim Rijnders        | 5/12/97  | A small subset Befunge-93 interpreter written in Befunge-93. Barely smart enough to execute the helloworld program within the \#-delimited block. Runs like a cow. This is the second revision (ca. 2000?) which has some bugs (pointed out by Amir Karger) fixed.
 | [befunge1.bf](befunge1.bf) |         | Denis Moskowitz     | 7/17/97  | Befunge logo source.
 | [befunge2.bf](befunge2.bf) |         | Sam Holden          | 7/17/97  | Befunge logo source.
-| [befunge3.bf](befunge3.bf) |         | Ben Olmstead        | 7/18/97  | Befunge logo source.
+| [befunge3.bf](befunge3.bf) | CC0     | Ben Olmstead        | 7/18/97  | Befunge logo source.
 | [befunge4.bf](befunge4.bf) |         | Kevin Vigor         | 8/13/97  | Befunge logo source.
 | [befungex.bf](befungex.bf) |         | Kevin Vigor         | 7/18/97  | Non-standard (oversize) Befunge logo source.
 | [calc.bf](calc.bf)         |         | Bryan L             | 4/10/97  | This is a befunged calculator. Meaning ".", the print command, will also pop the result off the stack. Fortunately, the duplication command ":" is supported. This calculator will blithely ignore anything that isn't a number or a supported command. The list of commands is found on line 3.
@@ -68,13 +68,13 @@ these dates are questionable, especially when Day is 1.
 | [pairing.bf](pairing.bf)   |         | Aaron Dale          | 3/20/97  | A program to implement the "pairing function" (\<x1,x2\> = (2\^(x1) \* (2\*(x2) + 1)) - 1), which maps any two natural numbers onto the set of natural numbers, without repetition.
 | [pangram.bf](pangram.bf)   | CC0     | Chris Pressey       | 8/25/112 | Checks if the first line of input is a pangram -- a sentence which contains all the letters of the alphabet, such as "The quick brown fox jumps over the lazy dog" or "Pack my lunch box with five dozen liquor jugs." Case-insensitive, and ignores most punctuation, but "high" punctuation (above ASCII character 90) will likely confuse it.
 | [pascserp.bf](pascserp.bf) | CC0     | Chris Pressey       | 7/12/97  | Generates a gasket (Sierpinsky triangle) using Pascal's Triangle.
-| [pi.bf](pi.bf)             |         | Ben Olmstead        | 6/25/97  | Produces the first hundred digits of pi in under one hundred characters of Befunge, but cheats in that it simply decompresses the digits encoded in the source code.
+| [pi.bf](pi.bf)             | CC0     | Ben Olmstead        | 6/25/97  | Produces the first hundred digits of pi in under one hundred characters of Befunge, but cheats in that it simply decompresses the digits encoded in the source code.
 | [prime.bf](prime.bf)       |         | Kalyna Zazelenchuk  | 9/5/93   | Lists the integers between 2 and 127 (inclusive), and reports whether each one is prime. Also reports that -128 is not prime.
 | [rand.bf](rand.bf)         |         | Chris Pressey       | 9/5/93   | Generates random numbers between 1 and 9 as statistically evenly distributed as the computer's random number generator.
 | [rand10.bf](rand10.bf)     |         | Ken Bateman         | 4/12/97  | A 3x10 random number generator.
 | [rand11.bf](rand11.bf)     |         | Ken Bateman         | 4/12/97  | A 5x7 flexible random number generator. The number of bits is set with the 88+ at the top left. As shown this program will generate a random number from 0 to 32767.
-| [rand12.bf](rand12.bf)     |         | Ben Olmstead        | 4/24/97  | A 2x13 random number generator that generates numbers from -128 to 127. (On an interpreter with unsigned char cells, such as the one on which this example was originally developed, it will produce values from 0..255.)
-| [rand13.bf](rand13.bf)     |         | Ben Olmstead        | 4/24/97  | A 2x12, infinitely looping random number generator, which was originally intended to generate numbers in the range 0..31, but in actuality, it generates random powers of 2. Fixing it to generate 0..31 is left as an exercise for the reader.
+| [rand12.bf](rand12.bf)     | CC0     | Ben Olmstead        | 4/24/97  | A 2x13 random number generator that generates numbers from -128 to 127. (On an interpreter with unsigned char cells, such as the one on which this example was originally developed, it will produce values from 0..255.)
+| [rand13.bf](rand13.bf)     | CC0     | Ben Olmstead        | 4/24/97  | A 2x12, infinitely looping random number generator, which was originally intended to generate numbers in the range 0..31, but in actuality, it generates random powers of 2. Fixing it to generate 0..31 is left as an exercise for the reader.
 | [rand14.bf](rand14.bf)     |         | Greg Wright         | 5/18/97  | 4x7 random number generator.
 | [rand15.bf](rand15.bf)     |         | Artyom Baranov      | 4/5/96   | THE smallest Befunge RNG-16. (16x1)
 | [rand2.bf](rand2.bf)       |         | Kalyna Zazelenchuk  | 9/5/93   | This program, crammed into a 14x14 block, makes random numbers from 1 to 16 using multiple "?" statements.
