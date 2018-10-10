@@ -70,7 +70,7 @@ these dates are questionable, especially when Day is 1.
 | [pascserp.bf](pascserp.bf) | CC0     | Chris Pressey       | 7/12/97  | Generates a gasket (Sierpinsky triangle) using Pascal's Triangle.
 | [pi.bf](pi.bf)             | CC0     | Ben Olmstead        | 6/25/97  | Produces the first hundred digits of pi in under one hundred characters of Befunge, but cheats in that it simply decompresses the digits encoded in the source code.
 | [prime.bf](prime.bf)       |         | Kalyna Zazelenchuk  | 9/5/93   | Lists the integers between 2 and 127 (inclusive), and reports whether each one is prime. Also reports that -128 is not prime.
-| [rand.bf](rand.bf)         |         | Chris Pressey       | 9/5/93   | Generates random numbers between 1 and 9 as statistically evenly distributed as the computer's random number generator.
+| [rand.bf](rand.bf)         | CC0     | Chris Pressey       | 9/5/93   | Generates random numbers between 1 and 9 as statistically evenly distributed as the computer's random number generator.
 | [rand10.bf](rand10.bf)     |         | Ken Bateman         | 4/12/97  | A 3x10 random number generator.
 | [rand11.bf](rand11.bf)     |         | Ken Bateman         | 4/12/97  | A 5x7 flexible random number generator. The number of bits is set with the 88+ at the top left. As shown this program will generate a random number from 0 to 32767.
 | [rand12.bf](rand12.bf)     | CC0     | Ben Olmstead        | 4/24/97  | A 2x13 random number generator that generates numbers from -128 to 127. (On an interpreter with unsigned char cells, such as the one on which this example was originally developed, it will produce values from 0..255.)
@@ -78,10 +78,10 @@ these dates are questionable, especially when Day is 1.
 | [rand14.bf](rand14.bf)     |         | Greg Wright         | 5/18/97  | 4x7 random number generator.
 | [rand15.bf](rand15.bf)     |         | Artyom Baranov      | 4/5/96   | THE smallest Befunge RNG-16. (16x1)
 | [rand2.bf](rand2.bf)       |         | Kalyna Zazelenchuk  | 9/5/93   | This program, crammed into a 14x14 block, makes random numbers from 1 to 16 using multiple "?" statements.
-| [rand3.bf](rand3.bf)       |         | Chris Pressey       | 9/5/93   | 12x9 random number generator, like rand.bf and rand2.bf.
+| [rand3.bf](rand3.bf)       | CC0     | Chris Pressey       | 9/5/93   | 12x9 random number generator, like rand.bf and rand2.bf.
 | [rand4.bf](rand4.bf)       |         | Matthew D Moss      | 2/1/96   | A 7x7 random number generator in the tradition of rand.bf .. rand3.bf, but using mathematics to reduce the problem before writing the code
 | [rand5.bf](rand5.bf)       | CC0     | Dmitry M Litvinov   | 2/1/96   | A 4x10 random number generator which produces the same output as rand.bf .. rand4.bf. Unlike most Befunge sources this one has a symmetrical beauty to it.
-| [rand6.bf](rand6.bf)       |         | Chris Pressey       | 3/10/96  | An 8x4 random number generator a la rand5.bf.
+| [rand6.bf](rand6.bf)       | CC0     | Chris Pressey       | 3/10/96  | An 8x4 random number generator a la rand5.bf.
 | [rand7.bf](rand7.bf)       |         | Artyom Baranov      | 2/28/96  | A 13x3 random number generator a la rand5.bf and rand6.bf.
 | [rand8.bf](rand8.bf)       |         | Chris Howe          | 4/9/97   | A 4x9 flexible random number generator; if you change the 4 in position (1,2) to another integer n it will generate a number between 1 and 2\^n (inclusive) for 0\<n\<9.
 | [rand9.bf](rand9.bf)       |         | Chris Lahey         | 4/11/97  | A 3x7 random number generator.
