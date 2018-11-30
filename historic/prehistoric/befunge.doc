@@ -1,0 +1,282 @@
+                                  Befunge
+                                  =======
+
+                        Preliminary design document
+                               January 1993
+
+                               Chris Pressey
+
+Introduction
+============
+
+Befunge is (hopefully) a new concept in programming languages.  It is still
+not much more than structured pseudocode, but, IMHO, has potential.
+
+What makes Befunge 'stand out' from the crowd?  Well, for one thing, it's
+INCREDIBLY terse.  For another, it's also INCREDIBLY object-oriented and
+relaxed.  And finally, it can be very ugly to program in. :-)
+
+Befunge, though, will end up drawing a lot of ideas (and looking a lot
+like, eventually) from Pascal, C, and PL/I.
+
+One of the best ways to describe Befunge is 'object-oriented
+pseudo-assembly', although it is much more versatile than assembly, it is
+about at that level. (between low- and mid-level... but with objects.)
+
+This is just a short doc to try to get across what I mean.
+
+Objects
+=======
+
+Objects in Befunge exist in a tree-like hierarchy.  Each object is contained
+within another (parent) object.  Some objects cannot contain other objects,
+but no objects must have children objects either.
+
+    Object Syntax
+    =============
+
+    %xxx (name, reps):(children/data)
+
+All objects are identified by %xxx, where xxx is three characters.
+More characters are legal, and in most cases preferred.  For example,
+it is legal to use %fun, although %func is preferred, and %function is
+quite possible.
+
+The name is a legal Befunge identifier; so far, a series of ASCII characters,
+case insensitive, from 'a'..'z', including '_'.
+
+The reps field in the object declaration defines how many of these objects
+can be referenced.  If omitted, it is presumed to be 1.  If omitted in the
+code, it is presumed to be 0.  The range is always 0..reps-1.  reps, in the
+object definition, must be > 0.
+
+The children/data field (the whole :(c/d) at the end, in fact;
+%xxx (name, reps) is perfectly legal) is optional, but contains either the
+object's children (as more object definitions,) or the default data contained
+within the object.
+
+Here is a short outline of the objects available in Befunge.
+
+    Byte
+    ====
+    syntax : %byt (name, reps):(initial_value)
+
+    A single (or group : see reps) byte (0..255) value.  Generally used as
+    %byte.  It cannot have any children; there is only an initial value
+    associated with it.
+
+    eg
+    ==
+    /* Befunge :               Pascal :                               */
+
+    %byte (b):(255);        /* var b : byte; begin b := 255; end;     */
+    %byte (b, 1):(73);      /* same as above                          */
+    %byte (b, 2):(1000);    /* var b : integer; begin b := 1000; end; */
+    %byte (b, 4):(8);       /* var b : longint; begin b := 8; end;    */
+    %byte (b, 4):(0 1 0 8)  /* var b : array [0..3] of byte;          */
+                            /* begin b[0]:=0;b[1]:=1;b[2]:=0;b[3]:=8; */
+    %byte (b)               /* var b : byte;                          */
+
+    Pointer
+    =======
+    syntax : %ptr (name, reps):(initial_value)
+
+    A de-referenced pointer.  It may not contain any objects.
+
+    In code, pointers can be referenced by the following syntax :
+
+    name->object    eg,     %ptr (p); ... print (p->byt); ...
+    
+    eg
+    ==
+    /* Befunge :               PL/I : (no std way to do this in Pascal)*/
+
+    %ptr (p);               /* Dcl P Pointer;                          */
+    %ptr (p, 10);           /* Dcl P(10) Pointer;                      */
+
+    Function
+    ========
+    syntax : %fun (name, reps):(objects)
+
+    A shell to use code and local objects.  usu. %func.  Equivalent to a C
+    function, it can be called inside a %code object (see below).  It can
+    be passed a queue of objects and always returns an object.  This object
+    may be ignored (a la Pascal's procedures).  A %func may contain any
+    object.
+
+    Code
+    ====
+    syntax : %cod (name, reps):(code)
+
+    The code of any %func is contained in the %cod (usu. %code) object.
+    It can contain no other objects.  Only three types of code are possible
+    (this is a VERY terse language) :
+        a) Calling another object.  %funcs can be called like so :
+            func_name(objects)
+           Data types (%byte, etc) can be 'called'.  Calling them with an
+           object in the queue sets that data object to that value and also
+           returns the old value.  Calling them with no objects simply
+           returns their current value.
+        b) Looping.  The syntax is :
+            while(code1):(code2)
+           code1 is executed.  If the return value is not 0, code2 is
+           executed and the loop repeats; else, it breaks.
+        c) Conditional branching.  The syntax :
+            if(code1):(code2):(code3)
+           code3 may be omitted.  code1 is executed : if the return value
+           is not 0, code2 is executed, else code3 is executed.
+
+    ISSUE : name and reps of code are redundant.  What do we do with them?
+
+    Aggregate
+    =========
+    syntax : %agg (name, reps):(objects)
+
+    The aggregate (usu. %aggr) is possibly one of the things that make
+    Befunge... well, so befunged.  It takes the place of the record in
+    Pascal, the struct in C, the unit in Pascal, the object in C++, and the
+    module in Modula-2.  An aggregate is simply a 'bag' of related objects.
+    Any object may be placed inside an %aggr.
+
+    eg
+    ==
+    /* in Befunge : */
+    %aggr (stack):(
+                   %byt (data, 4):(0);      /* stack data */
+                   %ptr (next);             /* pointer to next stack (ll) */
+                  );
+
+    /* in Pascal : */
+    var stack : record
+                data : integer;
+                next : ^stack;
+                end;
+
+    Built-in Objects
+    ======== =======
+    All built-in objects (%funcs and data) are kept in the reserved
+    %aggr (internal).  Thus, if you create your own %func named print(),
+    you would access the built-in print() via internal.print(), etc.
+    Bounding rules will be discussed later on.
+
+    %funcs
+    ======
+    print()     : output to std out all objects given, in bytewise ASCII.
+                  print(32), then, would output a space (ASCII 32.)
+                  in Befunge, string constants area translated to
+                  corresponding ASCII values, so print("Hello!") would work.
+    +()         : add all objects given and return value.
+    =(),
+    *(),
+    /()         : like +(), you figure them out.
+
+    and(),
+    or(),
+    xor(),
+    not()       : boolean/bitwise logic.
+
+    qsize()     : returns how many objects are on the local queue.
+    deq()       : return the next object off of the local queue.
+    return()    : returns the object from the local %func to the caller.
+
+    Directives
+    ==========
+
+    #DEBUG
+    #DEFINE
+    #OBJECT
+                ...will be discussed here.
+
+    Examples
+    ========
+
+    Here is an example 'Hello world' program.
+
+    %func (hello):(
+        %code (
+            print ("Hello, world!")
+            )
+        )
+
+    You, of course, would have to call this from somewhere.  A Befunge
+    compiler that was running under an OS that was not Befunge (oh... never
+    mind!) would probably take the topmost object and execute it upon
+    runtime.  So, compiling this under a UNIX machine would most likely
+    entail :
+
+    ccu% bf hello.b
+    ccu% hello
+
+                    Befunge - How a Compiler might Work
+                    ===================================
+
+                        Preliminary design document
+                               February 1993
+
+                               Chris Pressey
+
+OK, how WOULD it work?
+======================
+
+Well, presuming we COULD get one to work, it would be something like
+explained in this document.
+
+First-Pass
+==========
+
+So far as I've got thought out, Befunge is really a pre-processor - it will
+convert the Befunge language into something that I've termed (for lack of a
+better term) SLUDGE.  We'd then need a SLUDGE->assembly converter.  Then
+assemble it and link it.
+
+Literal Constants
+=================
+
+This will sound weird, but so far as I can tell, it's the best way to
+handle literal constants.  They will be converted as follows :
+
+    "<characters>"      will be converted to a byte stream of hex which will
+                        be interpreted by the SLUDGE thingy, with a NUL term.
+eg. "    "              2020202000
+    <four spaces>       hex for 32, 4 times, then NUL.
+
+    8                   08
+    <If the value is 0..255, it is converted to a byte.>
+    <ISSUE : discuss forcing this into n bytes>
+
+    1025                4001
+    <If the value is 256..65535, it is converted to a word.>
+
+    (etc.)
+
+    $7E41               7E41
+    <Should be obvious.>
+
+Literal Constants, pt II (ok, HERE's the tricky part!)
+======================================================
+
+Now, each literal constant is referenced by Befunge and duplicates are
+taken out. (eg. printf("hi!"); printf("hi!"); ... the second "hi!" will not
+be stored as a seperate constant, but will simply reference the first "hi!")
+
+Each constant is made an object in the internal %aggr literal. (confused?
+you should be!)  So, here's the original "Hello, world!" program :
+
+    %func (hello):(
+        %code (whatever):(
+            printf ("Hello, world!");
+            )
+        );
+
+Once it passed through Befunge, it would look _something_ like this :
+
+    %aggr (literal):(
+        %byte (strconst_1, $0E):($48656C6C6F2C20776F726C642100);
+        )
+
+    %func (hello):(
+        %code (whatever):(
+            printf (&literal.strconst_1);
+            )
+        );
+
