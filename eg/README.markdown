@@ -48,6 +48,7 @@ these dates are questionable, especially when Day is 1.
 | [drx.bf](drx.bf)           | CC0     | Chris Pressey       | 9/5/93   | "Like Eliza, except better :-)"
 | [ea.bf](ea.bf)             | CC0     | Chris Pressey       | 9/5/93   | Makes 'enigmatic aphorisms.' A loose interpretation of a program in '1001 things to do with your Commodore 64.' This is an example of how to simulate a 'gosub' with a value.
 | [easm2.bf](easm2.bf)       | CC0     | Chris Pressey       | ?/?/??   | Shortly after `ea.bf` was written, a version using self-modifying code for the branches (`easm.bf`) was written. Unfortunately it didn't work. This version of it works, but unfortunately doesn't quite do the same thing as `ea.bf`.
+| [eterlan.bf](eterlan.bf)   | CC0     | Chris Pressey       | 11/29/118| Generates a 50,000-word avant garde novel called ETERLAN SEPTEBMER. This novel generator was written for NaNoGenMo 2018 to mark the 25th anniversary of Befunge (1993-2018). It may contain a quote from Mark Topham.
 | [euclid.bf](euclid.bf)     |         | Greg Wright         | 6/5/97   | Euclidean algorithm.  Expects two integers as input, and outputs the greatest common divisor of those numbers.
 | [fact.bf](fact.bf)         | CC0     | Chris Pressey       | 9/5/93   | Asks for a number, and supplies the factorial of that number.
 | [fact2.bf](fact2.bf)       |         | Jason Reed          | 5/18/97  | Factorial generator, (3x12)
