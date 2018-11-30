@@ -33,11 +33,11 @@ these dates are questionable, especially when Day is 1.
 | [beer8.bf](beer8.bf)       | CC0     | Wim Rijnders        | 5/12/97  | Again with the bottles.
 | [beer9.bf](beer9.bf)       |         | David Johnston      | 5/13/97  | Crammed (22x9) singing beer program which doesn't use good grammar or punctuation.
 | [befbef2.bf](befbef2.bf)   | CC0     | Wim Rijnders        | 5/12/97  | A small subset Befunge-93 interpreter written in Befunge-93. Barely smart enough to execute the helloworld program within the \#-delimited block. Runs like a cow. This is the second revision (ca. 2000?) which has some bugs (pointed out by Amir Karger) fixed.
-| [befunge1.bf](befunge1.bf) |         | Denis Moskowitz     | 7/17/97  | Befunge logo source.
+| [befunge1.bf](befunge1.bf) |         | Denis Moskowitz     | 7/17/97  | Befunge logo source (meaning, the program is roughly in the shape of the word "BEFUNGE".)
 | [befunge2.bf](befunge2.bf) |         | Sam Holden          | 7/17/97  | Befunge logo source.
 | [befunge3.bf](befunge3.bf) | CC0     | Ben Olmstead        | 7/18/97  | Befunge logo source.
-| [befunge4.bf](befunge4.bf) |         | Kevin Vigor         | 8/13/97  | Befunge logo source.
-| [befungex.bf](befungex.bf) |         | Kevin Vigor         | 7/18/97  | Non-standard (oversize) Befunge logo source.
+| [befunge4.bf](befunge4.bf) |         | Kevin Vigor         | 8/13/97  | Befunge logo source which prints out some Befunge code (try running it.)
+| [befungex.bf](befungex.bf) |         | Kevin Vigor         | 7/18/97  | Non-standard (oversize) Befunge logo source which also prints out some Befunge code.
 | [calc.bf](calc.bf)         |         | Bryan L             | 4/10/97  | This is a befunged calculator. Meaning ".", the print command, will also pop the result off the stack. Fortunately, the duplication command ":" is supported. This calculator will blithely ignore anything that isn't a number or a supported command. The list of commands is found on line 3.
 | [cascade.bf](cascade.bf)   | CC0     | Chris Pressey       | 7/20/97  | Like copyme.bf, but continues to replicate itself.
 | [chars.bf](chars.bf)       |         | Kalyna Zazelenchuk  | 9/5/93   | Generates a printable ASCII table, with characters and corresponding codes in decimal, from 34 to 127.
@@ -48,7 +48,7 @@ these dates are questionable, especially when Day is 1.
 | [drx.bf](drx.bf)           | CC0     | Chris Pressey       | 9/5/93   | "Like Eliza, except better :-)"
 | [ea.bf](ea.bf)             | CC0     | Chris Pressey       | 9/5/93   | Makes 'enigmatic aphorisms.' A loose interpretation of a program in '1001 things to do with your Commodore 64.' This is an example of how to simulate a 'gosub' with a value.
 | [easm2.bf](easm2.bf)       | CC0     | Chris Pressey       | ?/?/??   | Shortly after `ea.bf` was written, a version using self-modifying code for the branches (`easm.bf`) was written. Unfortunately it didn't work. This version of it works, but unfortunately doesn't quite do the same thing as `ea.bf`.
-| [euclid.bf](euclid.bf)     |         | Greg Wright         | 6/5/97   | Euclidean algorithm.
+| [euclid.bf](euclid.bf)     |         | Greg Wright         | 6/5/97   | Euclidean algorithm.  Expects two integers as input, and outputs the greatest common divisor of those numbers.
 | [fact.bf](fact.bf)         | CC0     | Chris Pressey       | 9/5/93   | Asks for a number, and supplies the factorial of that number.
 | [fact2.bf](fact2.bf)       |         | Jason Reed          | 5/18/97  | Factorial generator, (3x12)
 | [fact3.bf](fact3.bf)       |         | Chris Lahey         | 6/8/97   | (23x1) factorial generator.
@@ -60,7 +60,7 @@ these dates are questionable, especially when Day is 1.
 | [kmquine2.bf](kmquine2.bf) |         | Keymaker            | 9/3/108  | The second of a series of really fine quines by Keymaker.
 | [kmquine3.bf](kmquine3.bf) |         | Keymaker            | 9/3/108  | The third of a series of really fine quines by Keymaker.
 | [life.bf](life.bf)         | CC0     | Dmitry M Litvinov   | 6/1/97   | An implementation of John Conway's game of Life.
-| [madd.bf](madd.bf)         |         | Greg Wright         | 6/5/97   | 3x3-Matrix Addition
+| [madd.bf](madd.bf)         |         | Greg Wright         | 6/5/97   | 3x3-Matrix Addition.  Expects two 3x3 matrices as input (essentially 18 integers), and outputs the sum of those two matrices.
 | [mandel.bf](mandel.bf)     |         | Chris Lahey         | 4/11/97  | A Mandelbrot fractal generator.
 | [maze.bf](maze.bf)         | CC0     | Chris Pressey       | 9/5/93   | A conversion of a Commodore-64 graphical pastime: a dead-simple random maze generator.
 | [namegame.bf](namegame.bf) | CC0     | Dmitry M Litvinov   | 2/1/96   | "First, example easy writed stupid prog." Befunge bypasses cultural and lingual backgrounds. Try this "easily written" program and see what it does.
@@ -87,8 +87,8 @@ these dates are questionable, especially when Day is 1.
 | [rand9.bf](rand9.bf)       |         | Chris Lahey         | 4/11/97  | A 3x7 random number generator.
 | [robot.bf](robot.bf)       | CC0     | Chris Pressey       | 9/5/93   | You control an 'O' going through a maze of '\*''s. You can type in 'n', 's', 'e', or 'w', and the 'O' travels in that map direction. This not-particularly-challenging game ends when you hit a '\*'.
 | [rot13.bf](rot13.bf)       |         | ???                 | 9/11/97  | Performs the rot13 algorithm.
-| [rpn.bf](rpn.bf)           | CC0     | Dmitry M Litvinov   | 2/22/96  | A command-line calculator with postfix notation.
-| [rpn2.bf](rpn2.bf)         |         | Kimberley Burchett  | 11/16/96 | A version of rpn.bf crammed into a 23x12 block.
+| [rpn.bf](rpn.bf)           | CC0     | Dmitry M Litvinov   | 2/22/96  | A command-line calculator with postfix notation.  Enter an expression like `10 3 + 567 89 * -` and press Enter to evaluate it (to obtain, in this case, `-50450`).
+| [rpn2.bf](rpn2.bf)         |         | Kimberley Burchett  | 11/16/96 | A version of `rpn.bf` crammed into a 23x12 block.
 | [selflis2.bf](selflis2.bf) | CC0     | Chris Pressey       | 12/1/96  | A self-reproducing 80x1 program. This program can also be used to test for the @ vs StringMode bug.
 | [selflis3.bf](selflis3.bf) |         | Kevin Vigor         | 5/8/97   | A 14-byte (almost-)self-reproducing program (the result contains an extra space, but is itself a 15-byte self-reproducing program.)
 | [selflis5.bf](selflis5.bf) |         | David Johnston      | 5/7/97   | Crammed (14x6) self-listing program.
