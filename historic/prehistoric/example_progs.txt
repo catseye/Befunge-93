@@ -1,0 +1,276 @@
+/* Example Befunge program. */
+
+/ not a comment /
+* nor is this   ~
+
+#directive
+
+%aggr(mine):();
+%agg(mine):();
+%aggregate    (mine):();
+%agg (mine):();
+%aggr(mine);
+%aggr(mine):()
+%aggr()/()
+
+/* This is an example .b (Befunge) file to shove through toy. */
+
+#debug on   /*  We'll turn on debugging, as it's the only thing that works :-)
+             */
+#define one_thing another_thing
+#erroneous_directive
+
+#debug off  /*  Turn debugging off to test it */
+#define cheese wine  /* should not cause a 'definition' hit */
+#thisdirectiveisverysilly
+
+#debug on
+
+%aggr(name):(/* This is just a test for comment removal*/);
+%aggregate (rank):();
+%fun (serialnumber):();
+%int(i):();
+%zorch(what):();
+%codeblock(mycode):();
+
+/* Ha, ha, ha, ha, ha, ha, HA!  This is befunged.  Totally, completely. */
+
+/*
+
+    toy.c
+
+    toy parser for Befunge.
+
+    usage : toy <file.b
+
+    Should take objects in the form of %xxx():(), comments in the form of
+    c comments */ /* and Befunge directives in the form #string.
+
+    Jan 1993 Chris Pressey
+
+*/
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+
+#define NAME_SIZE  30
+
+#define OBJ_UNKNOWN 0
+#define OBJ_AGG     1
+#define OBJ_FUN     2
+#define OBJ_COD     3
+#define OBJ_INT     4
+
+#define OBJs_AGG    'agg'
+#define OBJs_FUN    'fun'
+#define OBJs_COD    'cod'
+#define OBJs_INT    'int'
+
+typedef struct bfobject
+               { char       *name;
+                 int         objtype;
+          struct bfobject   *next;
+          struct bfobject   *child;    } *objhead;
+
+int  glob_putback;
+char glob_putback_char;
+
+/***********************************************************************/
+/* get the next character from the input stream, allow virtual putback */
+/***********************************************************************/
+
+char ygetchar()
+{
+  char ch;
+  if (glob_putback)
+  {
+    glob_putback = 0;
+    return (glob_putback_char);
+  } else
+  {
+    scanf("%c", &ch);           /* gotta love those segmentation faults */
+    glob_putback_char = ch;
+    return (ch);
+  }
+}
+
+/********************************************************************/   
+/* virtually put the last character read back into the input stream */
+/********************************************************************/
+
+void putback()
+{
+  glob_putback = 1;
+}
+
+/***********************************************************************/
+/* get the next character from the input stream, ignore */ /* comments */
+/***********************************************************************/
+
+char bgetchar()
+{
+  char ch;
+  int done;
+
+  ch = ygetchar();
+  if (ch=='/')
+  {
+    ch = ygetchar();
+    if (ch=='*')   
+    {
+      ch = ygetchar();
+      done = 0;
+      for(;!done;)
+      {
+        for(;!(ch=='*');) { ch = ygetchar(); }
+        ch = ygetchar();
+        done = (ch=='/');
+      }
+      ch = ygetchar();
+    }
+  }
+  return (ch);
+}
+
+/************************************************************/
+/* get a word (series of alpha chars) from the input stream */
+/************************************************************/
+void getword(word, length) char *word; int length;
+{
+  char ch;
+
+  strcpy (word, "");
+  ch = bgetchar();
+  while((isalpha(ch)) && (strlen(word)<length))
+  {
+    word[strlen(word)+1] = (char)0;
+    word[strlen(word)] = ch;
+    ch = bgetchar();
+  }
+  while(isalpha(ch))
+  {
+    ch = bgetchar();
+  }
+  putback();
+}
+
+/*********************/
+/* skip white spaces */
+/*********************/
+void skipwhite()
+{
+  char ch;
+  ch = bgetchar();
+  while (isspace(ch))
+  {
+    ch = bgetchar();
+  }
+  putback();
+}
+
+/*********/
+/* Debug */
+/*********/
+int ddebug;
+void ydebug(name) char *name;
+{
+  if (ddebug) { printf("%s\n",name); }
+}
+
+/**********************************************************/
+/* read and display a directive.  check for legality (??) */
+/**********************************************************/
+void readdirective()
+{
+  char *dir;
+  char *oof;
+  char ch;
+  int  i;
+
+  dir = (char *)malloc(5);
+  oof = (char *)malloc(5);
+  getword (dir, 3);
+  if (!strcmp(dir, "def"))
+  {
+    ydebug("Definition directive");
+  } else
+  if (!strcmp(dir, "deb"))
+  { 
+    skipwhite();
+    getword (oof, 3);
+    ddebug=!strcmp(oof,"on");
+    if (ddebug)
+      {
+      printf("DEBUG ON\n");
+      } else
+      {
+      printf("DEBUG OFF\n");
+      }
+  } else
+  {
+    printf("error : unknown directive : %s\n", dir);
+  }
+  free(dir);
+  free(oof);
+}
+
+/**********************************************************/
+/* read and display an object.    check for legality (??) */
+/**********************************************************/
+void readobject()
+{
+  char *obj;
+  char ch;
+  int  i;   
+ 
+  obj = (char *)malloc(5);
+  getword (obj, 3);
+  if (!strcmp(obj, "agg"))
+  {
+    ydebug("Aggregate object");
+  } else
+  if (!strcmp(obj, "fun"))
+  {
+    ydebug("Function object");
+  } else
+  if (!strcmp(obj, "cod"))
+  {
+    ydebug("Code object");
+  } else
+  if (!strcmp(obj, "int"))
+  {
+    ydebug("Integer object");
+  } else
+  {
+    printf("error : unknown object : %s\n", obj);
+  }
+  free(obj);
+}
+
+/********/
+/* MAIN */
+/********/
+int main()
+{
+  char ch;
+
+  glob_putback = 0;
+  glob_putback_char = (char)0;
+  ddebug = 0;
+
+  for(;!feof(stdin);)
+  {
+    ch = bgetchar();
+    if (ch=='#')
+    {
+      readdirective();
+    }
+    if (ch=='%')
+    {
+      readobject();
+    }
+  }
+  return(0);
+}
