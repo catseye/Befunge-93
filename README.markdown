@@ -1,6 +1,8 @@
 Welcome to the Befunge-93 Reference Distribution
 ================================================
 
+_Version 2.25 - Silver Jubilee Edition_
+
 This is the reference distribution for the Befunge-93 programming language.
 It contains the specification and reference implementation (`bef`), which
 are direct descendants of the originals, along with a few related tools and
@@ -22,7 +24,7 @@ Contents
 *   `README.markdown`: these post-modernist existential rants
 *   `LICENSE`: a bedtime story written to give your lawyer sweet dreams
 *   `doc/Befunge-93.markdown`: the specification for Befunge-93, such as it is
-*   `src/bef.c`: Befunge-93 reference interpreter/debugger v2.24 source code
+*   `src/bef.c`: Befunge-93 reference interpreter/debugger v2.25 source code
 *   `src/bef2c.c`: Befunge-93 to ANSI C compiler v1.0 source code
 *   `src/befprof.c`: Befunge-93 profiler v1.0 source code
 *   `eg/*`: Various and sundry contributed Befunge-93 programs
@@ -38,4 +40,4 @@ See the official entry for [Befunge-93][] at [Cat's Eye Technologies][].
 Happy Befunging!  
 Chris Pressey  
 London, England  
-September 13, 2018
+December, 2018
