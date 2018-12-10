@@ -6,9 +6,9 @@
 
 ### SYNOPSIS
 
-    bef [-d] [-o] [-u] [-q] [-i] [-=] [-l] [-t]
-        [-r INPUTFILE] [-w OUTFILE] [-s STACKFILE] [-y DELAY]
-        BEFFILE
+`bef [-d] [-o] [-u] [-q] [-i] [-=] [-l] [-t]
+     [-r INPUTFILE] [-w OUTFILE] [-s STACKFILE] [-y DELAY]
+     BEFFILE`
 
 ### DESCRIPTION
 
