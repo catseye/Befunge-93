@@ -24,6 +24,7 @@ Contents
 *   `README.markdown`: these post-modernist existential rants
 *   `LICENSE`: a bedtime story written to give your lawyer sweet dreams
 *   `doc/Befunge-93.markdown`: the specification for Befunge-93, such as it is
+*   `doc/bef.markdown`: docs for the interpreter, in the style of a man page
 *   `src/bef.c`: Befunge-93 reference interpreter/debugger v2.25 source code
 *   `src/bef2c.c`: Befunge-93 to ANSI C compiler v1.0 source code
 *   `src/befprof.c`: Befunge-93 profiler v1.0 source code
