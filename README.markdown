@@ -5,8 +5,8 @@ _Version 2.25 - Silver Jubilee Edition_
 
 This is the reference distribution for the Befunge-93 programming language.
 It contains the specification and reference implementation (`bef`), which
-are direct descendants of the originals, along with a few related tools and
-many example programs.
+are direct descendants of the originals, along with a few related tools,
+many example programs, and an assortment of historical documents.
 
 About Befunge-93
 ----------------
@@ -22,13 +22,24 @@ Contents
 --------
 
 *   `README.markdown`: these post-modernist existential rants
-*   `LICENSE`: a bedtime story written to give your lawyer sweet dreams
-*   `doc/Befunge-93.markdown`: the specification for Befunge-93, such as it is
-*   `doc/bef.markdown`: docs for the interpreter, in the style of a man page
-*   `src/bef.c`: Befunge-93 reference interpreter/debugger v2.25 source code
-*   `src/bef2c.c`: Befunge-93 to ANSI C compiler v1.0 source code
-*   `src/befprof.c`: Befunge-93 profiler v1.0 source code
-*   `eg/*`: Various and sundry contributed Befunge-93 programs
+*   [`LICENSE`](LICENSE):
+    a bedtime story written to give your lawyer sweet dreams
+*   [`doc/Befunge-93.markdown`](doc/Befunge-93.markdown):
+    the specification for Befunge-93, such as it is
+*   [`doc/bef.markdown`](doc/bef.markdown):
+    docs for the interpreter, in the style of a man page
+*   [`src/bef.c`](src/bef.c):
+    Befunge-93 reference interpreter/debugger v2.25 source code
+*   [`src/bef2c.c`](src/bef2c.c):
+    Befunge-93 to ANSI C compiler v1.0 source code
+*   [`src/befprof.c`](src/befprof.c):
+    Befunge-93 profiler v1.0 source code
+*   [`eg/`](eg/):
+    Various and sundry contributed Befunge-93 programs
+    (see README in that directory for details)
+*   [`historic/`](historic/):
+    Historical early archive versions of (things called) Befunge
+    (see README in that directory for details)
 
 For More Information
 --------------------
@@ -41,4 +52,4 @@ See the official entry for [Befunge-93][] at [Cat's Eye Technologies][].
 Happy Befunging!  
 Chris Pressey  
 London, England  
-December, 2018
+December 12, 2018
