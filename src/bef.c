@@ -1,7 +1,7 @@
 /* ******************************************************************
 
    bef.c - The Original Befunge-93 Interpreter/Debugger in ANSI C
-   v2.24
+   v2.25
 
    Copyright (c)1993-2018, Chris Pressey, Cat's Eye Technologies.
    All rights reserved.
@@ -72,6 +72,9 @@
    ******************************************************************
 
    History:
+
+   v2.25: Dec 2018, Chris Pressey
+          no changes to code other than bumping the version number
 
    v2.24: Sep 2018, Chris Pressey
           when & encounters an error or EOF condition it pushes
@@ -276,7 +279,7 @@ int main (argc, argv)
   }
   if (!quiet)
   {
-    printf ("Befunge-93 Interpreter/Debugger v2.24\n");
+    printf ("Befunge-93 Interpreter/Debugger v2.25\n");
   }
 
   memset(pg, ' ', LINEWIDTH * PAGEHEIGHT);
