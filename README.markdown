@@ -36,10 +36,10 @@ Contents
     Befunge-93 profiler v1.0 source code
 *   [`eg/`](eg/):
     Various and sundry contributed Befunge-93 programs
-    (see README in that directory for details)
+    (see [the README there](eg/README.markdown) for details)
 *   [`historic/`](historic/):
     Historical early archive versions of (things called) Befunge
-    (see README in that directory for details)
+    (see [the README there](historic/README.md) for details)
 
 For More Information
 --------------------
@@ -49,7 +49,7 @@ See the official entry for [Befunge-93][] at [Cat's Eye Technologies][].
 [Befunge-93]: http://catseye.tc/node/Befunge-93
 [Cat's Eye Technologies]: http://catseye.tc/
 
-Happy Befunging!  
+Jubilant Befunging!  
 Chris Pressey  
 London, England  
 December 12, 2018
