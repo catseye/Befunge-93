@@ -7,7 +7,7 @@ Language Haskell 98" license:
 
 -----------------------------------------------------------------------------
 
-  Copyright (c)1993-2015 Chris Pressey, Cat's Eye Technologies.
+  Copyright (c)1993-2018 Chris Pressey, Cat's Eye Technologies.
 
   The authors intend this Report to belong to the entire Befunge
   community, and so we grant permission to copy and distribute it for
@@ -24,7 +24,7 @@ The source code for the reference interpreter and supporting tools (in the
 
 -----------------------------------------------------------------------------
 
-   Copyright (c)1993-2015, Chris Pressey, Cat's Eye Technologies.
+   Copyright (c)1993-2018, Chris Pressey, Cat's Eye Technologies.
    All rights reserved.
  
    Redistribution and use in source and binary forms, with or without

@@ -1,0 +1,58 @@
+                              Befunge Sources
+                              ======= =======
+
+Name          Authour         Description
+====          =======         ===========
+
+hello.bf      Chris           The ubiquitous 'Hello, World!' program.
+
+hwii.bf       Chris           Prints out "Hello, World!' forwards, then
+                              backwards, then forwards, etc.  Demonstrates
+                              how one can so easily change the direction of
+                              the PC to support their own wicked desires.
+
+fact.bf       Chris           Asks for a number, and supplies the
+                              factorial of that number.
+
+random.bf     Chris           Generates statistically evenly distributed
+                              random numbers between 1 and 9.
+
+chars.bf      Kalyna          Generates a printable ASCII table, with
+                              characters and corresponding codes in
+                              decimal.
+
+drx.bf        Chris           Like Eliza.
+
+robot.bf      Chris           You control an 'O' going through a maze
+                              of '*''s.  You can type in 'n', 's', 'e',
+                              or 'w', and the 'O' travels in that map
+                              direction.  Bug : you must press return
+                              immediately after your choice of direction.
+                              The 'game' ends when you hit a '*'.
+
+maze.bf       Chris           Back in the old days of Commode 64's, I'd
+                              have plenty of fun with this program :
+                              flip a coin, if heads, print a fore-slash,
+                              if tails, print a back-slash.  You may or
+                              may not have as much fun as I did with this
+                              maze-like pattern generator.
+
+primes.bf     Kalyna          Lists the counting numbers, going up from
+                              one, and confirms if they are prime or
+                              not.
+
+anagram.bf    Kalyna          Produces anagrams of words you type in.
+
+numer.bf      Chris           Produces numerological equivalents of words
+                              you type in.
+
+toupper.bf    Chris           Converts letters to upper-case.
+
+
+
+
+Chris = Chris Pressey
+Kalyna = Kalyna Zazelenchuk
+Mike = Mike Veroukis
+Curt = Curtis Coleman
+

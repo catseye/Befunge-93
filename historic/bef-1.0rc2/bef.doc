@@ -1,0 +1,252 @@
+                               B E F U N G E
+                               -------------
+                                  (v1.0)
+
+                           Deranged Interpreter
+                     in the style of 'bf' and 'False'
+
+                               Chris Pressey
+                              September, 1993
+
+I.  HISTORY
+
+  The creation of the word 'Befunge' I owe to Curtis Coleman, who, at
+4am, in chat with me on my BBS, spontaneously typed it.  I, of course,
+recognized the linguistic significance of the word and introduced it
+into my slang vocabulary.  Over the past year or so it has been a verb,
+usually used in past tense ('befunged'), which has a vague meaning,
+generally referring to something which is (a) oddball, (b) broken,
+(c) logically and by all accounts SHOULD be broken, but still works, or
+(d) a just plain silly way of doing something, not to be a better way,
+but just to be different.
+
+  The creation of a language called 'Befunge' followed soon after - in
+theory only, of course, until now.  At first, it was a Forth derivative
+which, I believe, was supposed to not care if you were mixing strings
+with integers and then dividing by reals, or whatever.  Next, it sort of
+became an object-oriented assembly language which promoted self-modifying
+code.  Then, I sort of lost interest in languages for a while.
+
+  However, recently, I was having a discussion with Shawn Vincent, a friend
+of mine, about compilers and interpreters.  Actually, 'discussions' between
+Shawn and I are usually better referred to as 'debates' or, even more
+appropriately, 'arguments.'  Anyway, he declared that it was always easier
+to write a compiler than an interpreter.  I disagreed, saying that there
+are some languages out there where and interpreter is easier to write than
+a compiler.  Anyway, motivated by this 'discussion,' I pulled out the source
+to an old RPN (Reverse Polish Notation) calculator I was working on, added
+an if loop, and a while loop, and function handling, and hey presto - a
+working interpreter.  I called it Maentwrog, the Celtic word for a computer
+spelling mistake (see _The Meaning of Liff_, Douglas Adams, John Lloyd.)
+
+  But then, a few days ago, I started thinking odd thoughts.  I was, and
+still am, fascinated by 'minimalist' languages like 'bf' ('brainf*ck'),
+by Urban Mueller, and 'False', by Wouter van Oortmerssen (both available
+through AmiNet, btw.)  I was also thinking about flowcharts, and how,
+if one made a BASIC interpreter, it wouldn't be so hard to, instead of
+having a GOTO xxxx statement, just have a series of ASCII characters, like
+--- and |, leading to the statement you wanted to go to... and the idea
+for Befunge was born.
+
+  I went home that evening, ripped off the stack functions from Maentwrog,
+and wrote Befunge.
+
+II.  THE BASICS
+
+  Most likely the most unique element of Befunge programming is the
+Program Counter (PC.)  In most, indeed, almost all, languages, the
+program counter is continually moving forward through the program,
+occassionally jumping to another spot in the code (but continuing forward
+nonetheless.)
+
+  The PC in Befunge, however, is subject to no such restrictions.  It
+may go forward, or backward, or even LEFT OR RIGHT.  A Befunge program
+is treated as an 80x25 page of ASCII text.  Certain commands change
+the direction of the PC.  By default, the PC points to the upper-left
+corner of the program, and is oriented to go left-to-right.
+
+  Each command in Befunge is one character (so your programs have a current
+maximum size of 80x25 commands; this may change in the future.)  There
+are no variables as such, but they may be simulated, and there is an RPN
+stack.  Befunge programs allow for self-modification; and due to their
+2-dimensional nature, they allow for some very STRANGE things to happen.
+
+III.  THE USAGE
+
+From the Shell or CLI, the usage is :
+
+        bef <befunge-source>
+
+Befunge, obviously enough, does not run from the workbench.  <befunge-
+source> is required.  There is no immediate mode for befunge (for obvious
+reasons.)
+
+IV.  THE STACK
+
+Befunge supports an RPN, Forth-like stack of signed long integers.  There
+are a few ways to add values to the stack.  A digit, such as '7', will
+be pushed on the stack.  (How to make values greater than 9 be put on the
+stack is explained below.)  A double quote, '"', starts 'string-mode',
+and all subsequent characters will have their ASCII value pushed onto the
+stack until another '"' is located.  <input>
+
+There are a few basic mathematical commands, like Forth :
+
+        +       addition
+        -       subtraction
+        /       integer division
+        *       multiplication
+        %       modulo
+        !       logical negation
+
+These are explained in greated detail in the 'Commands' section.
+
+In order to push a number greater than 9 on the stack, one must do math
+with numbers less than or equal to 9.  This is a pain, but it makes you
+think :-)  For example, to push '123' onto the stack, one might push
+9, then 9, then multiply (leaving 81), then push 7, then 6, then multiply
+(leaving 81 and 42,) then add (leaving 123.)  In Befunge, this would
+look something like :
+
+        99*76*+
+
+This is, of course, presuming the PC starts at the first '9' and is working
+towards the right.
+
+NB.  If the stack should be empty when you want to pop something off,
+be warned that this will not generate an underflow!  It will simply
+return '0' to you.  Hope you can live with it! :-)
+
+V.  MORE ON THE PC
+
+There are 5 commands which directly control the PC direction: '>', '<',
+'v', '^', and '?'.  '>' makes the PC travel to the right; '<' to the left;
+'v' down; '^' up; and '?' in a random direction.  So, the following
+example is an infinite loop :
+
+><
+
+As is :
+
+>v
+^<
+
+As is :
+
+>v>v
+ >^v
+^  <
+
+(Note that the program always starts in the upper left hand corner, moving
+towards the right.  Also note that ' ' (space) is a null command which
+does nothing.)
+
+VI.  LOGIC : THE IF STATEMENT
+
+The 'if' statement in Befunge is either '_' or '|', depending on how you
+want to branch.  Both pop a value off the stack and check to see if it
+is true (non-zero,) and change the direction of the PC accordingly.
+'_' acts like '<' if it is true, and '>' if it is false.
+'|' acts like '^' if it is true, and 'v' if it is false.
+
+'While' loops can be made by sticking an 'if' in an infinite loop.
+For example,
+
+>_@
+    
+(This strange little program will pop all of the non-zero values off the
+stack, and the first zero value, then exit ['@' is the exit command.]
+Don't worry... clearer examples are in the source :-)
+
+VII.  OUTPUT
+
+Simply enough : '.' will pop a value off the stack and output it as
+an integer, followed by a space. (somewhat like Forth.)  ',' will pop a
+value and output as ASCII with no space.
+
+eg.
+
+        665+*1-,                will print out ASCII 65 ("A".)
+        665+*1-,                will print out "65 ".
+
+
+VIII.  SPECIAL COMMANDS (BRIEF)
+
+'#' is the 'bridge' command... it causes the next command which would
+normally be executed to be skipped over, and not executed.  For example,
+
+>123...@
+
+would output "3 2 1 " but
+
+>123#...@
+
+would output "3 2 " with one of the '.''s being skipped.  Judicious use
+of '#' can make for some very interesting code!
+
+':' is the duplicating command.  It simply makes a copy of the top element
+of the stack.  This is useful.  Remember that '>_@' example?  This is
+probably the most useful form of it :
+
+v.<
+>:|
+  @
+
+Since this makes duplicates, each number is checked, and if non-zero,
+printed.
+
+'$' pops a number off the stack, but does nothing with it.  So,
+
+123.$.@
+
+results in "3 1 ".
+
+'\' swaps the top two elements of the stack.  So,
+
+123\...@
+
+results in "2 3 1 ".
+
+
+
+APPENDIX A.  COMMAND SUMMARY.
+
+COMMAND         INITIAL STACK           RESULT (STACK)
+-------         -------------           -----------------
+
++ (add)         <value1> <value2>       <value1 + value2>
+- (subtract)    <value1> <value2>       <value1 - value2>
+* (multiply)    <value1> <value2>       <value1 * value2>
+/ (divide)      <value1> <value2>       <value1 / value2> (nb. integer)
+% (modulo)      <value1> <value2>       <value1 mod value2>
+! (not)         <value>                 <0 if value non-zero, 1 otherwise>
+
+> (right)                               PC -> right
+< (left)                                PC -> left
+^ (up)                                  PC -> up
+v (down)                                PC -> down
+
+? (random)                              PC -> right? left? up? down? ???
+
+_ (horizontal if) <boolean value>       PC->left if <value>, else PC->right
+| (vertical if)   <boolean value>       PC->up if <value>, else PC->down
+
+" (stringmode)                          Toggles 'stringmode'
+
+: (dup)         <value>                 <value> <value>
+\ (swap)        <value1> <value2>       <value2> <value1>
+$ (pop)         <value>                 pops <value> but does nothing
+. (pop)         <value>                 outputs <value> as integer
+, (pop)         <value>                 outputs <value> as ASCII
+
+# (bridge)                              'jumps' PC one farther; skips
+                                        over next command
+
+g (get)         <x> <y>                 <value at (x,y)>
+p (put)         <value> <x> <y>         puts <value> at (x,y)
+
+& (input value)                         <value user entered>
+~ (input character)                     <character user entered>
+
+@ (end)                                 ends program
+
